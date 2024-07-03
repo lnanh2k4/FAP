@@ -52,7 +52,7 @@ public class CampusDAO {
         ResultSet rs = null;
         Campus gc = null;
         String query = "SELECT Campus.* FROM Campus";
-        
+
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
@@ -72,7 +72,44 @@ public class CampusDAO {
         return gc;
     }
 
-    public int addCampus() {
-        return -1;
+    public int deleteCampus(String campusID) {
+        int rs = -1;
+        String query = "DELETE FROM Campus WHERE CampusID=?";
+        try {
+            rs = SQL.executeUpdate(query, campusID);
+        } catch (SQLException ex) {
+            Logger.getLogger(CampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int updateCampus(String campusID, String campusName, String campusAddress, String campusEmail, String campusHotline) {
+        int rs = -1;
+        String query = "UPDATE Campus"
+                + " SET CampusName=?, CampusAddress=?, CampusEmail=?, CampusHotline=?"
+                + " WHERE CampusID=?";
+        try {
+            rs = SQL.executeUpdate(query, campusName, campusAddress, campusEmail, campusHotline, campusID);
+        } catch (SQLException ex) {
+            Logger.getLogger(CampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int addCampus(String campusID, String campusName, String campusAddress, String campusEmail, String campusHotline) {
+        int rs = -1;
+        String query = "INSERT INTO Campus(CampusID,CampusName,CampusAddress,CampusEmail,CampusHotline) VALUES (?,?,?,?,?)";
+        try {
+            rs = SQL.executeUpdate(query, campusID, campusName, campusAddress, campusEmail, campusHotline);
+        } catch (SQLException ex) {
+            Logger.getLogger(CampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
     }
 }

@@ -85,12 +85,20 @@ public class GroupSubjectDAO {
         return gs;
     }
 
-    public int addGroupSubject(String subjectID, int groupID) {
+    public int deleteGroupSubject(Subject subjectID, Group groupID) {
         int rs = -1;
 
-        String query = "";
+        String query = "DELETE FROM GroupSubject WHERE GroupID=? AND SubjectID=?";
+        try {
+            rs = SQL.executeUpdate(query, subjectID, groupID);
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupSubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GroupSubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return rs;
     }
+    
 
 }

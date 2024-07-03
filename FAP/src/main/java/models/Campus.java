@@ -65,5 +65,7 @@ public class Campus {
     public void setCampusHotline(String campusHotline) {
         this.campusHotline = campusHotline;
     }
+    
+    
 
 }
