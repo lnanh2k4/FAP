@@ -15,7 +15,7 @@ import utils.SQL;
 
 /**
  *
- * @author CE181767 - Le Nhut Anh
+ * @author CE180191 - Huynh Hoang Ty
  */
 public class MajorDAO {
     String majorID;

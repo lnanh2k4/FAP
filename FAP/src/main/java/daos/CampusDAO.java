@@ -15,7 +15,7 @@ import utils.SQL;
 
 /**
  *
- * @author mrmas
+ * @author CE180191 - Huynh Hoang Ty
  */
 public class CampusDAO {
     String campusID;
