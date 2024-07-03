@@ -9,9 +9,9 @@ package models;
  * @author Nguyen Le Khac Vu - CE180175
  */
 public class GroupSubject {
-    int groupSubjectID;
-    Subject subjectID;
-    Group groupID;
+    private  int groupSubjectID;
+    private  Subject subjectID;
+    private Group groupID;
 
     public GroupSubject() {
     }

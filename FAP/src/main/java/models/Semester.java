@@ -12,15 +12,15 @@ import java.time.LocalDate;
  */
 public class Semester {
 
-    private String SemesterID;
-    private String SemesterName;
+    private String semesterID;
+    private String semesterName;
     private LocalDate startDate;
     private LocalDate endDate;
     private String YearID;
 
     public Semester(String SemesterID, String SemesterName, LocalDate startDate, LocalDate endDate, String YearID) {
-        this.SemesterID = SemesterID;
-        this.SemesterName = SemesterName;
+        this.semesterID = SemesterID;
+        this.semesterName = SemesterName;
         this.startDate = startDate;
         this.endDate = endDate;
         this.YearID = YearID;
@@ -29,19 +29,19 @@ public class Semester {
     
     
     public String getSemesterID() {
-        return SemesterID;
+        return semesterID;
     }
 
     public void setSemesterID(String SemesterID) {
-        this.SemesterID = SemesterID;
+        this.semesterID = SemesterID;
     }
 
     public String getSemesterName() {
-        return SemesterName;
+        return semesterName;
     }
 
     public void setSemesterName(String SemesterName) {
-        this.SemesterName = SemesterName;
+        this.semesterName = SemesterName;
     }
 
     public LocalDate getStartDate() {
