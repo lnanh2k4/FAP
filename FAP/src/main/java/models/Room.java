@@ -6,7 +6,7 @@ package models;
 
 /**
  *
- * @author mrmas
+ * @author CE180191 - Huynh Hoang Ty
  */
 public class Room {
 

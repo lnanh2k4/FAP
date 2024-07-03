@@ -13,14 +13,14 @@ import java.time.LocalDate;
 public class Time {
 
     private int timeID;
-    private int Slot;
+    private int slot;
     private LocalDate startTime;
     private LocalDate endTime;
     private String description;
 
     public Time(int timeID, int Slot, LocalDate startTime, LocalDate endTime, String description) {
         this.timeID = timeID;
-        this.Slot = Slot;
+        this.slot = Slot;
         this.startTime = startTime;
         this.endTime = endTime;
         this.description = description;
@@ -38,11 +38,11 @@ public class Time {
     }
 
     public int getSlot() {
-        return Slot;
+        return slot;
     }
 
     public void setSlot(int Slot) {
-        this.Slot = Slot;
+        this.slot = Slot;
     }
 
     public LocalDate getStartTime() {
