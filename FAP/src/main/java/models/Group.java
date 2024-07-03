@@ -19,6 +19,9 @@ public class Group {
         this.SemesterID = SemesterID;
     }
 
+    public Group() {
+    }
+
     public int getGroupID() {
         return GroupID;
     }
