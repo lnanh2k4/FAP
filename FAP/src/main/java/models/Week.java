@@ -62,12 +62,5 @@ public class Week {
     }
 
     public Week() {
-    }
-
-    
-    
-    
-    
-    
-    
+    }  
 }

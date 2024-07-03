@@ -25,7 +25,9 @@ public class Semester {
         this.endDate = endDate;
         this.YearID = YearID;
     }
-
+    
+    
+    
     public String getSemesterID() {
         return SemesterID;
     }
