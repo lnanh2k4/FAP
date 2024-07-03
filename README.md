@@ -6,3 +6,12 @@
 2. Huynh Hoang Ty - CE180191
 3. Dang Cong Khanh
 4. Nguyen Le Khac Vu
+
+## Command line for add action on github
+```
+git pull
+git add .
+git status
+git commit -m 'update message'
+git push
+```
