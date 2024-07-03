@@ -24,6 +24,13 @@ public class Week {
         this.endDate = endDate;
         this.semesterID = semesterID;
     }
+
+    public Week(String semesterID, LocalDate startDate, LocalDate endDate, Semester SemesterID) {
+        this.semesterID = semesterID;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.SemesterID = SemesterID;
+    }
     
     public Week(){
     
