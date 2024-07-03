@@ -71,12 +71,43 @@ public class SemesterDAO {
         return se;
     }
     
-    public int addSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate){
-        int rs=-1;
+    public int deleteSemester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID) {
+        int rs = -1;
+        String query = "DELETE FROM Semester WHERE semesterID=?, semesterName=?, startDate=?, endDate=?, yearID=?";
+        try {
+            rs = SQL.executeUpdate(query, semesterID, semesterName, startDate, endDate, yearID);
+        } catch (SQLException ex) {
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
-            String query="";
-            
+    public int updateSemester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID) {
+        int rs = -1;
+        String query = "UPDATE Semester"
+                + " SET semesterID=?, semesterName=?, startDate=?, endDate=?, yearID=?";
+        try {
+            rs = SQL.executeUpdate(query, semesterID, semesterName, startDate, endDate, yearID);
+        } catch (SQLException ex) {
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
+    public int addSemester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID) {
+        int rs = -1;
+        String query = "INSERT INTO Semester(semesterID,semesterName,startDate,endDate,yearID) VALUES (?,?,?,?,?)";
+        try {
+            rs = SQL.executeUpdate(query, semesterID, semesterName, startDate, endDate, yearID);
+        } catch (SQLException ex) {
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return rs;
     }
 }

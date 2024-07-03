@@ -98,12 +98,44 @@ public class ScheduleDetailDAO {
         return sd;
     }
     
-    public int addScheduleDetail(int scheduleDetailID ,int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID, String schlDescription, int subjectSession, LocalDate date){
-        int rs=-1;
-
-            String query="";
-            
-
+    public int deleteScheduleDetail(int scheduleDetailID ,int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
+        int rs = -1;
+        String query = "DELETE FROM ScheduleDetail WHERE scheduleDetailID=?, scheduleID=?, roomID=?, userID=?, timeID=?, campusID=?, weekID=?";
+        try {
+            rs = SQL.executeUpdate(query, scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID);
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return rs;
     }
+
+    public int updateScheduleDetail(int scheduleDetailID ,int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
+        int rs = -1;
+        String query = "UPDATE ScheduleDetail"
+                + " SET scheduleDetailID=?, scheduleID=?, roomID=?, userID=?, timeID=?, campusID=?, weekID=?";
+        try {
+            rs = SQL.executeUpdate(query, scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID);
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int addScheduleDetail(int scheduleDetailID ,int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
+        int rs = -1;
+        String query = "INSERT INTO ScheduleDetail(scheduleDetailID,scheduleID,roomID,userID,timeID,campusID,weekID) VALUES (?,?,?,?,?,?,?)";
+        try {
+            rs = SQL.executeUpdate(query, scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID);
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    
 }

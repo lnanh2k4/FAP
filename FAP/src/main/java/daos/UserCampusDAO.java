@@ -64,12 +64,43 @@ public class UserCampusDAO {
         return uc;
     }
     
-    public int addUserCampus(int userCampusID, String campusID, String userID){
-        int rs=-1;
+    public int deleteUserCampus(String campusID, String userID) {
+        int rs = -1;
+        String query = "DELETE FROM UserCampus WHERE campusID=?, userID=?";
+        try {
+            rs = SQL.executeUpdate(query, campusID, userID);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
-            String query="";
-            
+    public int updateUserCampus(String campusID, String userID) {
+        int rs = -1;
+        String query = "UPDATE UserCampus"
+                + " SET campusID=?, userID=?";
+        try {
+            rs = SQL.executeUpdate(query, campusID, userID);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
+    public int addUserCampus(String campusID, String userID) {
+        int rs = -1;
+        String query = "INSERT INTO UserCampus(campusID,userID) VALUES (?,?)";
+        try {
+            rs = SQL.executeUpdate(query, campusID, userID);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return rs;
     }
 }
