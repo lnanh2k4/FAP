@@ -17,7 +17,7 @@ public class Week {
     private LocalDate endDate;
     private Semester semesterID;
 
-    public Week(int weekID, String semesterID, LocalDate startDate, LocalDate endDate, Semester SemesterID) {
+    public Week(int weekID, String semesterID, LocalDate startDate, LocalDate endDate, Semester semesterID) {
         this.weekID = weekID;
         this.semesterID = semesterID;
         this.startDate = startDate;
@@ -25,11 +25,11 @@ public class Week {
         this.semesterID = semesterID;
     }
 
-    public Week(String semesterID, LocalDate startDate, LocalDate endDate, Semester SemesterID) {
+    public Week(String semesterID, LocalDate startDate, LocalDate endDate, Semester semesterID) {
         this.semesterID = semesterID;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.SemesterID = SemesterID;
+        this.SemesterID = semesterID;
     }
     
     public Week(){
