@@ -63,4 +63,46 @@ public class MajorDAO {
 
     }
 
+    public int deleteMajor(String majorID) {
+        int rs = -1;
+        String query = "DELETE FROM Major WHERE MajorID=?";
+
+        try {
+            rs = SQL.executeUpdate(query, majorID);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MajorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int updateMajor(String majorID, String majorName) {
+        int rs = -1;
+        String query = "UPDATE Major"
+                + " SET MajorName=?"
+                + " WHERE MajorID=?";
+        try {
+            rs = SQL.executeUpdate(query, majorName, majorID);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MajorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+    
+    public int addMajor(String majorID, String majorName) {
+        int rs = -1;
+        String query = "INSERT INTO Major(MajorID,MajorName) VALUES (?,?)";
+        try {
+            rs = SQL.executeUpdate(query, majorName, majorID);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MajorDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 }
