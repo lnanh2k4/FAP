@@ -51,7 +51,7 @@ public class SubjectDAO {
     public Subject getSubject() {
         ResultSet rs = null;
         Subject getS = null;
-        String query = "SELECT*FROM Subject";
+        String query = "SELECT * FROM Subject";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
@@ -84,13 +84,13 @@ public class SubjectDAO {
         return rs;
     }
 
-    public int updateSubject(String subjectID,String subjectName,int subjectNoCredit,String subjectPrerequisite) {
+    public int updateSubject(String subjectID,String subjectName,int subjectNoCredit,String subjectPrerequisite,String subjectDescription) {
         int rs = -1;
         String query = "UPDATE Subject"
-                + " SET SubjectName=?, SubjectNoCredit=?, SubjectPrerequisite=?"
+                + " SET SubjectName=?, SubjectNoCredit=?, SubjectPrerequisite=?,SubjectDescription=?"
                 + " WHERE SubjectID=?";
         try {
-            rs = SQL.executeUpdate(query, subjectName, subjectNoCredit, subjectPrerequisite,subjectID);
+            rs = SQL.executeUpdate(query, subjectName, subjectNoCredit, subjectPrerequisite,subjectDescription,subjectID);
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -99,11 +99,11 @@ public class SubjectDAO {
         return rs;
     }
 
-    public int addSubject(String subjectID, String subjectName, int subjectNoCredit, String subjectPrerequisite) {
+    public int addSubject(String subjectID, String subjectName, int subjectNoCredit, String subjectPrerequisite,String subjectDescription) {
         int rs = -1;
-        String query = "INSERT INTO [Subject](SubjectID,SubjectName,SubjectNoCredit,SubjectPrerequisite) VALUES (?,?,?,?)";
+        String query = "INSERT INTO [Subject](SubjectID,SubjectName,SubjectNoCredit,SubjectPrerequisite,SubjectDescription) VALUES (?,?,?,?,?)";
         try {
-            rs = SQL.executeUpdate(query, subjectID, subjectName, subjectNoCredit, subjectPrerequisite);
+            rs = SQL.executeUpdate(query, subjectID, subjectName, subjectNoCredit, subjectPrerequisite,subjectDescription);
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

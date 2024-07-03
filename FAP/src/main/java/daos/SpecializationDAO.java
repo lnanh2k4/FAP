@@ -21,17 +21,19 @@ import models.Group;
 import models.GroupSubject;
 import models.Subject;
 import utils.SQL;
+
 /**
  *
  * @author CE181767 - Le Nhut Anh
  */
 public class SpecializationDAO {
+
     String specializationID;
-   String specializationName;
-      String majorID;
-     String majorName;
-     
-     public List<Specialization> getAllList() {
+    String specializationName;
+    String majorID;
+    String majorName;
+
+    public List<Specialization> getAllList() {
         ResultSet rs = null;
         List<Specialization> list = new ArrayList<>();
         String query = "SELECT* FROM Specialization INNER JOIN Major ON Specialization.MajorID = Major.MajorID";
@@ -52,7 +54,8 @@ public class SpecializationDAO {
 
         return list;
     }
-      public Specialization getSpecialization() {
+
+    public Specialization getSpecialization() {
         ResultSet rs = null;
         Specialization getSP = null;
         String query = "SELECT* FROM Specialization INNER JOIN Major ON Specialization.MajorID = Major.MajorID";
@@ -63,7 +66,7 @@ public class SpecializationDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                getSP=(new Specialization(specializationID, specializationName, new Major(majorID, majorName)));
+                getSP = (new Specialization(specializationID, specializationName, new Major(majorID, majorName)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,6 +75,46 @@ public class SpecializationDAO {
         }
 
         return getSP;
-}
-}
+    }
 
+    public int deleteSpecialization(String specializationID) {
+        int rs = -1;
+        String query = "DELETE FROM Specialization WHERE SpecializationID=?";
+        try {
+            rs = SQL.executeUpdate(query, specializationID);
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int updateSpecialization(String specializationID,String specializationName,String majorID) {
+        int rs = -1;
+        String query = "UPDATE Subject"
+                + " SET SpecializationName=?, MajorID=?"
+                + " WHERE SpecializationID=?";
+        try {
+            rs = SQL.executeUpdate(query, specializationName, majorID, specializationID);
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int addSpecialization(String specializationID, String specializationName, String majorID) {
+        int rs = -1;
+        String query = "INSERT INTO Specialization(SpecializationID,SpecializationName,MajorID) VALUES (?,?,?)";
+        try {
+            rs = SQL.executeUpdate(query, specializationID, specializationName, majorID);
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+}
