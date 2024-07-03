@@ -11,39 +11,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.Group;
-import models.GroupSubject;
-import models.Schedule;
-import models.Subject;
+import models.Semester;
 import utils.SQL;
 
 /**
  *
  * @author CE180117 - Dang Cong Khanh
  */
-public class ScheduleDAO {
-    int scheduleID;
-    int groupSubjectID;
+public class SemesterDAO {
+    String semesterID;
+    String semesterName;
     LocalDate startDate;
     LocalDate endDate;
+    String yearID;
     
-    public List<Schedule> getAllList() {
+    public List<Semester> getAllList() {
         ResultSet rs = null;
-        List<Schedule> list = new ArrayList<>();
-        String query = "SELECT * FROM Schedule INNER JOIN GroupSubject ON Schedule.GroupSubjectID = GroupSubject.GroupSubjectID";
+        List<Semester> list = new ArrayList<>();
+        String query = "SELECT * FROM Semester INNER JOIN Year ON Semester.YearID = Year.YearID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
-                scheduleID = rs.getInt("scheduleID");
-                groupSubjectID = rs.getInt("groupSubjectID");
+                semesterID = (String) rs.getObject("semesterID");
+                semesterName = (String) rs.getObject("semesterName");
                 startDate = (LocalDate) rs.getObject("startDate");
                 endDate = (LocalDate) rs.getObject("endDate");
-                list.add(new Schedule(scheduleID, groupSubjectID, startDate, endDate));
+                yearID = (String) rs.getObject("yearID");
+                list.add(new Semester(semesterID, semesterName, startDate, endDate, yearID));
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) { 
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return list;

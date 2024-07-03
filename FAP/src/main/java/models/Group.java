@@ -9,42 +9,43 @@ package models;
  * @author CE180117 - Dang Cong Khanh
  */
 public class Group {
-    private int GroupID;
-    private String GroupName;
-    private String SemesterID;
+    private int groupID;
+    private String groupName;
+    private String gemesterID;
 
-    public Group(int GroupID, String GroupName, String SemesterID) {
-        this.GroupID = GroupID;
-        this.GroupName = GroupName;
-        this.SemesterID = SemesterID;
+    public Group(int groupID, String groupName, String gemesterID) {
+        this.groupID = groupID;
+        this.groupName = groupName;
+        this.gemesterID = gemesterID;
     }
 
     public Group() {
     }
 
     public int getGroupID() {
-        return GroupID;
+        return groupID;
     }
 
-    public void setGroupID(int GroupID) {
-        this.GroupID = GroupID;
+    public void setGroupID(int groupID) {
+        this.groupID = groupID;
     }
 
     public String getGroupName() {
-        return GroupName;
+        return groupName;
     }
 
-    public void setGroupName(String GroupName) {
-        this.GroupName = GroupName;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
-    public String getSemesterID() {
-        return SemesterID;
+    public String getGemesterID() {
+        return gemesterID;
     }
 
-    public void setSemesterID(String SemesterID) {
-        this.SemesterID = SemesterID;
+    public void setGemesterID(String gemesterID) {
+        this.gemesterID = gemesterID;
     }
+
     
     
 }
