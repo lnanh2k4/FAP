@@ -44,11 +44,35 @@ public class CurriculumDAO {
                 list.add(new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return list;
+    }
+     public Curriculum getCurriculum() {
+        ResultSet rs = null;
+        Curriculum getC = null;
+       
+        String query = "SELECT* FROM Curriculum INNER JOINSpecialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOINMajor ON Specialization.MajorID = Major.MajorID";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                curriculumID = rs.getString("curriculumID");
+                curriculumName = rs.getString("curriculumName");
+                specializationID = rs.getString("specializationID");
+                specializationName = rs.getString("specializationName");
+                majorID = rs.getString("majorID");
+                majorName = rs.getString("majorName");
+                getC = (new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return getC;
     }
 }

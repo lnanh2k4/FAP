@@ -40,7 +40,7 @@ public class CurriculumDetailDAO {
     public List<CurriculumDetail> getAllList() {
         ResultSet rs = null;
         List<CurriculumDetail> list = new ArrayList<>();
-        String query = "SELECT *FROM CurriculumDetail INNER JOINCurriculum ON CurriculumDetail.CurriculumID = Curriculum.CurriculumID INNER JOINSpecialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOINMajor ON Specialization.MajorID = Major.MajorID INNER JOINSubject ON CurriculumDetail.SubjectID = Subject.SubjectID";
+        String query = "SELECT*FROM[User] INNER JOINCurriculum ON [User].CurriculumID = Curriculum.CurriculumID INNER JOINSpecialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOINMajor ON Specialization.MajorID = Major.MajorID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
@@ -56,14 +56,47 @@ public class CurriculumDetailDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                list.add(new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription),new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName), cdSemester))));
+                list.add(new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription),new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CurriculumDetail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CurriculumDetail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return list;
     }
+
+    public CurriculumDetail getCurriculumDetail() {
+        ResultSet rs = null;
+        CurriculumDetail getCD = null;
+        
+       
+        String query = "SELECT*FROM[User] INNER JOINCurriculum ON [User].CurriculumID = Curriculum.CurriculumID INNER JOINSpecialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOINMajor ON Specialization.MajorID = Major.MajorID";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                cdSemester = rs.getInt("cdSemester");
+                subjectID = rs.getString("subjectID");
+                subjectName = rs.getString("subjectName");
+                subjectNoCredit = rs.getInt("subjectNoCredit");
+                subjectPrerequisite = rs.getString("subjectPrerequisite");
+                subjectDescription = rs.getString("subjectDescription");
+                curriculumID = rs.getString("curriculumID");
+                curriculumName = rs.getString("curriculumName");
+                specializationID = rs.getString("specializationID");
+                specializationName = rs.getString("specializationName");
+                majorID = rs.getString("majorID");
+                majorName = rs.getString("majorName");
+                getCD = (new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription),new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return getCD;
+    }
+    
 }

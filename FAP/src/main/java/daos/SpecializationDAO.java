@@ -52,5 +52,26 @@ public class SpecializationDAO {
 
         return list;
     }
+      public Specialization getSpecialization() {
+        ResultSet rs = null;
+        Specialization getSP = null;
+        String query = "SELECT* FROM Specialization INNER JOIN Major ON Specialization.MajorID = Major.MajorID";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                specializationID = rs.getString("specializationID");
+                specializationName = rs.getString("specializationName");
+                majorID = rs.getString("majorID");
+                majorName = rs.getString("majorName");
+                getSP=(new Specialization(specializationID, specializationName, new Major(majorID, majorName)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return getSP;
+}
 }
 
