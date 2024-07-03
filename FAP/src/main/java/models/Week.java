@@ -35,6 +35,47 @@ public class Week {
     public Week(){
     
     }
+
+    public int getWeekID() {
+        return weekID;
+    }
+
+    public void setWeekID(int weekID) {
+        this.weekID = weekID;
+    }
+
+    public String getSemesterID() {
+        return semesterID;
+    }
+
+    public void setSemesterID(String semesterID) {
+        this.semesterID = semesterID;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public Semester getSemesterID() {
+        return semesterID;
+    }
+
+    public void setSemesterID(Semester semesterID) {
+        this.semesterID = semesterID;
+    }
+    
     
     
     
