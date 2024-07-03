@@ -84,7 +84,52 @@ public class WeekDAO {
         return gw;
     }
 
-    public int addWeek() {
-        return -1;
+    public int deleteWeek(int weekID) {
+        int rs = -1;
+        String query = "DELETE FROM Week WHERE WeekID=?";
+
+        try {
+            rs = SQL.executeUpdate(query, weekID);
+        } catch (SQLException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+    
+    public int updateWeek(String semesterID, LocalDate startDate, LocalDate endDate) {
+        int rs = -1;
+        String query = "UPDATE Semester"
+                + " SET SemesterID=?, StartTime=?,EndTime=?"
+                + " WHERE WeekID=?";
+
+        try {
+            rs = SQL.executeUpdate(query, semesterID, startDate, endDate);
+        } catch (SQLException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+    
+    public int addTime(int weekID ,String semesterID, LocalDate startDate, LocalDate endDate) {
+        int rs = -1;
+        String query = "INSERT INTO Week(WeekID, SemesterID, StartDate, EndDate) VALUES (?,?,?,?)";
+
+
+        try {
+            rs = SQL.executeUpdate(query, weekID, semesterID, startDate, endDate);
+        } catch (SQLException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  
+
+        return rs;
     }
 }

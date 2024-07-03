@@ -62,7 +62,49 @@ public class RoomDAO {
         return gr;
     }
 
-    public int addRoom() {
-        return -1;
+    public int deleteRoom(String roomID) {
+        int rs = -1;
+        String query = "DELETE FROM Room WHERE RoomID=?";
+        try {
+            rs = SQL.executeUpdate(query, roomID);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+
+    public int updateRoom(String roomID, String roomName) {
+        int rs = -1;
+        String query = "UPDATE Room"
+                + " SET RoomName=?"
+                + " WHERE RoomID=?";
+
+        try {
+            rs = SQL.executeUpdate(query, roomName, roomID);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+
+    public int addRoom(String roomID, String roomName) {
+        int rs = -1;
+        String query = "INSERT INTO Room(RoomID,RoomName) VALUES (?,?)";
+
+        try {
+            rs = SQL.executeUpdate(query, roomName, roomID);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
     }
 }

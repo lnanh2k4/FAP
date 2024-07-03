@@ -72,7 +72,50 @@ public class TimeDAO {
         return gt;
     }
 
-    public int addTime() {
-        return -1;
+    public int deleteTime(int timeID) {
+        int rs = -1;
+        String query = "DELETE FROM Time WHERE TimeID=?";
+
+        try {
+            rs = SQL.executeUpdate(query, timeID);
+        } catch (SQLException ex) {
+            Logger.getLogger(TimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+
+    public int updateTime(int slot, LocalDate startDate, LocalDate endDate, String description) {
+        int rs = -1;
+        String query = "UPDATE Time"
+                + " SET Slot=?, StartTime=?,EndTime=?,Description=?"
+                + " WHERE TimeID=?";
+
+        try {
+            rs = SQL.executeUpdate(query, slot, startDate, endDate, description);
+        } catch (SQLException ex) {
+            Logger.getLogger(TimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+
+    public int addTime(int timeID, int slot, LocalDate startDate, LocalDate endDate, String description) {
+        int rs = -1;
+        String query = "INSERT INTO Time(TimeID, Slot, StartDate, EndDate, Description) VALUES (?,?,?,?,?)";
+
+        try {
+            rs = SQL.executeUpdate(query, timeID, slot, startDate, endDate, description);
+        } catch (SQLException ex) {
+            Logger.getLogger(TimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TimeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
     }
 }
