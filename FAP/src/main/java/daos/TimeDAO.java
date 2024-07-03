@@ -19,19 +19,20 @@ import utils.SQL;
  * @author CE180191 - Huynh Hoang Ty
  */
 public class TimeDAO {
+
     int timeID;
     int slot;
     LocalDate startTime;
     LocalDate endTime;
     String description;
-    
-    public List<Time> getAllList(){
+
+    public List<Time> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Time.* FROM Time";
         List<Time> list = new ArrayList();
         try {
             rs = SQL.executeQuery(query);
-            while (rs.next()){
+            while (rs.next()) {
                 timeID = rs.getInt("timeID");
                 slot = rs.getInt("slot");
                 startTime = rs.getDate("startTime").toLocalDate();
@@ -39,15 +40,39 @@ public class TimeDAO {
                 description = rs.getString("description");
                 list.add(new Time(timeID, slot, startTime, endTime, description));
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return list;
     }
-    public int addTime(){
+
+    public Time getTime() {
+        ResultSet rs = null;
+        Time gt = null;
+        String query = "SELECT Time.* FROM Time";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                timeID = rs.getInt("timeID");
+                slot = rs.getInt("slot");
+                startTime = rs.getDate("startTime").toLocalDate();
+                endTime = rs.getDate("endTime").toLocalDate();
+                description = rs.getString("description");
+                gt = new Time(timeID, slot, startTime, endTime, description);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return gt;
+    }
+
+    public int addTime() {
         return -1;
     }
 }

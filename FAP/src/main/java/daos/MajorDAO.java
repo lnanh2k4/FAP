@@ -18,29 +18,51 @@ import utils.SQL;
  * @author CE180191 - Huynh Hoang Ty
  */
 public class MajorDAO {
+
     String majorID;
     String majorName;
-    public List<Major> getAllList(){
+
+    public List<Major> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Major.* FROM Major";
         List<Major> list = new ArrayList();
         try {
             rs = SQL.executeQuery(query);
-            while (rs.next()){
+            while (rs.next()) {
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
                 list.add(new Major(majorID, majorName));
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return list;
     }
-    
-    public int addMajor(){
+
+    public Major getMajor() {
+        ResultSet rs = null;
+        Major gm = null;
+        String query = "SELECT Major.* FROM Major";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                majorID = rs.getString("majorID");
+                majorName = rs.getString("majorName");
+                gm = new Major(majorID, majorName);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return gm;
+    }
+
+    public int addMajor() {
         return -1;
     }
 }

@@ -18,28 +18,51 @@ import utils.SQL;
  * @author CE180191 - Huynh Hoang Ty
  */
 public class RoomDAO {
+
     String roomID;
     String roomName;
-    public List<Room> getAllList(){
+
+    public List<Room> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Room.* FROM Room";
         List<Room> list = new ArrayList();
         try {
             rs = SQL.executeQuery(query);
-            while (rs.next()){
+            while (rs.next()) {
                 roomID = rs.getString("roomID");
                 roomName = rs.getString("roomName");
                 list.add(new Room(roomID, roomName));
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return list;
     }
-    public int addRoom(){
+
+    public Room getRoom() {
+        ResultSet rs = null;
+        Room gr = null;
+        String query = "SELECT Room.* FROM Room";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                roomID = rs.getString("roomID");
+                roomName = rs.getString("roomName");
+                gr = new Room(roomID, roomName);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return gr;
+    }
+
+    public int addRoom() {
         return -1;
     }
 }

@@ -19,31 +19,54 @@ import utils.SQL;
  * @author CE180191 - Huynh Hoang Ty
  */
 public class YearDAO {
+
     private String yearID;
     private LocalDate startDate;
     private LocalDate endDate;
-    
-    public List<Year> getAllList(){
+
+    public List<Year> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Year.* FROM Year";
         List<Year> list = new ArrayList();
         try {
             rs = SQL.executeQuery(query);
-            while (rs.next()){
+            while (rs.next()) {
                 yearID = rs.getString("yearID");
                 startDate = rs.getDate("startDate").toLocalDate();
                 endDate = rs.getDate("endDate").toLocalDate();
                 list.add(new Year(yearID, startDate, endDate));
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return list;
     }
-    public int addYear(){
+
+    public Year getYear() {
+        ResultSet rs = null;
+        Year gy = null;
+        String query = "SELECT Year.* FROM Year";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                yearID = rs.getString("yearID");
+                startDate = rs.getDate("startDate").toLocalDate();
+                endDate = rs.getDate("endDate").toLocalDate();
+                gy = new Year(yearID, startDate, endDate);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return gy;
+    }
+
+    public int addYear() {
         return -1;
     }
 }
