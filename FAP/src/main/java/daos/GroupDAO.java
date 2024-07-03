@@ -42,6 +42,26 @@ public class GroupDAO {
         return list;
     }
     
+    public Group getGroup() {
+        ResultSet rs = null;
+        Group gr = null;
+        String query = "SELECT * FROM [Group] INNER JOIN Semester ON [Group].SemesterID = Semester.SemesterID";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                groupID = rs.getInt("GroupID");
+                groupName = (String) rs.getObject("groupName");
+                semesterID = (String) rs.getObject("semesterID");
+                gr = new Group(groupID, groupName, semesterID);
+            }
+        } catch (SQLException ex) { 
+            Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return gr;
+    }
+    
     public int addGroup(int groupID, String groupName, String semesterID){
         int rs=-1;
 

@@ -49,6 +49,28 @@ public class ScheduleDAO {
         return list;
     }
     
+    public Schedule getSchedule() {
+        ResultSet rs = null;
+        Schedule sc = null;
+        String query = "SELECT * FROM Schedule INNER JOIN GroupSubject ON Schedule.GroupSubjectID = GroupSubject.GroupSubjectID";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                scheduleID = rs.getInt("scheduleID");
+                groupSubjectID = rs.getInt("groupSubjectID");
+                startDate = (LocalDate) rs.getObject("startDate");
+                endDate = (LocalDate) rs.getObject("endDate");
+                sc = new Schedule(scheduleID, groupSubjectID, startDate, endDate);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return sc;
+    }
+    
     public int addSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate){
         int rs=-1;
 
