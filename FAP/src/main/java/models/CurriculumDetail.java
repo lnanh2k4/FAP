@@ -22,6 +22,8 @@ public class CurriculumDetail {
         this.cdSemester = cdSemester;
     }
 
+    
+
     public int getCdSemester() {
         return cdSemester;
     }
