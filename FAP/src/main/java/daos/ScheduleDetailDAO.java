@@ -33,7 +33,13 @@ public class ScheduleDetailDAO {
     public List<ScheduleDetail> getAllList() {
         ResultSet rs = null;
         List<ScheduleDetail> list = new ArrayList<>();
-        String query = "SELECT * FROM ScheduleDetail INNER JOIN Year ON ScheduleDetail.YearID = Year.YearID";
+        String query = "SELECT * FROM ScheduleDetail INNER JOIN" +
+                        " Schedule ON ScheduleDetail.ScheduleID = Schedule.ScheduleID INNER JOIN" +
+                        " Room ON ScheduleDetail.RoomID = Room.RoomID INNER JOIN" +
+                        " [User] ON ScheduleDetail.LecturerID = [User].UserID INNER JOIN" +
+                        " Time ON ScheduleDetail.TimeID = Time.TimeID INNER JOIN" +
+                        " Campus ON ScheduleDetail.CampusID = Campus.CampusID INNER JOIN" +
+                        " Week ON ScheduleDetail.WeekID = Week.WeekID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {

@@ -25,7 +25,7 @@ public class GroupDAO {
     public List<Group> getAllList() {
         ResultSet rs = null;
         List<Group> list = new ArrayList<>();
-        String query = "SELECT * FROM  Schedule INNER JOIN GroupSubject ON Schedule.GroupSubjectID = GroupSubject.GroupSubjectID";
+        String query = "SELECT * FROM [Group] INNER JOIN Semester ON [Group].SemesterID = Semester.SemesterID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {

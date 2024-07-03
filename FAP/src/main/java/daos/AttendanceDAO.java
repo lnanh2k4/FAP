@@ -28,7 +28,7 @@ public class AttendanceDAO {
     public List<Attendance> getAllList() {
         ResultSet rs = null;
         List<Attendance> list = new ArrayList<>();
-        String query = "SELECT * FROM Attendance INNER JOIN GroupSubject ON Attendance.GroupSubjectID = GroupSubject.GroupSubjectID";
+        String query = "SELECT * FROM Attendance INNER JOIN [User] ON Attendance.UserID = [User].UserID CROSS JOIN Campus";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {

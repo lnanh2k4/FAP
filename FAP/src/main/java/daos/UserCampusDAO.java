@@ -25,7 +25,7 @@ public class UserCampusDAO {
     public List<UserCampus> getAllList() {
         ResultSet rs = null;
         List<UserCampus> list = new ArrayList<>();
-        String query = "SELECT * FROM UserCampus INNER JOIN GroupSubject ON UserCampus.GroupSubjectID = GroupSubject.GroupSubjectID";
+        String query = "SELECT * FROM UserCampus INNER JOIN Campus ON UserCampus.CampusID = Campus.CampusID INNER JOIN [User] ON UserCampus.UserID = [User].UserID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
