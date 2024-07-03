@@ -9,11 +9,12 @@ import java.sql.*;
  * @author CE180191 - Huynh Hoang Ty
  */
 public class SQL {
-    private static final String JDBC_URL = "jdbc:sqlserver://localhost;databaseName=FAPDB";
+    private static final String JDBC_URL = "jdbc:sqlserver://localhost\\FAPDB:1433;encrypt=true;trustServerCertificate=true;";
     private static final String USERNAME = "sa";
     private static final String PASSWORD =  "sa";
     
-    public static Connection getConnection() throws SQLException{
+    public static Connection getConnection() throws SQLException, ClassNotFoundException{
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
     }
     
@@ -54,7 +55,7 @@ public class SQL {
         }
     }
     
-    public static ResultSet executeQuery(String query, Object... params) throws SQLException{
+    public static ResultSet executeQuery(String query, Object... params) throws SQLException, ClassNotFoundException{
         Connection conn = getConnection();
         PreparedStatement ps = conn.prepareStatement(query);
         setParameters(ps, params);
