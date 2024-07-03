@@ -3,6 +3,6 @@
 ## Start date project: July 3<sup>rd</sup>, 2024
 ## Team Members:
 1. Le Nhut Anh - CE181767 (Leader)
-2. Huynh Hoang Ty
+2. Huynh Hoang Ty - CE180191
 3. Dang Cong Khanh
 4. Nguyen Le Khac Vu
