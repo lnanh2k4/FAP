@@ -16,14 +16,17 @@ public class Semester {
     private String semesterName;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String YearID;
+    private String yearID;
 
-    public Semester(String SemesterID, String SemesterName, LocalDate startDate, LocalDate endDate, String YearID) {
-        this.semesterID = SemesterID;
-        this.semesterName = SemesterName;
+    public Semester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID) {
+        this.semesterID = semesterID;
+        this.semesterName = semesterName;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.YearID = YearID;
+        this.yearID = yearID;
+    }
+
+    public Semester() {
     }
     
     
@@ -32,16 +35,16 @@ public class Semester {
         return semesterID;
     }
 
-    public void setSemesterID(String SemesterID) {
-        this.semesterID = SemesterID;
+    public void setSemesterID(String semesterID) {
+        this.semesterID = semesterID;
     }
 
     public String getSemesterName() {
         return semesterName;
     }
 
-    public void setSemesterName(String SemesterName) {
-        this.semesterName = SemesterName;
+    public void setSemesterName(String semesterName) {
+        this.semesterName = semesterName;
     }
 
     public LocalDate getStartDate() {
@@ -61,12 +64,13 @@ public class Semester {
     }
 
     public String getYearID() {
-        return YearID;
+        return yearID;
     }
 
-    public void setYearID(String YearID) {
-        this.YearID = YearID;
+    public void setYearID(String yearID) {
+        this.yearID = yearID;
     }
+
     
     
 }

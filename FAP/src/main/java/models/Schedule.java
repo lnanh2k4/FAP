@@ -12,49 +12,54 @@ import java.time.LocalDate;
  */
 public class Schedule {
 
-    private int ScheduleID;
-    private int GroupSubjectID;
+    private int scheduleID;
+    private int groupSubjectID;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Schedule(int ScheduleID, int GroupSubjectID, LocalDate startDate, LocalDate endDate) {
-        this.ScheduleID = ScheduleID;
-        this.GroupSubjectID = GroupSubjectID;
+    public Schedule() {
+    }
+
+    public Schedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
+        this.scheduleID = scheduleID;
+        this.groupSubjectID = groupSubjectID;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     public int getScheduleID() {
-        return ScheduleID;
+        return scheduleID;
     }
 
-    public void setScheduleID(int ScheduleID) {
-        this.ScheduleID = ScheduleID;
+    public void setScheduleID(int scheduleID) {
+        this.scheduleID = scheduleID;
     }
 
     public int getGroupSubjectID() {
-        return GroupSubjectID;
+        return groupSubjectID;
     }
 
-    public void setGroupSubjectID(int GroupSubjectID) {
-        this.GroupSubjectID = GroupSubjectID;
+    public void setGroupSubjectID(int groupSubjectID) {
+        this.groupSubjectID = groupSubjectID;
     }
 
-    public LocalDate getStartTime() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartTime(LocalDate startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndTime() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndTime(LocalDate endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
+    
+    
     
     
 }
