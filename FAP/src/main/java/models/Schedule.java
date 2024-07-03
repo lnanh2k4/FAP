@@ -14,14 +14,14 @@ public class Schedule {
 
     private int ScheduleID;
     private int GroupSubjectID;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    public Schedule(int ScheduleID, int GroupSubjectID, LocalDate startTime, LocalDate endTime) {
+    public Schedule(int ScheduleID, int GroupSubjectID, LocalDate startDate, LocalDate endDate) {
         this.ScheduleID = ScheduleID;
         this.GroupSubjectID = GroupSubjectID;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public int getScheduleID() {
@@ -41,19 +41,19 @@ public class Schedule {
     }
 
     public LocalDate getStartTime() {
-        return startTime;
+        return startDate;
     }
 
-    public void setStartTime(LocalDate startTime) {
-        this.startTime = startTime;
+    public void setStartTime(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public LocalDate getEndTime() {
-        return endTime;
+        return endDate;
     }
 
-    public void setEndTime(LocalDate endTime) {
-        this.endTime = endTime;
+    public void setEndTime(LocalDate endDate) {
+        this.endDate = endDate;
     }
     
     
