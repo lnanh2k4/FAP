@@ -64,6 +64,40 @@ public class ScheduleDetailDAO {
         return list;
     }
     
+    public ScheduleDetail getScheduleDetail() {
+        ResultSet rs = null;
+        ScheduleDetail sd = null;
+        String query = "SELECT * FROM ScheduleDetail INNER JOIN" +
+                        " Schedule ON ScheduleDetail.ScheduleID = Schedule.ScheduleID INNER JOIN" +
+                        " Room ON ScheduleDetail.RoomID = Room.RoomID INNER JOIN" +
+                        " [User] ON ScheduleDetail.LecturerID = [User].UserID INNER JOIN" +
+                        " Time ON ScheduleDetail.TimeID = Time.TimeID INNER JOIN" +
+                        " Campus ON ScheduleDetail.CampusID = Campus.CampusID INNER JOIN" +
+                        " Week ON ScheduleDetail.WeekID = Week.WeekID";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                scheduleDetailID = rs.getInt(scheduleDetailID);
+                scheduleID = rs.getInt(scheduleID);
+                roomID = rs.getString("roomID");
+                userID = rs.getString("userID");
+                timeID = rs.getInt(timeID);
+                campusID = rs.getString("campusID");
+                weekID = rs.getInt(weekID);
+                schlDescription = rs.getString("schlDescription");
+                subjectSession = rs.getInt(subjectSession);
+                date = (LocalDate) rs.getObject("date");
+                sd = new ScheduleDetail(scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return sd;
+    }
+    
     public int addScheduleDetail(int scheduleDetailID ,int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID, String schlDescription, int subjectSession, LocalDate date){
         int rs=-1;
 

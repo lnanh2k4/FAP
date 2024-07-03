@@ -48,6 +48,29 @@ public class SemesterDAO {
         return list;
     }
     
+    public Semester getSemester() {
+        ResultSet rs = null;
+        Semester se = null;
+        String query = "SELECT * FROM Semester INNER JOIN Year ON Semester.YearID = Year.YearID";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                semesterID = (String) rs.getObject("semesterID");
+                semesterName = (String) rs.getObject("semesterName");
+                startDate = (LocalDate) rs.getObject("startDate");
+                endDate = (LocalDate) rs.getObject("endDate");
+                yearID = (String) rs.getObject("yearID");
+                se = new Semester(semesterID, semesterName, startDate, endDate, yearID);
+            }
+        } catch (SQLException ex) { 
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return se;
+    }
+    
     public int addSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate){
         int rs=-1;
 

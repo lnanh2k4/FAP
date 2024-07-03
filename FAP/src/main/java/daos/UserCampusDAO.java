@@ -43,6 +43,27 @@ public class UserCampusDAO {
         return list;
     }
     
+    public UserCampus getUserCampus() {
+        ResultSet rs = null;
+        UserCampus uc = null;
+        String query = "SELECT * FROM UserCampus INNER JOIN Campus ON UserCampus.CampusID = Campus.CampusID INNER JOIN [User] ON UserCampus.UserID = [User].UserID";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                userCampusID = rs.getInt("userCampusID");
+                campusID = rs.getString("campusID");
+                userID = rs.getString("userID");
+                uc = new UserCampus(userCampusID, campusID, userID);
+            }
+        } catch (SQLException ex) { 
+            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return uc;
+    }
+    
     public int addUserCampus(int userCampusID, String campusID, String userID){
         int rs=-1;
 

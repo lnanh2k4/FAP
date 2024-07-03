@@ -49,6 +49,30 @@ public class AttendanceDAO {
         return list;
     }
     
+    public Attendance getAttendance() {
+        ResultSet rs = null;
+        Attendance at = null;
+        String query = "SELECT * FROM Attendance INNER JOIN [User] ON Attendance.UserID = [User].UserID CROSS JOIN Campus";
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                attendanceID = rs.getInt("attendanceID");
+                scheduleDetailID = rs.getInt("scheduleDetailID");
+                userID = rs.getString("userID");
+                state = rs.getInt("state");
+                comment = rs.getString("comment");
+                note = rs.getString("note");
+                at = new Attendance(attendanceID, scheduleDetailID, userID, state, comment, note);
+            }
+        } catch (SQLException ex) { 
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return at;
+    }
+    
     public int addAttendance(int attendanceID, int scheduleDetailID, String userID, int state, String comment, String note){
         int rs=-1;
 

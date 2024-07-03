@@ -18,34 +18,61 @@ import utils.SQL;
  * @author CE180191 - Huynh Hoang Ty
  */
 public class CampusDAO {
+
     String campusID;
     String campusName;
     String campusAddress;
     String campusEmail;
     String campusHotline;
-    public List<Campus> getAllList(){
+
+    public List<Campus> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Campus.* FROM Campus";
         List<Campus> list = new ArrayList();
         try {
             rs = SQL.executeQuery(query);
-            while (rs.next()){
+            while (rs.next()) {
                 campusID = rs.getString("campusID");
                 campusName = rs.getString("campusName");
                 campusAddress = rs.getString("campusAddress");
-                campusEmail  = rs.getString("campusEmail");
+                campusEmail = rs.getString("campusEmail");
                 campusHotline = rs.getString("campusHotline");
                 list.add(new Campus(campusID, campusName, campusEmail, campusHotline));
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return list;
     }
-    public int addCampus(){
+
+    public Campus getCampus() {
+        ResultSet rs = null;
+        Campus gc = null;
+        String query = "SELECT Campus.* FROM Campus";
+        
+        try {
+            rs = SQL.executeQuery(query);
+            while (rs.next()) {
+                campusID = rs.getString("campusID");
+                campusName = rs.getString("campusName");
+                campusAddress = rs.getString("campusAddress");
+                campusEmail = rs.getString("campusEmail");
+                campusHotline = rs.getString("campusHotline");
+                gc = new Campus(campusID, campusName, campusEmail, campusHotline);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return gc;
+    }
+
+    public int addCampus() {
         return -1;
     }
 }

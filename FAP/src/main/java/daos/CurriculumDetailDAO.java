@@ -56,7 +56,11 @@ public class CurriculumDetailDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
+<<<<<<< HEAD
                 list.add(new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription),new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester));
+=======
+                list.add(new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester));
+>>>>>>> 5857691ecbece3f42dabb4544341e21380b26114
             }
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
