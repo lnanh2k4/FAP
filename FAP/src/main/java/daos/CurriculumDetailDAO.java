@@ -23,7 +23,6 @@ import models.Subject;
  */
 public class CurriculumDetailDAO {
 
-    
     String subjectID;
     String subjectName;
     int subjectNoCredit;
@@ -56,11 +55,8 @@ public class CurriculumDetailDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-<<<<<<< HEAD
-                list.add(new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription),new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester));
-=======
+
                 list.add(new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester));
->>>>>>> 5857691ecbece3f42dabb4544341e21380b26114
             }
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,8 +70,7 @@ public class CurriculumDetailDAO {
     public CurriculumDetail getCurriculumDetail() {
         ResultSet rs = null;
         CurriculumDetail getCD = null;
-        
-       
+
         String query = "SELECT*FROM[User] INNER JOINCurriculum ON [User].CurriculumID = Curriculum.CurriculumID INNER JOINSpecialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOINMajor ON Specialization.MajorID = Major.MajorID";
         try {
             rs = SQL.executeQuery(query);
@@ -92,7 +87,7 @@ public class CurriculumDetailDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                getCD = (new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription),new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester));
+                getCD = (new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,5 +97,5 @@ public class CurriculumDetailDAO {
 
         return getCD;
     }
-    
+
 }
