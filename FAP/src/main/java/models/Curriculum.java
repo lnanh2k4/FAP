@@ -9,9 +9,18 @@ package models;
  * @author Nguyen Le Khac Vu - CE180175
  */
 public class Curriculum {
+
     private String curriculumID;
     private String curriculumName;
     private Specialization specializationID;
+    private int status;
+
+    public Curriculum(String curriculumID, String curriculumName, Specialization specializationID, int status) {
+        this.curriculumID = curriculumID;
+        this.curriculumName = curriculumName;
+        this.specializationID = specializationID;
+        this.status = status;
+    }
 
     public Curriculum(String curriculumID, String curriculumName, Specialization specializationID) {
         this.curriculumID = curriculumID;
@@ -44,5 +53,13 @@ public class Curriculum {
 
     public void setCurriculumName(String curriculumName) {
         this.curriculumName = curriculumName;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

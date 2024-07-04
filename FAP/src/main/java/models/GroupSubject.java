@@ -12,6 +12,14 @@ public class GroupSubject {
     private  int groupSubjectID;
     private  Subject subjectID;
     private Group groupID;
+    private int status;
+
+    public GroupSubject(int groupSubjectID, Subject subjectID, Group groupID, int status) {
+        this.groupSubjectID = groupSubjectID;
+        this.subjectID = subjectID;
+        this.groupID = groupID;
+        this.status = status;
+    }
 
     public GroupSubject() {
     }
@@ -49,6 +57,14 @@ public class GroupSubject {
 
     public void setGroupID(Group groupID) {
         this.groupID = groupID;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
   
 }

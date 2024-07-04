@@ -9,9 +9,18 @@ package models;
  * @author Nguyen Le Khac Vu - CE180175
  */
 public class CurriculumDetail {
+
     private Subject subjectID;
     private Curriculum curriculumID;
     private int cdSemester;
+    private int status;
+
+    public CurriculumDetail(Subject subjectID, Curriculum curriculumID, int cdSemester, int status) {
+        this.subjectID = subjectID;
+        this.curriculumID = curriculumID;
+        this.cdSemester = cdSemester;
+        this.status = status;
+    }
 
     public CurriculumDetail() {
     }
@@ -21,8 +30,6 @@ public class CurriculumDetail {
         this.curriculumID = curriculumID;
         this.cdSemester = cdSemester;
     }
-
-    
 
     public int getCdSemester() {
         return cdSemester;
@@ -47,5 +54,13 @@ public class CurriculumDetail {
     public void setCurriculumID(Curriculum curriculumID) {
         this.curriculumID = curriculumID;
     }
-    
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
 }

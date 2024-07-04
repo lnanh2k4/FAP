@@ -18,13 +18,15 @@ import utils.SQL;
  * @author CE180117 - Dang Cong Khanh
  */
 public class AttendanceDAO {
+
     int attendanceID;
     int scheduleDetailID;
     String userID;
     int state;
     String comment;
     String note;
-    
+    int status;
+
     public List<Attendance> getAllList() {
         ResultSet rs = null;
         List<Attendance> list = new ArrayList<>();
@@ -38,9 +40,10 @@ public class AttendanceDAO {
                 state = rs.getInt("state");
                 comment = rs.getString("comment");
                 note = rs.getString("note");
-                list.add(new Attendance(attendanceID, scheduleDetailID, userID, state, comment, note));
+                status = rs.getInt("status");
+                list.add(new Attendance(scheduleDetailID, userID, state, comment, note, status));
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,7 +51,7 @@ public class AttendanceDAO {
 
         return list;
     }
-    
+
     public Attendance getAttendance() {
         ResultSet rs = null;
         Attendance at = null;
@@ -62,9 +65,10 @@ public class AttendanceDAO {
                 state = rs.getInt("state");
                 comment = rs.getString("comment");
                 note = rs.getString("note");
-                at = new Attendance(attendanceID, scheduleDetailID, userID, state, comment, note);
+                status = rs.getInt("status");
+                at = new Attendance(attendanceID, scheduleDetailID, userID, state, comment, note,status);
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,7 +76,7 @@ public class AttendanceDAO {
 
         return at;
     }
-    
+
     public int deleteAttendance(int scheduleDetailID, String userID) {
         int rs = -1;
         String query = "DELETE FROM Attendance WHERE scheduleDetailID=?, userID=?";
