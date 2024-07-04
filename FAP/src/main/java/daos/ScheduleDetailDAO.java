@@ -76,7 +76,8 @@ public class ScheduleDetailDAO {
                 + " [User] ON ScheduleDetail.LecturerID = [User].UserID INNER JOIN"
                 + " Time ON ScheduleDetail.TimeID = Time.TimeID INNER JOIN"
                 + " Campus ON ScheduleDetail.CampusID = Campus.CampusID INNER JOIN"
-                + " Week ON ScheduleDetail.WeekID = Week.WeekID";
+                + " Week ON ScheduleDetail.WeekID = Week.WeekID"
+                + " WHERE ScheduleID = ? AND RoomID = ? AND LectuerID = ? AND TimeID = ? AND CampusID = ? AND WeekID = ?";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
@@ -90,7 +91,7 @@ public class ScheduleDetailDAO {
                 schlDescription = rs.getString("schlDescription");
                 subjectSession = rs.getInt(subjectSession);
                 date = (LocalDate) rs.getObject("date");
-                sd = new ScheduleDetail(scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date);
+                sd = new ScheduleDetail(scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date, status);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,7 +104,9 @@ public class ScheduleDetailDAO {
 
     public int deleteScheduleDetail(int scheduleDetailID, int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
         int rs = -1;
-        String query = "DELETE FROM ScheduleDetail WHERE scheduleDetailID=?, scheduleID=?, roomID=?, userID=?, timeID=?, campusID=?, weekID=?";
+        String query = "UPDATE ScheduleDetail"
+                + " SET Status = 0"
+                + " WHERE ScheduleID = ? AND RoomID = ? AND LectuerID = ? AND TimeID = ? AND CampusID = ? AND WeekID = ?";
         try {
             rs = SQL.executeUpdate(query, scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID);
         } catch (SQLException ex) {
@@ -117,7 +120,8 @@ public class ScheduleDetailDAO {
     public int updateScheduleDetail(int scheduleDetailID, int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
         int rs = -1;
         String query = "UPDATE ScheduleDetail"
-                + " SET scheduleDetailID=?, scheduleID=?, roomID=?, userID=?, timeID=?, campusID=?, weekID=?";
+                + " SET scheduleDetailID=?, scheduleID=?, roomID=?, userID=?, timeID=?, campusID=?, weekID=?"
+                + " WHERE ScheduleID = ? AND RoomID = ? AND LectuerID = ? AND TimeID = ? AND CampusID = ? AND WeekID = ?";
         try {
             rs = SQL.executeUpdate(query, scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID);
         } catch (SQLException ex) {

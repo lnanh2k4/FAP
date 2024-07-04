@@ -95,7 +95,7 @@ public class UserDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                getU = (new User(userID, firstName, lastName, sex, email, phone, semester, role, new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), password));
+                getU = (new User(userID, firstName, lastName, sex, email, phone, semester, role, new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), password, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,7 +108,9 @@ public class UserDAO {
 
     public int deleteUser(String userID) {
         int rs = -1;
-        String query = "DELETE FROM User WHERE UserID=?";
+        String query = "UPDATE User"
+                + " SET Status = 0"
+                + " WHERE UserID=?";
         try {
             rs = SQL.executeUpdate(query, userID);
         } catch (SQLException ex) {

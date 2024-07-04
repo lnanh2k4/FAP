@@ -63,7 +63,7 @@ public class ScheduleDAO {
                 groupSubjectID = rs.getInt("groupSubjectID");
                 startDate = (LocalDate) rs.getObject("startDate");
                 endDate = (LocalDate) rs.getObject("endDate");
-                sc = new Schedule(scheduleID, groupSubjectID, startDate, endDate);
+                sc = new Schedule(scheduleID, groupSubjectID, startDate, endDate, status);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,7 +76,9 @@ public class ScheduleDAO {
 
     public int deleteSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
         int rs = -1;
-        String query = "DELETE FROM Schedule WHERE groupSubjectID=?";
+        String query = "UPDATE Schedule"
+                + " SET Status = 0" 
+                + " WHERE ScheduleID = ?";
         try {
             rs = SQL.executeUpdate(query, groupSubjectID);
         } catch (SQLException ex) {
@@ -90,7 +92,8 @@ public class ScheduleDAO {
     public int updateSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
         int rs = -1;
         String query = "UPDATE Schedule"
-                + " SET scheduleID=?, groupSubjectID=?, startDate=?, endDate=?";
+                + " SET scheduleID=?, groupSubjectID=?, startDate=?, endDate=?"
+                + " WHERE ScheduleID = ?";
         try {
             rs = SQL.executeUpdate(query, scheduleID, groupSubjectID, startDate, endDate);
         } catch (SQLException ex) {

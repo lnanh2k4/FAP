@@ -74,7 +74,7 @@ public class WeekDAO {
                 weekEndDate = rs.getString("endDate");
                 semesterStartDate = rs.getDate("startDate").toLocalDate();
                 semesterEndDate = rs.getDate("endDate").toLocalDate();
-                gw = new Week(weekID, weekStartDate, weekEndDate, new Semester(semesterID, semesterName, semesterStartDate, semesterEndDate, YearID));
+                gw = new Week(weekID, weekStartDate, weekEndDate, new Semester(semesterID, semesterName, semesterStartDate, semesterEndDate, YearID),status);
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,7 +87,9 @@ public class WeekDAO {
 
     public int deleteWeek(int weekID) {
         int rs = -1;
-        String query = "DELETE FROM Week WHERE WeekID=?";
+        String query = "UPDATE Week"
+                + " SET status=0"
+                + " WHERE WeekID=?";
 
         try {
             rs = SQL.executeUpdate(query, weekID);
@@ -102,8 +104,8 @@ public class WeekDAO {
     
     public int updateWeek(String semesterID, LocalDate startDate, LocalDate endDate) {
         int rs = -1;
-        String query = "UPDATE Semester"
-                + " SET SemesterID=?, StartTime=?,EndTime=?"
+        String query = "UPDATE Week"
+                + " SET WeekID=?, StartTime=?,EndTime=?"
                 + " WHERE WeekID=?";
 
         try {
@@ -119,7 +121,7 @@ public class WeekDAO {
     
     public int addTime(int weekID ,String semesterID, LocalDate startDate, LocalDate endDate) {
         int rs = -1;
-        String query = "INSERT INTO Week(WeekID, SemesterID, StartDate, EndDate) VALUES (?,?,?,?)";
+        String query = "INSERT INTO Week(WeekID, WeekID, StartDate, EndDate) VALUES (?,?,?,?)";
 
 
         try {

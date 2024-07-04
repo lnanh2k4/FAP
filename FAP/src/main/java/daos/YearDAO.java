@@ -56,7 +56,7 @@ public class YearDAO {
                 yearID = rs.getString("yearID");
                 startDate = rs.getDate("startDate").toLocalDate();
                 endDate = rs.getDate("endDate").toLocalDate();
-                gy = new Year(yearID, startDate, endDate);
+                gy = new Year(yearID, startDate, endDate, status);
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,7 +69,9 @@ public class YearDAO {
 
     public int deleteYear(int yearID) {
         int rs = -1;
-        String query = "DELETE FROM Year WHERE YearID=?";
+        String query = "UPDATE Year"
+                + " SET Status = 0"
+                + " WHERE YearID=?";
 
         try {
             rs = SQL.executeUpdate(query, yearID);

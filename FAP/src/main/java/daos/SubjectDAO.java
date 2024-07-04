@@ -61,7 +61,7 @@ public class SubjectDAO {
                 subjectNoCredit = rs.getInt("subjectNoCredit");
                 subjectPrerequisite = rs.getString("subjectPrerequisite");
                 subjectDescription = rs.getString("subjectDescription");
-                getS = (new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription));
+                getS = (new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,7 +74,9 @@ public class SubjectDAO {
 
     public int deleteSubject(String subjectID) {
         int rs = -1;
-        String query = "DELETE FROM Subject WHERE SubjectID=?";
+        String query = "UPDATE Subject"
+                + " SET Status = 0"
+                + " WHERE SubjectID=?";
         try {
             rs = SQL.executeUpdate(query, subjectID);
         } catch (SQLException ex) {

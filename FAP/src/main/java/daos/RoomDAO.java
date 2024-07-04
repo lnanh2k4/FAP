@@ -52,7 +52,7 @@ public class RoomDAO {
             while (rs.next()) {
                 roomID = rs.getString("roomID");
                 roomName = rs.getString("roomName");
-                gr = new Room(roomID, roomName);
+                gr = new Room(roomID, roomName, status);
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,7 +65,9 @@ public class RoomDAO {
 
     public int deleteRoom(String roomID) {
         int rs = -1;
-        String query = "DELETE FROM Room WHERE RoomID=?";
+        String query = "UPDATE Room"
+                + " SET Status = 0"
+                + " WHERE RoomID=?";
         try {
             rs = SQL.executeUpdate(query, roomID);
         } catch (SQLException ex) {

@@ -76,8 +76,10 @@ public class GroupSubjectDAO {
                 groupID = rs.getInt("groupID");
                 groupName = rs.getString("groupName");
                 semesterID = rs.getString("semesterID");
-                 status = rs.getInt("status");
-                gs = new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, semesterID,status));
+
+                status = rs.getInt("status");
+                gs = new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, semesterID, status));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(GroupSubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,7 +93,9 @@ public class GroupSubjectDAO {
     public int deleteGroupSubject(Subject subjectID, Group groupID) {
         int rs = -1;
 
-        String query = "DELETE FROM GroupSubject WHERE GroupID=? AND SubjectID=?";
+        String query = "UPDATE GroupSubject"
+                + " SET Status = 0"
+                + " WHEREE GroupID=? AND SubjectID=?";
         try {
             rs = SQL.executeUpdate(query, subjectID, groupID);
         } catch (SQLException ex) {
