@@ -5,20 +5,23 @@
 package controllers;
 
 import daos.MajorDAO;
+import daos.YearDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.List;
 import models.Major;
+import models.Year;
 
 /**
  *
  * @author mrmas
  */
-public class MajorController extends HttpServlet {
+public class YearController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,23 +63,23 @@ public class MajorController extends HttpServlet {
             throws ServletException, IOException {
         String check = request.getParameter("check");
         String id = (String) request.getParameter("id");
-        MajorDAO m = new MajorDAO();
+        YearDAO y = new YearDAO();
         if (check == null) {
-            List<Major> list = m.getAllList();
-            request.setAttribute("majorList", list);
-            request.getRequestDispatcher("major.jsp").forward(request, response);
+            List<Year> list = y.getAllList();
+            request.setAttribute("yearList", list);
+            request.getRequestDispatcher("year.jsp").forward(request, response);
         } else {
             switch (check) {
                 case "edit":
-                    request.setAttribute("major", m.getMajor(id));
-                    request.getRequestDispatcher("editMajor.jsp").forward(request, response);
+                    request.setAttribute("year", y.getYear(id));
+                    request.getRequestDispatcher("editYear.jsp").forward(request, response);
                     break;
                 case "delete":
-                    request.setAttribute("major", m.getMajor(id));
-                    request.getRequestDispatcher("deleteMajor.jsp").forward(request, response);
+                    request.setAttribute("year", y.getYear(id));
+                    request.getRequestDispatcher("deleteYear.jsp").forward(request, response);
                     break;
                 case "add":
-                    response.sendRedirect("addMajor.jsp");
+                    response.sendRedirect("addYear.jsp");
                     break;
             }
         }
@@ -94,23 +97,26 @@ public class MajorController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pathController ="MajorController";
+        String pathController = "YearController";
         String check = request.getParameter("check");
-        String id = request.getParameter("majorID");
-        String name = request.getParameter("majorName");
-        MajorDAO m = new MajorDAO();
+        String id = request.getParameter("yearID");
+        LocalDate startDate = LocalDate.parse(request.getParameter("startDate"));
+        LocalDate endDate = LocalDate.parse(request.getParameter("endDate"));
+        YearDAO y = new YearDAO();
+        System.out.println(check);
         if (check != null) {
             switch (check) {
                 case "edit":
-                    m.updateMajor(id, name);
+                    y.updateYear(id, startDate, endDate);
                     response.sendRedirect(pathController);
                     break;
                 case "delete":
-                    m.deleteMajor(id);
+                    y.deleteYear(id);
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    m.addMajor(id, name);
+                    System.out.println("Add");
+                    y.addYear(id, startDate, endDate);
                     response.sendRedirect(pathController);
                     break;
             }
