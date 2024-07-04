@@ -27,6 +27,7 @@ public class CurriculumDAO {
     String specializationName;
     String majorID;
     String majorName;
+    int status;
 
     public List<Curriculum> getAllList() {
         ResultSet rs = null;
@@ -41,7 +42,8 @@ public class CurriculumDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                list.add(new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))));
+                status = rs.getInt("status");
+                list.add(new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName)), status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +68,8 @@ public class CurriculumDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                getC = (new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))));
+                status = rs.getInt("status");
+                getC = (new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName)),status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,7 +82,9 @@ public class CurriculumDAO {
 
     public int deleteCurriculum(String curriculumID) {
         int rs = -1;
-        String query = "DELETE FROM Curriculum WHERE CurriculumID=?";
+        String query = "UPDATE Curriculum"
+                + " SET Status = 0"
+                + " WHERE CurriculumID=?";
         try {
             rs = SQL.executeUpdate(query, curriculumID);
         } catch (SQLException ex) {

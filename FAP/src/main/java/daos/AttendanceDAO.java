@@ -66,7 +66,7 @@ public class AttendanceDAO {
                 comment = rs.getString("comment");
                 note = rs.getString("note");
                 status = rs.getInt("status");
-                at = new Attendance(attendanceID, scheduleDetailID, userID, state, comment, note,status);
+                at = new Attendance(attendanceID, scheduleDetailID, userID, state, comment, note, status);
             }
         } catch (SQLException ex) {
             Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,7 +79,8 @@ public class AttendanceDAO {
 
     public int deleteAttendance(int scheduleDetailID, String userID) {
         int rs = -1;
-        String query = "DELETE FROM Attendance WHERE scheduleDetailID=?, userID=?";
+        String query = "UPDATE Attendance"
+                + " SET Status = 0, userID=?";
         try {
             rs = SQL.executeUpdate(query, scheduleDetailID, userID);
         } catch (SQLException ex) {
@@ -90,10 +91,12 @@ public class AttendanceDAO {
         return rs;
     }
 
-    public int updateAttendance(int scheduleDetailID, String userID) {
+    public int updateAttendance(int scheduleDetailID, String userID, int state, String comment, String note,
+            int status) {
         int rs = -1;
         String query = "UPDATE Attendance"
-                + " SET scheduleDetailID=?, userID=?";
+                + " SET Atten"
+                + " WHERE ScheduleDetailID=? AND UserID=?";
         try {
             rs = SQL.executeUpdate(query, scheduleDetailID, userID);
         } catch (SQLException ex) {

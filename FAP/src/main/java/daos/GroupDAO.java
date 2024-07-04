@@ -53,7 +53,8 @@ public class GroupDAO {
                 groupID = rs.getInt("GroupID");
                 groupName = (String) rs.getObject("groupName");
                 semesterID = (String) rs.getObject("semesterID");
-                gr = new Group(groupID, groupName, semesterID);
+                status = rs.getInt("status");
+                gr = new Group(groupID, groupName, semesterID,status);
             }
         } catch (SQLException ex) { 
             Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);

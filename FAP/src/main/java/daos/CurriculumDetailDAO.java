@@ -56,8 +56,10 @@ public class CurriculumDetailDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
+
                 status = rs.getInt("status");
                 list.add(new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester, status));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,7 +90,10 @@ public class CurriculumDetailDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
+
+                status = rs.getInt("status");
                 getCD = (new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester, status));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,7 +106,9 @@ public class CurriculumDetailDAO {
 
     public int deleteCurriculumDetail(String subjectID, String curriculumID) {
         int rs = -1;
-        String query = "DELETE FROM Curriculum WHERE SubjectID AND CurriculumID=?";
+        String query = "UPDATE CurriculumDetail"
+                + " SET Status = 0?"
+                + " WHERE SubjectID=? AND CurriculumID=?";
         try {
             rs = SQL.executeUpdate(query, subjectID, curriculumID);
         } catch (SQLException ex) {

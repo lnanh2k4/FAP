@@ -76,7 +76,10 @@ public class GroupSubjectDAO {
                 groupID = rs.getInt("groupID");
                 groupName = rs.getString("groupName");
                 semesterID = rs.getString("semesterID");
-                gs = new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, semesterID), status);
+
+                status = rs.getInt("status");
+                gs = new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, semesterID, status));
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(GroupSubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
