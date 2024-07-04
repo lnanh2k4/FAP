@@ -79,7 +79,8 @@ public class GroupDAO {
     public int updateGroup(int groupID, String groupName, String semesterID) {
         int rs = -1;
         String query = "UPDATE Group"
-                + " SET groupID=?, groupName=?, semesterID=?";
+                + " SET groupID=?, groupName=?, semesterID=?"
+                + " WHERE groupName=?";
         try {
             rs = SQL.executeUpdate(query, groupID, groupName, semesterID);
         } catch (SQLException ex) {

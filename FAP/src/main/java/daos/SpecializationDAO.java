@@ -67,7 +67,7 @@ public class SpecializationDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                getSP = (new Specialization(specializationID, specializationName, new Major(majorID, majorName)));
+                getSP = (new Specialization(specializationID, specializationName, new Major(majorID, majorName),status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,7 +80,9 @@ public class SpecializationDAO {
 
     public int deleteSpecialization(String specializationID) {
         int rs = -1;
-        String query = "DELETE FROM Specialization WHERE SpecializationID=?";
+        String query = "UPDATE Subject"
+                + " SET Status  = 0"
+                + " WHERE SpecializationID=?";
         try {
             rs = SQL.executeUpdate(query, specializationID);
         } catch (SQLException ex) {

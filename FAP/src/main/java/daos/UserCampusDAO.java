@@ -54,7 +54,7 @@ public class UserCampusDAO {
                 userCampusID = rs.getInt("userCampusID");
                 campusID = rs.getString("campusID");
                 userID = rs.getString("userID");
-                uc = new UserCampus(userCampusID, campusID, userID);
+                uc = new UserCampus(userCampusID, campusID, userID, status);
             }
         } catch (SQLException ex) { 
             Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +67,8 @@ public class UserCampusDAO {
     
     public int deleteUserCampus(String campusID, String userID) {
         int rs = -1;
-        String query = "DELETE FROM UserCampus WHERE campusID=?, userID=?";
+        String query = "UPDATE UserCampus"
+                + " SET Status = 0";
         try {
             rs = SQL.executeUpdate(query, campusID, userID);
         } catch (SQLException ex) {

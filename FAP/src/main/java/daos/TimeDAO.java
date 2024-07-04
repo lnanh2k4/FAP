@@ -62,7 +62,7 @@ public class TimeDAO {
                 startTime = rs.getDate("startTime").toLocalDate();
                 endTime = rs.getDate("endTime").toLocalDate();
                 description = rs.getString("description");
-                gt = new Time(timeID, slot, startTime, endTime, description);
+                gt = new Time(timeID, slot, startTime, endTime, description, status);
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,7 +75,9 @@ public class TimeDAO {
 
     public int deleteTime(int timeID) {
         int rs = -1;
-        String query = "DELETE FROM Time WHERE TimeID=?";
+        String query = "UPDATE Time"
+                + " SET Status = 0"
+                + " WHERE TimeID=?";
 
         try {
             rs = SQL.executeUpdate(query, timeID);

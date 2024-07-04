@@ -52,7 +52,7 @@ public class MajorDAO {
             while (rs.next()) {
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                getM = (new Major(majorID, majorName));
+                getM = (new Major(majorID, majorName, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MajorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +66,9 @@ public class MajorDAO {
 
     public int deleteMajor(String majorID) {
         int rs = -1;
-        String query = "DELETE FROM Major WHERE MajorID=?";
+        String query = "UPDATE Major"
+                + " SET Status = 0"
+                + " WHERE MajorID=?";
 
         try {
             rs = SQL.executeUpdate(query, majorID);
