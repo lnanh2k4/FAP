@@ -35,6 +35,7 @@ public class CurriculumDetailDAO {
     String majorID;
     String majorName;
     int cdSemester;
+    int status;
 
     public List<CurriculumDetail> getAllList() {
         ResultSet rs = null;
@@ -55,8 +56,8 @@ public class CurriculumDetailDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-
-                list.add(new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester));
+status = rs.getInt("status");
+                list.add(new CurriculumDetail(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), cdSemester,status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,11 +98,12 @@ public class CurriculumDetailDAO {
 
         return getCD;
     }
- public int deleteCurriculumDetail(String subjectID,String curriculumID) {
+
+    public int deleteCurriculumDetail(String subjectID, String curriculumID) {
         int rs = -1;
         String query = "DELETE FROM Curriculum WHERE SubjectID AND CurriculumID=?";
         try {
-            rs = SQL.executeUpdate(query, subjectID,curriculumID);
+            rs = SQL.executeUpdate(query, subjectID, curriculumID);
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -110,7 +112,7 @@ public class CurriculumDetailDAO {
         return rs;
     }
 
-    public int updateCurriculumDetail(String subjectID,String curriculumID,int cdSemester) {
+    public int updateCurriculumDetail(String subjectID, String curriculumID, int cdSemester) {
         int rs = -1;
         String query = "UPDATE CurriculumDetail"
                 + " SET CDSemester=?"
@@ -125,7 +127,7 @@ public class CurriculumDetailDAO {
         return rs;
     }
 
-    public int addCurriculumDetail(String subjectID,String curriculumID,int cdSemester) {
+    public int addCurriculumDetail(String subjectID, String curriculumID, int cdSemester) {
         int rs = -1;
         String query = "INSERT INTO CurriculumDetail(SubjectID,CurriculumID,CDSemester) VALUES (?,?,?)";
         try {

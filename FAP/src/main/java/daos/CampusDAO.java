@@ -24,6 +24,7 @@ public class CampusDAO {
     String campusAddress;
     String campusEmail;
     String campusHotline;
+    int status;
 
     public List<Campus> getAllList() {
         ResultSet rs = null;
@@ -37,7 +38,8 @@ public class CampusDAO {
                 campusAddress = rs.getString("campusAddress");
                 campusEmail = rs.getString("campusEmail");
                 campusHotline = rs.getString("campusHotline");
-                list.add(new Campus(campusID, campusName, campusEmail, campusHotline));
+                status = rs.getInt("status");
+                list.add(new Campus(campusID, campusName, campusEmail, campusHotline,status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
