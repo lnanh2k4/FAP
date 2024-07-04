@@ -12,7 +12,7 @@ import java.sql.*;
  */
 public class SQL {
 
-    private static final String JDBC_URL = "jdbc:sqlserver://localhost\\FAPDB:1433;encrypt=true;trustServerCertificate=true;";
+    private static final String JDBC_URL = "jdbc:sqlserver://localhost:1433;databaseName=FAPDB;encrypt=true;trustServerCertificate=true;";
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "sa";
 
@@ -59,17 +59,21 @@ public class SQL {
     }
 
     public static int executeUpdate(String query, Object... params) throws SQLException, ClassNotFoundException {
-        try ( Connection conn = getConnection();  PreparedStatement ps = conn.prepareStatement(query)) {
-            setParameters(ps, params);
-            return ps.executeUpdate();
-        }
+        Connection conn = getConnection();
+        PreparedStatement ps = conn.prepareStatement(query);
+        setParameters(ps, params);
+        return ps.executeUpdate();
+
     }
 
     public static ResultSet executeQuery(String query, Object... params) throws SQLException, ClassNotFoundException {
         Connection conn = getConnection();
-        PreparedStatement ps = conn.prepareStatement(query);
-        setParameters(ps, params);
-        return ps.executeQuery();
+        if (conn != null && !conn.isClosed()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            setParameters(ps, params);
+            return ps.executeQuery();
+        }
+        return null;
     }
 
 }
