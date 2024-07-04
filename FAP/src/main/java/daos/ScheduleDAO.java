@@ -22,11 +22,13 @@ import utils.SQL;
  * @author CE180117 - Dang Cong Khanh
  */
 public class ScheduleDAO {
+
     int scheduleID;
     int groupSubjectID;
     LocalDate startDate;
     LocalDate endDate;
-    
+    int status;
+
     public List<Schedule> getAllList() {
         ResultSet rs = null;
         List<Schedule> list = new ArrayList<>();
@@ -38,7 +40,8 @@ public class ScheduleDAO {
                 groupSubjectID = rs.getInt("groupSubjectID");
                 startDate = (LocalDate) rs.getObject("startDate");
                 endDate = (LocalDate) rs.getObject("endDate");
-                list.add(new Schedule(scheduleID, groupSubjectID, startDate, endDate));
+                status = rs.getInt("status");
+                list.add(new Schedule(scheduleID, groupSubjectID, startDate, endDate, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,7 +51,7 @@ public class ScheduleDAO {
 
         return list;
     }
-    
+
     public Schedule getSchedule() {
         ResultSet rs = null;
         Schedule sc = null;
@@ -70,7 +73,7 @@ public class ScheduleDAO {
 
         return sc;
     }
-    
+
     public int deleteSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
         int rs = -1;
         String query = "DELETE FROM Schedule WHERE groupSubjectID=?";

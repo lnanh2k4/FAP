@@ -32,7 +32,7 @@ public class SpecializationDAO {
     String specializationName;
     String majorID;
     String majorName;
-
+    int status;
     public List<Specialization> getAllList() {
         ResultSet rs = null;
         List<Specialization> list = new ArrayList<>();
@@ -44,7 +44,8 @@ public class SpecializationDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                list.add(new Specialization(specializationID, specializationName, new Major(majorID, majorName)));
+                status = rs.getInt("status");
+                list.add(new Specialization(specializationID, specializationName, new Major(majorID, majorName),status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SpecializationDAO.class.getName()).log(Level.SEVERE, null, ex);

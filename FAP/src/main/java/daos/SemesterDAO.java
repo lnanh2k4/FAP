@@ -19,12 +19,14 @@ import utils.SQL;
  * @author CE180117 - Dang Cong Khanh
  */
 public class SemesterDAO {
+
     String semesterID;
     String semesterName;
     LocalDate startDate;
     LocalDate endDate;
     String yearID;
-    
+    int status;
+
     public List<Semester> getAllList() {
         ResultSet rs = null;
         List<Semester> list = new ArrayList<>();
@@ -37,9 +39,10 @@ public class SemesterDAO {
                 startDate = (LocalDate) rs.getObject("startDate");
                 endDate = (LocalDate) rs.getObject("endDate");
                 yearID = (String) rs.getObject("yearID");
-                list.add(new Semester(semesterID, semesterName, startDate, endDate, yearID));
+                status = rs.getInt("status");
+                list.add(new Semester(semesterID, semesterName, startDate, endDate, yearID, status));
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,7 +50,7 @@ public class SemesterDAO {
 
         return list;
     }
-    
+
     public Semester getSemester() {
         ResultSet rs = null;
         Semester se = null;
@@ -62,7 +65,7 @@ public class SemesterDAO {
                 yearID = (String) rs.getObject("yearID");
                 se = new Semester(semesterID, semesterName, startDate, endDate, yearID);
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,7 +73,7 @@ public class SemesterDAO {
 
         return se;
     }
-    
+
     public int deleteSemester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID) {
         int rs = -1;
         String query = "DELETE FROM Semester WHERE semesterID=?, semesterName=?, startDate=?, endDate=?, yearID=?";

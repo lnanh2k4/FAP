@@ -21,7 +21,7 @@ public class RoomDAO {
 
     String roomID;
     String roomName;
-
+    int status;
     public List<Room> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Room.* FROM Room";
@@ -31,7 +31,8 @@ public class RoomDAO {
             while (rs.next()) {
                 roomID = rs.getString("roomID");
                 roomName = rs.getString("roomName");
-                list.add(new Room(roomID, roomName));
+                status = rs.getInt("status");
+                list.add(new Room(roomID, roomName, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);

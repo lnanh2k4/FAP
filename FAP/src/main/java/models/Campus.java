@@ -33,6 +33,7 @@ public class Campus {
         this.status = status;
     }
 
+
     public int getStatus() {
         return status;
     }

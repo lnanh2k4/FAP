@@ -21,7 +21,7 @@ public class MajorDAO {
 
     String majorID;
     String majorName;
-
+    int status;
     public List<Major> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Major.* FROM Major";
@@ -31,7 +31,8 @@ public class MajorDAO {
             while (rs.next()) {
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                list.add(new Major(majorID, majorName));
+                status = rs.getInt("status");
+                list.add(new Major(majorID, majorName, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MajorDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -24,7 +24,7 @@ public class SubjectDAO {
     int subjectNoCredit;
     String subjectPrerequisite;
     String subjectDescription;
-
+    int status;
     public List<Subject> getAllList() {
         ResultSet rs = null;
         List<Subject> list = new ArrayList<>();
@@ -37,7 +37,8 @@ public class SubjectDAO {
                 subjectNoCredit = rs.getInt("subjectNoCredit");
                 subjectPrerequisite = rs.getString("subjectPrerequisite");
                 subjectDescription = rs.getString("subjectDescription");
-                list.add(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription));
+                status = rs.getInt("status");
+                list.add(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);

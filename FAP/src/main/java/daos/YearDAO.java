@@ -20,10 +20,10 @@ import utils.SQL;
  */
 public class YearDAO {
 
-    private String yearID;
-    private LocalDate startDate;
-    private LocalDate endDate;
-
+    String yearID;
+    LocalDate startDate;
+    LocalDate endDate;
+    int status;
     public List<Year> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Year.* FROM Year";
@@ -34,7 +34,8 @@ public class YearDAO {
                 yearID = rs.getString("yearID");
                 startDate = rs.getDate("startDate").toLocalDate();
                 endDate = rs.getDate("endDate").toLocalDate();
-                list.add(new Year(yearID, startDate, endDate));
+                status = rs.getInt("status");
+                list.add(new Year(yearID, startDate, endDate, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);

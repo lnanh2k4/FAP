@@ -82,7 +82,9 @@ public class CurriculumDAO {
 
     public int deleteCurriculum(String curriculumID) {
         int rs = -1;
-        String query = "DELETE FROM Curriculum WHERE CurriculumID=?";
+        String query = "UPDATE Curriculum"
+                + " SET Status = 0"
+                + " WHERE CurriculumID=?";
         try {
             rs = SQL.executeUpdate(query, curriculumID);
         } catch (SQLException ex) {

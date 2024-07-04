@@ -9,14 +9,31 @@ package models;
  * @author CE180117 - Dang Cong Khanh
  */
 public class Group {
+
     private int groupID;
     private String groupName;
     private String gemesterID;
+    private int status;
 
     public Group(int groupID, String groupName, String gemesterID) {
         this.groupID = groupID;
         this.groupName = groupName;
         this.gemesterID = gemesterID;
+    }
+
+    public Group(int groupID, String groupName, String gemesterID, int status) {
+        this.groupID = groupID;
+        this.groupName = groupName;
+        this.gemesterID = gemesterID;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public Group() {
@@ -46,6 +63,4 @@ public class Group {
         this.gemesterID = gemesterID;
     }
 
-    
-    
 }

@@ -21,7 +21,7 @@ public class UserCampusDAO {
     int userCampusID;
     String campusID;
     String userID;
-    
+    int status;
     public List<UserCampus> getAllList() {
         ResultSet rs = null;
         List<UserCampus> list = new ArrayList<>();
@@ -32,7 +32,8 @@ public class UserCampusDAO {
                 userCampusID = rs.getInt("userCampusID");
                 campusID = rs.getString("campusID");
                 userID = rs.getString("userID");
-                list.add(new UserCampus(userCampusID, campusID, userID));
+                status = rs.getInt("status");
+                list.add(new UserCampus(userCampusID, campusID, userID, status));
             }
         } catch (SQLException ex) { 
             Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
