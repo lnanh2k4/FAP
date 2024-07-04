@@ -9,6 +9,7 @@ package models;
  * @author Nguyen Le Khac Vu - CE180175
  */
 public class User {
+
     private String userID;
     private String firstName;
     private String lastName;
@@ -19,6 +20,7 @@ public class User {
     private int role;
     private Curriculum curriculumID;
     private String password;
+    private int status;
 
     public User() {
     }
@@ -34,6 +36,28 @@ public class User {
         this.role = role;
         this.curriculumID = curriculumID;
         this.password = password;
+    }
+
+    public User(String userID, String firstName, String lastName, int sex, String email, String phone, int semester, int role, Curriculum curriculumID, String password, int status) {
+        this.userID = userID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sex = sex;
+        this.email = email;
+        this.phone = phone;
+        this.semester = semester;
+        this.role = role;
+        this.curriculumID = curriculumID;
+        this.password = password;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getPassword() {
@@ -115,5 +139,5 @@ public class User {
     public void setCurriculumID(Curriculum curriculumID) {
         this.curriculumID = curriculumID;
     }
-    
+
 }

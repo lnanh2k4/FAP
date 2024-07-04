@@ -16,6 +16,7 @@ public class Schedule {
     private int groupSubjectID;
     private LocalDate startDate;
     private LocalDate endDate;
+    private int status;
 
     public Schedule() {
     }
@@ -25,6 +26,22 @@ public class Schedule {
         this.groupSubjectID = groupSubjectID;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public Schedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate, int status) {
+        this.scheduleID = scheduleID;
+        this.groupSubjectID = groupSubjectID;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getScheduleID() {
@@ -58,8 +75,5 @@ public class Schedule {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
-    
-    
-    
-    
+
 }

@@ -15,15 +15,27 @@ public class Attendance {
     private int state;
     private String comment;
     private String note;
+    private int status;
 
-    public Attendance(int attendanceID, int scheduleDetailID, String userID, int state, String comment, String note) {
+    public Attendance(int attendanceID, int scheduleDetailID, String userID, int state, String comment, String note, int status) {
         this.attendanceID = attendanceID;
         this.scheduleDetailID = scheduleDetailID;
         this.userID = userID;
         this.state = state;
         this.comment = comment;
         this.note = note;
+        this.status = status;
     }
+
+    public Attendance(int scheduleDetailID, String userID, int state, String comment, String note, int status) {
+        this.scheduleDetailID = scheduleDetailID;
+        this.userID = userID;
+        this.state = state;
+        this.comment = comment;
+        this.note = note;
+        this.status = status;
+    }
+    
 
     public Attendance() {
     }
@@ -74,6 +86,14 @@ public class Attendance {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
     
 }

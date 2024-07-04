@@ -12,7 +12,7 @@ public class GroupSubjectStudent {
     private int gssID;
     private User userID;
     private GroupSubject groupSubjectID;
-
+    private int status;
     public GroupSubjectStudent() {
     }
 
@@ -22,6 +22,21 @@ public class GroupSubjectStudent {
         this.groupSubjectID = groupSubjectID;
     }
 
+    public GroupSubjectStudent(int gssID, User userID, GroupSubject groupSubjectID, int status) {
+        this.gssID = gssID;
+        this.userID = userID;
+        this.groupSubjectID = groupSubjectID;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
     public GroupSubjectStudent(User userID, GroupSubject groupSubjectID) {
         this.userID = userID;
         this.groupSubjectID = groupSubjectID;

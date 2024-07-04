@@ -17,7 +17,7 @@ public class Semester {
     private LocalDate startDate;
     private LocalDate endDate;
     private String yearID;
-
+    private int status;
     public Semester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID) {
         this.semesterID = semesterID;
         this.semesterName = semesterName;
@@ -26,7 +26,24 @@ public class Semester {
         this.yearID = yearID;
     }
 
+    public Semester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID, int status) {
+        this.semesterID = semesterID;
+        this.semesterName = semesterName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.yearID = yearID;
+        this.status = status;
+    }
+
     public Semester() {
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
     
     

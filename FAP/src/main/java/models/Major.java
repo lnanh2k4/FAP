@@ -9,8 +9,16 @@ package models;
  * @author CE181767 - Le Nhut Anh
  */
 public class Major {
+
     private String majorID;
     private String majorName;
+    private int status;
+
+    public Major(String majorID, String majorName, int status) {
+        this.majorID = majorID;
+        this.majorName = majorName;
+        this.status = status;
+    }
 
     public Major(String majorID, String majorName) {
         this.majorID = majorID;
@@ -18,6 +26,14 @@ public class Major {
     }
 
     public Major() {
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getMajorID() {
@@ -35,6 +51,5 @@ public class Major {
     public void setMajorName(String majorName) {
         this.majorName = majorName;
     }
-    
-    
+
 }

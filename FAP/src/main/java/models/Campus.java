@@ -15,12 +15,30 @@ public class Campus {
     private String campusAddress;
     private String campusEmail;
     private String campusHotline;
+    private int status;
 
     public Campus(String campusID, String campusName, String campusEmail, String campusHotline) {
         this.campusID = campusID;
         this.campusName = campusName;
         this.campusEmail = campusEmail;
         this.campusHotline = campusHotline;
+    }
+
+    public Campus(String campusID, String campusName, String campusAddress, String campusEmail, String campusHotline, int status) {
+        this.campusID = campusID;
+        this.campusName = campusName;
+        this.campusAddress = campusAddress;
+        this.campusEmail = campusEmail;
+        this.campusHotline = campusHotline;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public Campus() {
@@ -65,7 +83,5 @@ public class Campus {
     public void setCampusHotline(String campusHotline) {
         this.campusHotline = campusHotline;
     }
-    
-    
 
 }

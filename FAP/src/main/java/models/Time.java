@@ -17,6 +17,7 @@ public class Time {
     private LocalDate startTime;
     private LocalDate endTime;
     private String description;
+    private int status;
 
     public Time(int timeID, int Slot, LocalDate startTime, LocalDate endTime, String description) {
         this.timeID = timeID;
@@ -24,6 +25,23 @@ public class Time {
         this.startTime = startTime;
         this.endTime = endTime;
         this.description = description;
+    }
+
+    public Time(int timeID, int slot, LocalDate startTime, LocalDate endTime, String description, int status) {
+        this.timeID = timeID;
+        this.slot = slot;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.description = description;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public Time() {

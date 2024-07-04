@@ -9,14 +9,31 @@ package models;
  * @author CE180117 - Dang Cong Khanh
  */
 public class UserCampus {
+
     private int userCampusID;
     private String campusID;
     private String userID;
+    private int status;
 
     public UserCampus(int userCampusID, String campusID, String userID) {
         this.userCampusID = userCampusID;
         this.campusID = campusID;
         this.userID = userID;
+    }
+
+    public UserCampus(int userCampusID, String campusID, String userID, int status) {
+        this.userCampusID = userCampusID;
+        this.campusID = campusID;
+        this.userID = userID;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public UserCampus() {
@@ -45,6 +62,5 @@ public class UserCampus {
     public void setUserID(String userID) {
         this.userID = userID;
     }
-    
-    
+
 }

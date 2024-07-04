@@ -9,11 +9,13 @@ package models;
  * @author Nguyen Le Khac Vu - CE180175
  */
 public class Subject {
+
     private String subjectID;
     private String subjectName;
     private int subjectNoCredit;
     private String subjectPrerequisite;
     private String subjectDescription;
+    private int status;
 
     public Subject() {
     }
@@ -24,6 +26,23 @@ public class Subject {
         this.subjectNoCredit = subjectNoCredit;
         this.subjectPrerequisite = subjectPrerequisite;
         this.subjectDescription = subjectDescription;
+    }
+
+    public Subject(String subjectID, String subjectName, int subjectNoCredit, String subjectPrerequisite, String subjectDescription, int status) {
+        this.subjectID = subjectID;
+        this.subjectName = subjectName;
+        this.subjectNoCredit = subjectNoCredit;
+        this.subjectPrerequisite = subjectPrerequisite;
+        this.subjectDescription = subjectDescription;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getSubjectDescription() {
@@ -65,5 +84,5 @@ public class Subject {
     public void setSubjectPrerequisite(String subjectPrerequisite) {
         this.subjectPrerequisite = subjectPrerequisite;
     }
-    
+
 }

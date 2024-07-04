@@ -11,16 +11,34 @@ import java.time.LocalDate;
  * @author CE180191 - Huynh Hoang Ty
  */
 public class Week {
+
     private int weekID;
     private String startDate;
     private String endDate;
     private Semester semesterID;
+    private int status;
 
     public Week(int weekID, String startDate, String endDate, Semester semesterID) {
         this.weekID = weekID;
         this.startDate = startDate;
         this.endDate = endDate;
         this.semesterID = semesterID;
+    }
+
+    public Week(int weekID, String startDate, String endDate, Semester semesterID, int status) {
+        this.weekID = weekID;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.semesterID = semesterID;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getWeekID() {
@@ -55,8 +73,6 @@ public class Week {
         this.semesterID = semesterID;
     }
 
-    
-
     public Week(String startDate, String endDate, Semester semesterID) {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -64,5 +80,5 @@ public class Week {
     }
 
     public Week() {
-    }  
+    }
 }
