@@ -77,7 +77,8 @@ public class SemesterDAO {
     public int deleteSemester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID) {
         int rs = -1;
         String query = "UPDATE Semester"
-                + " SET Status = 0";
+                + " SET Status = 0"
+                + "WHERE SemesterID=? AND SemesterName=?";
         try {
             rs = SQL.executeUpdate(query, semesterID, semesterName, startDate, endDate, yearID);
         } catch (SQLException ex) {
@@ -91,7 +92,8 @@ public class SemesterDAO {
     public int updateSemester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID) {
         int rs = -1;
         String query = "UPDATE Semester"
-                + " SET semesterID=?, semesterName=?, startDate=?, endDate=?, yearID=?";
+                + " SET startDate=?, endDate=?, yearID=?"
+                + "WHERE SemesterID=? AND SemesterName=?";
         try {
             rs = SQL.executeUpdate(query, semesterID, semesterName, startDate, endDate, yearID);
         } catch (SQLException ex) {
