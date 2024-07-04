@@ -12,6 +12,10 @@
         <servlet-name>YearController</servlet-name>
         <servlet-class>controllers.YearController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WeekController</servlet-name>
+        <servlet-class>controllers.WeekController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -23,6 +27,10 @@
      <servlet-mapping>
         <servlet-name>YearController</servlet-name>
         <url-pattern>/YearController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WeekController</servlet-name>
+        <url-pattern>/WeekController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

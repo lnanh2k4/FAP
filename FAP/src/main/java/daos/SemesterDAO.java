@@ -34,10 +34,10 @@ public class SemesterDAO {
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
-                semesterID = (String) rs.getObject("semesterID");
+                semesterID = rs.getString("semesterID");
                 semesterName = (String) rs.getObject("semesterName");
-                startDate = (LocalDate) rs.getObject("startDate");
-                endDate = (LocalDate) rs.getObject("endDate");
+                startDate =  rs.getDate("startDate").toLocalDate();
+                endDate = rs.getDate("endDate").toLocalDate();
                 yearID = (String) rs.getObject("yearID");
                 status = rs.getInt("status");
                 list.add(new Semester(semesterID, semesterName, startDate, endDate, yearID, status));
