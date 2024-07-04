@@ -24,7 +24,6 @@ public class SubjectDAO {
     int subjectNoCredit;
     String subjectPrerequisite;
     String subjectDescription;
-    
 
     public List<Subject> getAllList() {
         ResultSet rs = null;
@@ -33,12 +32,12 @@ public class SubjectDAO {
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
-                 subjectID = rs.getString("subjectID");
+                subjectID = rs.getString("subjectID");
                 subjectName = rs.getString("subjectName");
                 subjectNoCredit = rs.getInt("subjectNoCredit");
                 subjectPrerequisite = rs.getString("subjectPrerequisite");
                 subjectDescription = rs.getString("subjectDescription");
-                list.add(new Subject(subjectID,subjectName,subjectNoCredit,subjectPrerequisite,subjectDescription));
+                list.add(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,20 +47,20 @@ public class SubjectDAO {
 
         return list;
     }
-    
+
     public Subject getSubject() {
         ResultSet rs = null;
-         Subject getS = null;
-        String query = "SELECT*FROM Subject";
+        Subject getS = null;
+        String query = "SELECT * FROM Subject";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
-                 subjectID = rs.getString("subjectID");
+                subjectID = rs.getString("subjectID");
                 subjectName = rs.getString("subjectName");
                 subjectNoCredit = rs.getInt("subjectNoCredit");
                 subjectPrerequisite = rs.getString("subjectPrerequisite");
                 subjectDescription = rs.getString("subjectDescription");
-                getS = (new Subject(subjectID,subjectName,subjectNoCredit,subjectPrerequisite,subjectDescription));
+                getS = (new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,5 +69,46 @@ public class SubjectDAO {
         }
 
         return getS;
+    }
+
+    public int deleteSubject(String subjectID) {
+        int rs = -1;
+        String query = "DELETE FROM Subject WHERE SubjectID=?";
+        try {
+            rs = SQL.executeUpdate(query, subjectID);
+        } catch (SQLException ex) {
+            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int updateSubject(String subjectID,String subjectName,int subjectNoCredit,String subjectPrerequisite,String subjectDescription) {
+        int rs = -1;
+        String query = "UPDATE Subject"
+                + " SET SubjectName=?, SubjectNoCredit=?, SubjectPrerequisite=?,SubjectDescription=?"
+                + " WHERE SubjectID=?";
+        try {
+            rs = SQL.executeUpdate(query, subjectName, subjectNoCredit, subjectPrerequisite,subjectDescription,subjectID);
+        } catch (SQLException ex) {
+            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int addSubject(String subjectID, String subjectName, int subjectNoCredit, String subjectPrerequisite,String subjectDescription) {
+        int rs = -1;
+        String query = "INSERT INTO [Subject](SubjectID,SubjectName,SubjectNoCredit,SubjectPrerequisite,SubjectDescription) VALUES (?,?,?,?,?)";
+        try {
+            rs = SQL.executeUpdate(query, subjectID, subjectName, subjectNoCredit, subjectPrerequisite,subjectDescription);
+        } catch (SQLException ex) {
+            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
     }
 }

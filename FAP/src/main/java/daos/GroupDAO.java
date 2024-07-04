@@ -62,12 +62,43 @@ public class GroupDAO {
         return gr;
     }
     
-    public int addGroup(int groupID, String groupName, String semesterID){
-        int rs=-1;
+    public int deleteGroup(String groupName, String semesterID) {
+        int rs = -1;
+        String query = "DELETE FROM Group WHERE groupName=?, semesterID=?";
+        try {
+            rs = SQL.executeUpdate(query, groupName, semesterID);
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
-            String query="";
-            
+    public int updateGroup(int groupID, String groupName, String semesterID) {
+        int rs = -1;
+        String query = "UPDATE Group"
+                + " SET groupID=?, groupName=?, semesterID=?";
+        try {
+            rs = SQL.executeUpdate(query, groupID, groupName, semesterID);
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
+    public int addGroup(int groupID, String groupName, String semesterID) {
+        int rs = -1;
+        String query = "INSERT INTO Group(groupID,groupName,semesterID) VALUES (?,?,?)";
+        try {
+            rs = SQL.executeUpdate(query, groupID, groupName, semesterID);
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return rs;
     }
 }

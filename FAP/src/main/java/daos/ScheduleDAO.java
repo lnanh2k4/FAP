@@ -41,9 +41,9 @@ public class ScheduleDAO {
                 list.add(new Schedule(scheduleID, groupSubjectID, startDate, endDate));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return list;
@@ -63,20 +63,51 @@ public class ScheduleDAO {
                 sc = new Schedule(scheduleID, groupSubjectID, startDate, endDate);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return sc;
     }
     
-    public int addSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate){
-        int rs=-1;
+    public int deleteSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
+        int rs = -1;
+        String query = "DELETE FROM Schedule WHERE groupSubjectID=?";
+        try {
+            rs = SQL.executeUpdate(query, groupSubjectID);
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
-            String query="";
-            
+    public int updateSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
+        int rs = -1;
+        String query = "UPDATE Schedule"
+                + " SET scheduleID=?, groupSubjectID=?, startDate=?, endDate=?";
+        try {
+            rs = SQL.executeUpdate(query, scheduleID, groupSubjectID, startDate, endDate);
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
+    public int addSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
+        int rs = -1;
+        String query = "INSERT INTO Schedule(scheduleID,groupSubjectID,startDate,endDate) VALUES (?,?,?,?)";
+        try {
+            rs = SQL.executeUpdate(query, scheduleID, groupSubjectID, startDate, endDate);
+        } catch (SQLException ex) {
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return rs;
     }
 }

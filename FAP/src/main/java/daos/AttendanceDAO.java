@@ -73,12 +73,43 @@ public class AttendanceDAO {
         return at;
     }
     
-    public int addAttendance(int attendanceID, int scheduleDetailID, String userID, int state, String comment, String note){
-        int rs=-1;
+    public int deleteAttendance(int scheduleDetailID, String userID) {
+        int rs = -1;
+        String query = "DELETE FROM Attendance WHERE scheduleDetailID=?, userID=?";
+        try {
+            rs = SQL.executeUpdate(query, scheduleDetailID, userID);
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
-            String query="";
-            
+    public int updateAttendance(int scheduleDetailID, String userID) {
+        int rs = -1;
+        String query = "UPDATE Attendance"
+                + " SET scheduleDetailID=?, userID=?";
+        try {
+            rs = SQL.executeUpdate(query, scheduleDetailID, userID);
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
+    public int addAttendance(int scheduleDetailID, String userID) {
+        int rs = -1;
+        String query = "INSERT INTO Attendance(scheduleDetailID,userID) VALUES (?,?)";
+        try {
+            rs = SQL.executeUpdate(query, scheduleDetailID, userID);
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return rs;
     }
 }

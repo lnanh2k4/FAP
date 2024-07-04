@@ -39,7 +39,7 @@ public class CurriculumDetailDAO {
     public List<CurriculumDetail> getAllList() {
         ResultSet rs = null;
         List<CurriculumDetail> list = new ArrayList<>();
-        String query = "SELECT*FROM[User] INNER JOINCurriculum ON [User].CurriculumID = Curriculum.CurriculumID INNER JOINSpecialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOINMajor ON Specialization.MajorID = Major.MajorID";
+        String query = "SELECT*FROM CurriculumDetail INNER JOIN Subject ON CurriculumDetail.SubjectID = Subject.SubjectID INNER JOIN Curriculum ON CurriculumDetail.CurriculumID = Curriculum.CurriculumID INNER JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOIN Major ON Specialization.MajorID = Major.MajorID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
@@ -97,5 +97,44 @@ public class CurriculumDetailDAO {
 
         return getCD;
     }
+ public int deleteCurriculumDetail(String subjectID,String curriculumID) {
+        int rs = -1;
+        String query = "DELETE FROM Curriculum WHERE SubjectID AND CurriculumID=?";
+        try {
+            rs = SQL.executeUpdate(query, subjectID,curriculumID);
+        } catch (SQLException ex) {
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
+    public int updateCurriculumDetail(String subjectID,String curriculumID,int cdSemester) {
+        int rs = -1;
+        String query = "UPDATE CurriculumDetail"
+                + " SET CDSemester=?"
+                + " WHERE SubjectID=? AND CurriculumID=?";
+        try {
+            rs = SQL.executeUpdate(query, cdSemester, subjectID, curriculumID);
+        } catch (SQLException ex) {
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int addCurriculumDetail(String subjectID,String curriculumID,int cdSemester) {
+        int rs = -1;
+        String query = "INSERT INTO CurriculumDetail(SubjectID,CurriculumID,CDSemester) VALUES (?,?,?)";
+        try {
+            rs = SQL.executeUpdate(query, subjectID, curriculumID, cdSemester);
+        } catch (SQLException ex) {
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CurriculumDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 }
