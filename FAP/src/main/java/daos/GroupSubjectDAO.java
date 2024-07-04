@@ -30,6 +30,7 @@ public class GroupSubjectDAO {
     int groupID;
     String groupName;
     String semesterID;
+    int status;
 
     public List<GroupSubject> getAllList() {
         ResultSet rs = null;
@@ -47,7 +48,8 @@ public class GroupSubjectDAO {
                 groupID = rs.getInt("groupID");
                 groupName = rs.getString("groupName");
                 semesterID = rs.getString("semesterID");
-                list.add(new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, semesterID)));
+                status = rs.getInt("status");
+                list.add(new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, semesterID), status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(GroupSubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,6 +101,5 @@ public class GroupSubjectDAO {
 
         return rs;
     }
-    
 
 }

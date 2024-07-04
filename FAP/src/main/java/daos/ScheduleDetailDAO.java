@@ -19,6 +19,7 @@ import utils.SQL;
  * @author CE180117 - Dang Cong Khanh
  */
 public class ScheduleDetailDAO {
+
     int scheduleDetailID;
     int scheduleID;
     String roomID;
@@ -29,17 +30,18 @@ public class ScheduleDetailDAO {
     String schlDescription;
     int subjectSession;
     LocalDate date;
-    
+    int status;
+
     public List<ScheduleDetail> getAllList() {
         ResultSet rs = null;
         List<ScheduleDetail> list = new ArrayList<>();
-        String query = "SELECT * FROM ScheduleDetail INNER JOIN" +
-                        " Schedule ON ScheduleDetail.ScheduleID = Schedule.ScheduleID INNER JOIN" +
-                        " Room ON ScheduleDetail.RoomID = Room.RoomID INNER JOIN" +
-                        " [User] ON ScheduleDetail.LecturerID = [User].UserID INNER JOIN" +
-                        " Time ON ScheduleDetail.TimeID = Time.TimeID INNER JOIN" +
-                        " Campus ON ScheduleDetail.CampusID = Campus.CampusID INNER JOIN" +
-                        " Week ON ScheduleDetail.WeekID = Week.WeekID";
+        String query = "SELECT * FROM ScheduleDetail INNER JOIN"
+                + " Schedule ON ScheduleDetail.ScheduleID = Schedule.ScheduleID INNER JOIN"
+                + " Room ON ScheduleDetail.RoomID = Room.RoomID INNER JOIN"
+                + " [User] ON ScheduleDetail.LecturerID = [User].UserID INNER JOIN"
+                + " Time ON ScheduleDetail.TimeID = Time.TimeID INNER JOIN"
+                + " Campus ON ScheduleDetail.CampusID = Campus.CampusID INNER JOIN"
+                + " Week ON ScheduleDetail.WeekID = Week.WeekID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
@@ -53,7 +55,8 @@ public class ScheduleDetailDAO {
                 schlDescription = rs.getString("schlDescription");
                 subjectSession = rs.getInt(subjectSession);
                 date = (LocalDate) rs.getObject("date");
-                list.add(new ScheduleDetail(scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date));
+                status = rs.getInt("status");
+                list.add(new ScheduleDetail(scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,17 +66,17 @@ public class ScheduleDetailDAO {
 
         return list;
     }
-    
+
     public ScheduleDetail getScheduleDetail() {
         ResultSet rs = null;
         ScheduleDetail sd = null;
-        String query = "SELECT * FROM ScheduleDetail INNER JOIN" +
-                        " Schedule ON ScheduleDetail.ScheduleID = Schedule.ScheduleID INNER JOIN" +
-                        " Room ON ScheduleDetail.RoomID = Room.RoomID INNER JOIN" +
-                        " [User] ON ScheduleDetail.LecturerID = [User].UserID INNER JOIN" +
-                        " Time ON ScheduleDetail.TimeID = Time.TimeID INNER JOIN" +
-                        " Campus ON ScheduleDetail.CampusID = Campus.CampusID INNER JOIN" +
-                        " Week ON ScheduleDetail.WeekID = Week.WeekID";
+        String query = "SELECT * FROM ScheduleDetail INNER JOIN"
+                + " Schedule ON ScheduleDetail.ScheduleID = Schedule.ScheduleID INNER JOIN"
+                + " Room ON ScheduleDetail.RoomID = Room.RoomID INNER JOIN"
+                + " [User] ON ScheduleDetail.LecturerID = [User].UserID INNER JOIN"
+                + " Time ON ScheduleDetail.TimeID = Time.TimeID INNER JOIN"
+                + " Campus ON ScheduleDetail.CampusID = Campus.CampusID INNER JOIN"
+                + " Week ON ScheduleDetail.WeekID = Week.WeekID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
@@ -97,8 +100,8 @@ public class ScheduleDetailDAO {
 
         return sd;
     }
-    
-    public int deleteScheduleDetail(int scheduleDetailID ,int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
+
+    public int deleteScheduleDetail(int scheduleDetailID, int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
         int rs = -1;
         String query = "DELETE FROM ScheduleDetail WHERE scheduleDetailID=?, scheduleID=?, roomID=?, userID=?, timeID=?, campusID=?, weekID=?";
         try {
@@ -111,7 +114,7 @@ public class ScheduleDetailDAO {
         return rs;
     }
 
-    public int updateScheduleDetail(int scheduleDetailID ,int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
+    public int updateScheduleDetail(int scheduleDetailID, int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
         int rs = -1;
         String query = "UPDATE ScheduleDetail"
                 + " SET scheduleDetailID=?, scheduleID=?, roomID=?, userID=?, timeID=?, campusID=?, weekID=?";
@@ -125,7 +128,7 @@ public class ScheduleDetailDAO {
         return rs;
     }
 
-    public int addScheduleDetail(int scheduleDetailID ,int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
+    public int addScheduleDetail(int scheduleDetailID, int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
         int rs = -1;
         String query = "INSERT INTO ScheduleDetail(scheduleDetailID,scheduleID,roomID,userID,timeID,campusID,weekID) VALUES (?,?,?,?,?,?,?)";
         try {
@@ -137,5 +140,5 @@ public class ScheduleDetailDAO {
         }
         return rs;
     }
-    
+
 }

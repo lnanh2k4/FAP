@@ -25,7 +25,7 @@ public class TimeDAO {
     LocalDate startTime;
     LocalDate endTime;
     String description;
-
+    int status;
     public List<Time> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Time.* FROM Time";
@@ -38,7 +38,8 @@ public class TimeDAO {
                 startTime = rs.getDate("startTime").toLocalDate();
                 endTime = rs.getDate("endTime").toLocalDate();
                 description = rs.getString("description");
-                list.add(new Time(timeID, slot, startTime, endTime, description));
+                status = rs.getInt("status");
+                list.add(new Time(timeID, slot, startTime, endTime, description, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);

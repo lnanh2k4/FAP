@@ -31,7 +31,7 @@ public class WeekDAO {
     String semesterID;
     String semesterName;
     String YearID;
-
+    int status;
     public List<Week> getAllList() {
         ResultSet rs = null;
         String query = "SELECT * FROM Week INNER JOIN Semester ON Week.SemesterID = Semester.SemesterIDSELECT * FROM Week INNER JOIN Semester ON Week.SemesterID = Semester.SemesterID";
@@ -47,7 +47,8 @@ public class WeekDAO {
                 weekEndDate = rs.getString("endDate");
                 semesterStartDate = rs.getDate("startDate").toLocalDate();
                 semesterEndDate = rs.getDate("endDate").toLocalDate();
-                list.add(new Week(weekID, weekStartDate, weekEndDate, new Semester(semesterID, semesterName, semesterStartDate, semesterEndDate, YearID)));
+                status = rs.getInt("status");
+                list.add(new Week(weekID, weekStartDate, weekEndDate, new Semester(semesterID, semesterName, semesterStartDate, semesterEndDate, YearID),status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);

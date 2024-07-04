@@ -38,7 +38,7 @@ public class UserDAO {
     String specializationName;
     String majorID;
     String majorName;
-
+    int status;
     public List<User> getAllList() {
         ResultSet rs = null;
         List<User> list = new ArrayList<>();
@@ -61,7 +61,8 @@ public class UserDAO {
                 specializationName = rs.getString("specializationName");
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
-                list.add(new User(userID, firstName, lastName, sex, email, phone, semester, role, new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), password));
+                status = rs.getInt("status");
+                list.add(new User(userID, firstName, lastName, sex, email, phone, semester, role, new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), password, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
