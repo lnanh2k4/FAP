@@ -24,34 +24,37 @@ public class YearDAO {
     LocalDate startDate;
     LocalDate endDate;
     int status;
+
     public List<Year> getAllList() {
         ResultSet rs = null;
-        String query = "SELECT Year.* FROM Year";
+        String query = "SELECT * FROM dbo.Year";
         List<Year> list = new ArrayList();
         try {
             rs = SQL.executeQuery(query);
+            System.out.println("Row " + rs.getRow());
             while (rs.next()) {
                 yearID = rs.getString("yearID");
-                startDate = rs.getDate("startDate").toLocalDate();
-                endDate = rs.getDate("endDate").toLocalDate();
+                startDate = rs.getDate("StartDate").toLocalDate();
+                endDate = rs.getDate("EndDate").toLocalDate();
                 status = rs.getInt("status");
-                list.add(new Year(yearID, startDate, endDate, status));
+                if (status > -1) {
+                    list.add(new Year(yearID, startDate, endDate, status));
+                }
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
+            list.size();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
         return list;
     }
 
-    public Year getYear() {
+    public Year getYear(String yearID) {
         ResultSet rs = null;
         Year gy = null;
-        String query = "SELECT Year.* FROM Year";
+        String query = "SELECT Year.* FROM Year WHERE YearID=?";
         try {
-            rs = SQL.executeQuery(query);
+            rs = SQL.executeQuery(query, yearID);
             while (rs.next()) {
                 yearID = rs.getString("yearID");
                 startDate = rs.getDate("startDate").toLocalDate();
@@ -67,10 +70,10 @@ public class YearDAO {
         return gy;
     }
 
-    public int deleteYear(int yearID) {
+    public int deleteYear(String yearID) {
         int rs = -1;
         String query = "UPDATE Year"
-                + " SET Status = 0"
+                + " SET Status = -1"
                 + " WHERE YearID=?";
 
         try {
@@ -84,14 +87,14 @@ public class YearDAO {
         return rs;
     }
 
-    public int updateYear(LocalDate startDate, LocalDate endDate) {
+    public int updateYear(String yearID, LocalDate startDate, LocalDate endDate) {
         int rs = -1;
         String query = "UPDATE Year"
-                + " SET StartTime=?,EndTime=?"
+                + " SET StartDate=?,EndDate=?"
                 + " WHERE YearID=?";
 
         try {
-            rs = SQL.executeUpdate(query, startDate, endDate);
+            rs = SQL.executeUpdate(query, startDate, endDate, yearID);
         } catch (SQLException ex) {
             Logger.getLogger(YearDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -103,8 +106,7 @@ public class YearDAO {
 
     public int addYear(String yearID, LocalDate startDate, LocalDate endDate) {
         int rs = -1;
-        String query = "INSERT INTO String(YearID,StartDate, EndDate) VALUES (?,?,?)";
-
+        String query = "INSERT INTO Year(YearID,StartDate, EndDate) VALUES (?,?,?)";
         try {
             rs = SQL.executeUpdate(query, yearID, startDate, endDate);
         } catch (SQLException ex) {

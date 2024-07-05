@@ -15,6 +15,10 @@
         <body>
             <h1>Hello World!</h1>
             <a href="MajorController">Major</a>
+            <br>
+            <a href="YearController">Year</a>
+            <br>
+            <a href="YearController">Week</a>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
                 integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
                 crossorigin="anonymous"></script>
