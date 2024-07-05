@@ -68,7 +68,8 @@ public class UserCampusDAO {
     public int deleteUserCampus(String campusID, String userID) {
         int rs = -1;
         String query = "UPDATE UserCampus"
-                + " SET Status = 0";
+                + " SET Status = 0"
+                + " WHERE CampusID=? AND UserID=?";
         try {
             rs = SQL.executeUpdate(query, campusID, userID);
         } catch (SQLException ex) {
@@ -79,19 +80,6 @@ public class UserCampusDAO {
         return rs;
     }
 
-    public int updateUserCampus(String campusID, String userID) {
-        int rs = -1;
-        String query = "UPDATE UserCampus"
-                + " SET campusID=?, userID=?";
-        try {
-            rs = SQL.executeUpdate(query, campusID, userID);
-        } catch (SQLException ex) {
-            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return rs;
-    }
 
     public int addUserCampus(String campusID, String userID) {
         int rs = -1;

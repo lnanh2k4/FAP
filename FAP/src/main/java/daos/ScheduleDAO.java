@@ -78,7 +78,7 @@ public class ScheduleDAO {
         int rs = -1;
         String query = "UPDATE Schedule"
                 + " SET Status = 0" 
-                + " WHERE ScheduleID = ?";
+                + " WHERE ScheduleID=? AND GroupSubjectID=?";
         try {
             rs = SQL.executeUpdate(query, groupSubjectID);
         } catch (SQLException ex) {
@@ -92,8 +92,8 @@ public class ScheduleDAO {
     public int updateSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
         int rs = -1;
         String query = "UPDATE Schedule"
-                + " SET scheduleID=?, groupSubjectID=?, startDate=?, endDate=?"
-                + " WHERE ScheduleID = ?";
+                + " SET StartDate=?, EndDate=?"
+                + " WHERE ScheduleID=? AND GroupSubjectID=?";
         try {
             rs = SQL.executeUpdate(query, scheduleID, groupSubjectID, startDate, endDate);
         } catch (SQLException ex) {

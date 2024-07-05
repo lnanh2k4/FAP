@@ -51,9 +51,9 @@ public class GroupDAO {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
                 groupID = rs.getInt("GroupID");
-                groupName = (String) rs.getObject("groupName");
-                semesterID = (String) rs.getObject("semesterID");
-                status = rs.getInt("status");
+                groupName = (String) rs.getObject("GroupName");
+                semesterID = (String) rs.getObject("SemesterID");
+                status = rs.getInt("Status");
                 gr = new Group(groupID, groupName, semesterID,status);
             }
         } catch (SQLException ex) { 
@@ -66,7 +66,7 @@ public class GroupDAO {
     
     public int deleteGroup(String groupName, String semesterID) {
         int rs = -1;
-        String query = "DELETE FROM Group WHERE groupName=?, semesterID=?";
+        String query = "DELETE FROM Group WHERE GroupName=? AND SemesterID=?";
         try {
             rs = SQL.executeUpdate(query, groupName, semesterID);
         } catch (SQLException ex) {
@@ -80,8 +80,8 @@ public class GroupDAO {
     public int updateGroup(int groupID, String groupName, String semesterID) {
         int rs = -1;
         String query = "UPDATE Group"
-                + " SET groupID=?, groupName=?, semesterID=?"
-                + " WHERE groupName=?";
+                + " SET GroupName=?"
+                + " WHERE GroupName=? AND SemesterID=?";
         try {
             rs = SQL.executeUpdate(query, groupID, groupName, semesterID);
         } catch (SQLException ex) {
@@ -94,7 +94,7 @@ public class GroupDAO {
 
     public int addGroup(int groupID, String groupName, String semesterID) {
         int rs = -1;
-        String query = "INSERT INTO Group(groupID,groupName,semesterID) VALUES (?,?,?)";
+        String query = "INSERT INTO Group(GroupID,GroupName,SemesterID) VALUES (?,?,?)";
         try {
             rs = SQL.executeUpdate(query, groupID, groupName, semesterID);
         } catch (SQLException ex) {
