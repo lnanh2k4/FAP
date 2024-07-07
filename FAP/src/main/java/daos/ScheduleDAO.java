@@ -4,6 +4,7 @@
  */
 package daos;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -36,10 +37,12 @@ public class ScheduleDAO {
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
-                scheduleID = rs.getInt("scheduleID");
-                groupSubjectID = rs.getInt("groupSubjectID");
-                startDate = (LocalDate) rs.getObject("startDate");
-                endDate = (LocalDate) rs.getObject("endDate");
+                int scheduleID = rs.getInt("scheduleID");
+                int groupSubjectID = rs.getInt("groupSubjectID");
+                Date sqlStartDate = rs.getDate("startDate");
+                Date sqlEndDate = rs.getDate("endDate");
+                LocalDate startDate = sqlStartDate.toLocalDate(); 
+                LocalDate endDate = sqlEndDate.toLocalDate();
                 status = rs.getInt("status");
                 list.add(new Schedule(scheduleID, groupSubjectID, startDate, endDate, status));
             }
@@ -52,7 +55,7 @@ public class ScheduleDAO {
         return list;
     }
 
-    public Schedule getSchedule() {
+    public Schedule getSchedule(int scheduleID) {
         ResultSet rs = null;
         Schedule sc = null;
         String query = "SELECT * FROM Schedule INNER JOIN GroupSubject ON Schedule.GroupSubjectID = GroupSubject.GroupSubjectID";
@@ -74,10 +77,10 @@ public class ScheduleDAO {
         return sc;
     }
 
-    public int deleteSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
+    public int deleteSchedule(int scheduleID, int groupSubjectID) {
         int rs = -1;
         String query = "UPDATE Schedule"
-                + " SET Status = 0" 
+                + " SET Status = 0"
                 + " WHERE ScheduleID=? AND GroupSubjectID=?";
         try {
             rs = SQL.executeUpdate(query, groupSubjectID);
@@ -104,9 +107,9 @@ public class ScheduleDAO {
         return rs;
     }
 
-    public int addSchedule(int scheduleID, int groupSubjectID, LocalDate startDate, LocalDate endDate) {
+    public int addSchedule(int groupSubjectID, LocalDate startDate, LocalDate endDate) {
         int rs = -1;
-        String query = "INSERT INTO Schedule(scheduleID,groupSubjectID,startDate,endDate) VALUES (?,?,?,?)";
+        String query = "INSERT INTO Schedule(groupSubjectID,startDate,endDate) VALUES ?,?,?)";
         try {
             rs = SQL.executeUpdate(query, scheduleID, groupSubjectID, startDate, endDate);
         } catch (SQLException ex) {
