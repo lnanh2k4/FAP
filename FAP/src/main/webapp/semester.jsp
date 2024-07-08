@@ -28,7 +28,6 @@
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Year ID</th>
-                            <th>Status</th>
                             <th colspan="2">Action</th>
                         </tr>
                     </thead>

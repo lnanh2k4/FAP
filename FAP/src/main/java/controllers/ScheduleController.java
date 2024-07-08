@@ -71,15 +71,15 @@ public class ScheduleController extends HttpServlet {
             switch (check) {
                 case "edit":
                     request.setAttribute("schedule", w.getSchedule(id));
-                    request.getRequestDispatcher("editScheule.jsp").forward(request, response);
+                    request.getRequestDispatcher("editSchedule.jsp").forward(request, response);
                     break;
                 case "delete":
                     request.setAttribute("schedule", w.getSchedule(id));
                     System.out.println(id);
-                    request.getRequestDispatcher("deleteScheule.jsp").forward(request, response);
+                    request.getRequestDispatcher("deleteSchedule.jsp").forward(request, response);
                     break;
                 case "add":
-                    response.sendRedirect("addScheule.jsp");
+                    response.sendRedirect("addSchedule.jsp");
                     break;
             }
         }

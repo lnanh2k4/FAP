@@ -26,7 +26,6 @@
                         <th>Group ID</th>
                         <th>Group Name</th>
                         <th>Semester ID</th>
-                        <th>Status</th>
                         <th colspan="2">Action</th>
                     </tr>
                 </thead>
@@ -36,7 +35,6 @@
                             <td scope="row">${item.groupID}</td>
                             <td>${item.groupName}</td>
                             <td>${item.semesterID}</td>
-                            <td>${item.status}</td>
                             <td>
                                 <a class="btn btn-primary" href="GroupController?groupName=${item.groupName}&semesterID=${item.semesterID}&check=edit" role="button">Edit</a>
                                 <a class="btn btn-primary" href="GroupController?groupName=${item.groupName}&semesterID=${item.semesterID}&check=delete" role="button">Delete</a>

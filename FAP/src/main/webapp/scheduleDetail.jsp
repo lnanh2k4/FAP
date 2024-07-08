@@ -35,7 +35,6 @@
                             <th>Description</th>
                             <th>Session</th>
                             <th>Date</th>
-                            <th>Status</th>
                             <th colspan="2">Action</th>
                         </tr>
                     </thead>
@@ -52,7 +51,6 @@
                                 <td>${item.schlDescription}</td>
                                 <td>${item.subjectSession}</td>
                                 <td>${item.date}</td>
-                                <td>${item.status}</td>
                                 <td>
                                     <a class="btn btn-primary" href="ScheduleDetailController?id=${item.scheduleDetailID}&action=edit" role="button">Edit</a>
                                     <a class="btn btn-danger" href="ScheduleDetailController?id=${item.scheduleDetailID}&action=delete" role="button">Delete</a>

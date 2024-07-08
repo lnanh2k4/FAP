@@ -44,7 +44,7 @@ public class UserCampusDAO {
         return list;
     }
     
-    public UserCampus getUserCampus() {
+    public UserCampus getUserCampus(int userCampusID) {
         ResultSet rs = null;
         UserCampus uc = null;
         String query = "SELECT * FROM UserCampus INNER JOIN Campus ON UserCampus.CampusID = Campus.CampusID INNER JOIN [User] ON UserCampus.UserID = [User].UserID";
@@ -65,18 +65,20 @@ public class UserCampusDAO {
         return uc;
     }
     
-    public int deleteUserCampus(String campusID, String userID) {
+    public int deleteUserCampus(int userCampusID) {
         int rs = -1;
         String query = "UPDATE UserCampus"
-                + " SET Status = 0"
-                + " WHERE CampusID=? AND UserID=?";
+                + " SET status=-1"
+                + " WHERE UserCampusID=?";
+
         try {
-            rs = SQL.executeUpdate(query, campusID, userID);
+            rs = SQL.executeUpdate(query, userCampusID);
         } catch (SQLException ex) {
-            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return rs;
     }
 
