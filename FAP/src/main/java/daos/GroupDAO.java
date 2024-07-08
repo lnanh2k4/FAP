@@ -27,7 +27,7 @@ public class GroupDAO {
     public List<Group> getAllList() {
         ResultSet rs = null;
         List<Group> list = new ArrayList<>();
-        String query = "SELECT * FROM [Group] INNER JOIN Semester ON [Group].SemesterID = Semester.SemesterID";
+        String query = "SELECT * FROM dbo.[Group]";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
@@ -43,28 +43,32 @@ public class GroupDAO {
         return list;
     }
 
-    public Group getGroup(String groupName, String semesterID) {
+    public Group getGroup(int groupID) {
         ResultSet rs = null;
-        Group group = null;
-        String query = "SELECT * FROM [Group] WHERE GroupName=? AND SemesterID=?";
+        Group getG = null;
+        String query = "SELECT [Group].* FROM [Group] WHERE groupID=?";
         try {
             rs = SQL.executeQuery(query, groupName, semesterID);
             if (rs.next()) {
-                int groupID = rs.getInt("GroupID");
-                int status = rs.getInt("Status");
-                group = new Group(groupID, groupName, semesterID, status);
+                groupID = rs.getInt("GroupID");
+                groupName = rs.getString("GroupName");
+                semesterID = rs.getString("SemesterID");
+                status = rs.getInt("Status");
+                getG = new Group(groupID, groupName, semesterID, status);
             }
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return group;
+        return getG;
     }
 
-    public int deleteGroup(String groupName, String semesterID) {
+    public int deleteGroup(int groupID) {
         int result = -1;
-        String query = "DELETE FROM [Group] WHERE GroupName=? AND SemesterID=?";
+        String query = "UPDATE [Group]"
+                + " SET status=-1"
+                + " WHERE groupID=?";;
         try {
-            result = SQL.executeUpdate(query, groupName, semesterID);
+            result = SQL.executeUpdate(query, groupID);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

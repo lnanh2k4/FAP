@@ -41,23 +41,22 @@ public class GroupController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String check = request.getParameter("check");
-        String groupName = request.getParameter("groupName");
-        String semesterID = request.getParameter("semesterID");
-        GroupDAO groupDAO = new GroupDAO();
+        String idParam = request.getParameter("id");
+        int id = idParam != null ? Integer.parseInt(idParam) : -1;
+        System.out.println(id);
+        GroupDAO g = new GroupDAO();
         if (check == null) {
-            List<Group> list = groupDAO.getAllList();
+            List<Group> list = g.getAllList();
             request.setAttribute("groupList", list);
             request.getRequestDispatcher("group.jsp").forward(request, response);
         } else {
             switch (check) {
                 case "edit":
-                    Group group = groupDAO.getGroup(groupName, semesterID);
-                    request.setAttribute("group", group);
+                    request.setAttribute("group", g.getGroup(id));
                     request.getRequestDispatcher("editGroup.jsp").forward(request, response);
                     break;
                 case "delete":
-                    group = groupDAO.getGroup(groupName, semesterID);
-                    request.setAttribute("group", group);
+                    request.setAttribute("group", id);
                     request.getRequestDispatcher("deleteGroup.jsp").forward(request, response);
                     break;
                 case "add":
@@ -72,6 +71,9 @@ public class GroupController extends HttpServlet {
             throws ServletException, IOException {
         String pathController = "GroupController";
         String check = request.getParameter("check");
+        String idParam = request.getParameter("id");
+        System.out.println("id param" + idParam);
+        int id = idParam != null ? Integer.parseInt(idParam) : -1;
         String groupName = request.getParameter("groupName");
         String semesterID = request.getParameter("semesterID");
         int groupID = Integer.parseInt(request.getParameter("groupID"));
@@ -84,7 +86,7 @@ public class GroupController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "delete":
-                    groupDAO.deleteGroup(groupName, semesterID);
+                    groupDAO.deleteGroup(id);
                     response.sendRedirect(pathController);
                     break;
                 case "add":

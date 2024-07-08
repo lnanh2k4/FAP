@@ -33,25 +33,25 @@
                 <div class="card-body">
                     <h1>Add Semester</h1>
                     <div class="form-group">
-
-                        <div class="form-group">
-                            <label for="semesterName">Semester Name</label>
-                            <input type="text" class="form-control" name="startDate" id="startDate" placeholder="6/2  ">
-                        </div>
-                        <div class="form-group">
-                            <label for="startDate">Start Date</label>
-                            <input type="text" class="form-control" name="startDate" id="startDate" placeholder="6/2  ">
-                        </div>
-                        <div class="form-group">
-                            <label for="endDate">End Date</label>
-                            <input type="text" class="form-control" name="endDate" id="endDate" placeholder="12/2 ">
-                        </div>
                         <label for="semesterID">Year ID</label>
                         <select class="form-control" name="semesterID" id="semesterID">
                             <c:forEach var="item" items="${requestScope.yearList}">
                                 <option value="${item.yearID}">${item.yearID}</option>
                             </c:forEach>
                         </select>
+                        <div class="form-group">
+                            <label for="semesterName">Semester Name</label>
+                            <input type="text" class="form-control" name="semesterName" id="semesterName" placeholder="Spring 2023  ">
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="text" class="form-control" name="startDate" id="startDate" placeholder="6/2">
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">End Date</label>
+                            <input type="text" class="form-control" name="endDate" id="endDate" placeholder="12/2">
+                        </div>
+
                     </div>
                 </div>
                 <div class="container">
