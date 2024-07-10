@@ -1,4 +1,4 @@
-<%-- Document : major Created on : Jul 4, 2024, 10:49:00 AM Author : mrmas --%>
+<%-- Document : major Created on : Jul 4, 2024, 10:49:00 AM Author : CE180191 - Huynh Hoang Ty --%>
 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@page contentType="text/html" pageEncoding="UTF-8" %>
