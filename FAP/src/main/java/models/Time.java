@@ -5,6 +5,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *
@@ -14,12 +15,12 @@ public class Time {
 
     private int timeID;
     private int slot;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private String description;
     private int status;
 
-    public Time(int timeID, int Slot, LocalDate startTime, LocalDate endTime, String description) {
+    public Time(int timeID, int Slot, LocalTime startTime, LocalTime endTime, String description) {
         this.timeID = timeID;
         this.slot = Slot;
         this.startTime = startTime;
@@ -27,7 +28,7 @@ public class Time {
         this.description = description;
     }
 
-    public Time(int timeID, int slot, LocalDate startTime, LocalDate endTime, String description, int status) {
+    public Time(int timeID, int slot, LocalTime startTime, LocalTime endTime, String description, int status) {
         this.timeID = timeID;
         this.slot = slot;
         this.startTime = startTime;
@@ -63,21 +64,23 @@ public class Time {
         this.slot = Slot;
     }
 
-    public LocalDate getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
+
+
 
     public String getDescription() {
         return description;

@@ -32,7 +32,9 @@ public class RoomDAO {
                 roomID = rs.getString("roomID");
                 roomName = rs.getString("roomName");
                 status = rs.getInt("status");
-                list.add(new Room(roomID, roomName, status));
+                if (status != -1) { 
+                    list.add(new Room(roomID, roomName, status));
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -43,12 +45,12 @@ public class RoomDAO {
         return list;
     }
 
-    public Room getRoom() {
+    public Room getRoom(String id) {
         ResultSet rs = null;
         Room gr = null;
-        String query = "SELECT Room.* FROM Room";
+        String query = "SELECT Room.* FROM Room Where RoomID=?";
         try {
-            rs = SQL.executeQuery(query);
+            rs = SQL.executeQuery(query, id);
             while (rs.next()) {
                 roomID = rs.getString("roomID");
                 roomName = rs.getString("roomName");
@@ -66,7 +68,7 @@ public class RoomDAO {
     public int deleteRoom(String roomID) {
         int rs = -1;
         String query = "UPDATE Room"
-                + " SET Status = 0"
+                + " SET Status = -1"
                 + " WHERE RoomID=?";
         try {
             rs = SQL.executeUpdate(query, roomID);
@@ -98,7 +100,32 @@ public class RoomDAO {
 
     public int addRoom(String roomID, String roomName) {
         int rs = -1;
+        Room r = getRoom(roomID);
+        if (r != null) {
+            if (r.getRoomID().equals(roomID)) {
+                System.out.println("if dung");
+                updateRoomStatus(roomID, roomName);
+                return rs;
+            }
+        }
         String query = "INSERT INTO Room(RoomID,RoomName) VALUES (?,?)";
+
+        try {
+            rs = SQL.executeUpdate(query, roomID, roomName);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+
+    public int updateRoomStatus(String roomID, String roomName) {
+        int rs = -1;
+        String query = "UPDATE Room"
+                + " SET RoomName=?"
+                + " WHERE RoomID=?";
 
         try {
             rs = SQL.executeUpdate(query, roomName, roomID);

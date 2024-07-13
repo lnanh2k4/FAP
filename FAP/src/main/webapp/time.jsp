@@ -16,28 +16,32 @@
             </head>
 
             <body>
-                <h1>Manage Year</h1>
-                <a name="" id="" class="btn btn-primary" href="YearController?check=add" role="button">Add Year</a>
+                <h1>Manage Time</h1>
+                <a name="" id="" class="btn btn-primary" href="TimeController?check=add" role="button">Add Time</a>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover table-borderless table-primary align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Year ID</th>
-                                <th>Start date</th>
-                                <th>End date</th>
+                                <th>Time ID</th>
+                                <th>Slot</th>
+                                <th>Start Time</th>
+                                <th>End Time</th> 
+                                <th>Description</th> 
                                 <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                            <c:forEach var="item" items="${requestScope.yearList}">
+                            <c:forEach var="item" items="${requestScope.timeList}">
                                 <tr class="table-primary">
-                                    <td scope="row">${item.yearID}</td>
-                                    <td>${item.startDate}</td>
-                                    <td>${item.endDate}</td>
-                                    <td><a class="btn btn-primary" href="YearController?id=${item.yearID}&check=edit"
+                                    <td scope="row">${item.timeID}</td>
+                                    <td>${item.slot}</td>
+                                    <td>${item.startTime}</td>
+                                    <td>${item.endTime}</td> 
+                                    <td>${item.description}</td>  
+                                    <td><a class="btn btn-primary" href="TimeController?id=${item.timeID}&check=edit"
                                             role="button">Edit</a>
                                         <a class="btn btn-primary"
-                                            href="YearController?id=${item.yearID}&check=delete"
+                                            href="TimeController?id=${item.timeID}&check=delete"
                                             role="button">Delete</a>
                                     </td>
                                     

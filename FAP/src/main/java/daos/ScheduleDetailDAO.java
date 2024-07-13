@@ -45,16 +45,16 @@ public class ScheduleDetailDAO {
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
-                scheduleDetailID = rs.getInt(scheduleDetailID);
-                scheduleID = rs.getInt(scheduleID);
+                scheduleDetailID = rs.getInt("scheduleDetailID");
+                scheduleID = rs.getInt("scheduleID");
                 roomID = rs.getString("roomID");
                 userID = rs.getString("userID");
-                timeID = rs.getInt(timeID);
+                timeID = rs.getInt("timeID");
                 campusID = rs.getString("campusID");
-                weekID = rs.getInt(weekID);
+                weekID = rs.getInt("weekID");
                 schlDescription = rs.getString("schlDescription");
-                subjectSession = rs.getInt(subjectSession);
-                date = (LocalDate) rs.getObject("date");
+                subjectSession = rs.getInt("subjectSession");
+                date = rs.getDate("date").toLocalDate();
                 status = rs.getInt("status");
                 list.add(new ScheduleDetail(scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date, status));
             }
@@ -62,12 +62,20 @@ public class ScheduleDetailDAO {
             Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
 
         return list;
     }
 
-    public ScheduleDetail getScheduleDetail() {
+    public ScheduleDetail getScheduleDetail(int scheduleDetailID) {
         ResultSet rs = null;
         ScheduleDetail sd = null;
         String query = "SELECT * FROM ScheduleDetail INNER JOIN"
@@ -77,20 +85,20 @@ public class ScheduleDetailDAO {
                 + " Time ON ScheduleDetail.TimeID = Time.TimeID INNER JOIN"
                 + " Campus ON ScheduleDetail.CampusID = Campus.CampusID INNER JOIN"
                 + " Week ON ScheduleDetail.WeekID = Week.WeekID"
-                + " WHERE ScheduleID = ? AND RoomID = ? AND LectuerID = ? AND TimeID = ? AND CampusID = ? AND WeekID = ?";
+                + " WHERE scheduleDetailID = ?";
         try {
-            rs = SQL.executeQuery(query);
-            while (rs.next()) {
-                scheduleDetailID = rs.getInt(scheduleDetailID);
-                scheduleID = rs.getInt(scheduleID);
+            rs = SQL.executeQuery(query, scheduleDetailID);
+            if (rs.next()) {
+                scheduleID = rs.getInt("scheduleID");
                 roomID = rs.getString("roomID");
                 userID = rs.getString("userID");
-                timeID = rs.getInt(timeID);
+                timeID = rs.getInt("timeID");
                 campusID = rs.getString("campusID");
-                weekID = rs.getInt(weekID);
+                weekID = rs.getInt("weekID");
                 schlDescription = rs.getString("schlDescription");
-                subjectSession = rs.getInt(subjectSession);
-                date = (LocalDate) rs.getObject("date");
+                subjectSession = rs.getInt("subjectSession");
+                date = rs.getDate("date").toLocalDate();
+                status = rs.getInt("status");
                 sd = new ScheduleDetail(scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date, status);
             }
         } catch (SQLException ex) {
@@ -102,13 +110,13 @@ public class ScheduleDetailDAO {
         return sd;
     }
 
-    public int deleteScheduleDetail(int scheduleDetailID, int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
+    public int deleteScheduleDetail(int scheduleDetailID) {
         int rs = -1;
         String query = "UPDATE ScheduleDetail"
                 + " SET Status = 0"
-                + " WHERE ScheduleID = ? AND RoomID = ? AND LectuerID = ? AND TimeID = ? AND CampusID = ? AND WeekID = ?";
+                + " WHERE scheduleDetailID = ?";
         try {
-            rs = SQL.executeUpdate(query, scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID);
+            rs = SQL.executeUpdate(query, scheduleDetailID);
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -117,13 +125,13 @@ public class ScheduleDetailDAO {
         return rs;
     }
 
-    public int updateScheduleDetail(int scheduleDetailID, int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
+    public int updateScheduleDetail(int scheduleDetailID, int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID, String schlDescription, int subjectSession, LocalDate date, int status) {
         int rs = -1;
         String query = "UPDATE ScheduleDetail"
-                + " SET scheduleDetailID=?, scheduleID=?, roomID=?, userID=?, timeID=?, campusID=?, weekID=?"
-                + " WHERE ScheduleID = ? AND RoomID = ? AND LectuerID = ? AND TimeID = ? AND CampusID = ? AND WeekID = ?";
+                + " SET scheduleID=?, roomID=?, userID=?, timeID=?, campusID=?, weekID=?, schlDescription=?, subjectSession=?, date=?, status=?"
+                + " WHERE scheduleDetailID=?";
         try {
-            rs = SQL.executeUpdate(query, scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID);
+            rs = SQL.executeUpdate(query, scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date, status, scheduleDetailID);
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -132,11 +140,11 @@ public class ScheduleDetailDAO {
         return rs;
     }
 
-    public int addScheduleDetail(int scheduleDetailID, int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID) {
+    public int addScheduleDetail(int scheduleID, String roomID, String userID, int timeID, String campusID, int weekID, String schlDescription, int subjectSession, LocalDate date, int status) {
         int rs = -1;
-        String query = "INSERT INTO ScheduleDetail(scheduleDetailID,scheduleID,roomID,userID,timeID,campusID,weekID) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO ScheduleDetail(scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date, status) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
-            rs = SQL.executeUpdate(query, scheduleDetailID, scheduleID, roomID, userID, timeID, campusID, weekID);
+            rs = SQL.executeUpdate(query, scheduleID, roomID, userID, timeID, campusID, weekID, schlDescription, subjectSession, date, status);
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -144,5 +152,4 @@ public class ScheduleDetailDAO {
         }
         return rs;
     }
-
 }

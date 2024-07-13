@@ -36,7 +36,7 @@ public class SemesterDAO {
             while (rs.next()) {
                 semesterID = rs.getString("semesterID");
                 semesterName = (String) rs.getObject("semesterName");
-                startDate =  rs.getDate("startDate").toLocalDate();
+                startDate = rs.getDate("startDate").toLocalDate();
                 endDate = rs.getDate("endDate").toLocalDate();
                 yearID = (String) rs.getObject("yearID");
                 status = rs.getInt("status");
@@ -51,23 +51,21 @@ public class SemesterDAO {
         return list;
     }
 
-    public Semester getSemester() {
+    public Semester getSemester(String semesterID) {
         ResultSet rs = null;
         Semester se = null;
-        String query = "SELECT * FROM Semester INNER JOIN Year ON Semester.YearID = Year.YearID";
+        String query = "SELECT * FROM Semester INNER JOIN Year ON Semester.YearID = Year.YearID WHERE SemesterID=?";
         try {
-            rs = SQL.executeQuery(query);
-            while (rs.next()) {
-                semesterID = (String) rs.getObject("semesterID");
-                semesterName = (String) rs.getObject("semesterName");
-                startDate = (LocalDate) rs.getObject("startDate");
-                endDate = (LocalDate) rs.getObject("endDate");
-                yearID = (String) rs.getObject("yearID");
+            rs = SQL.executeQuery(query, semesterID);
+            if (rs.next()) {
+                String semesterName = rs.getString("semesterName");
+                LocalDate startDate = rs.getDate("startDate").toLocalDate();
+                LocalDate endDate = rs.getDate("endDate").toLocalDate();
+                String yearID = rs.getString("yearID");
+                int status = rs.getInt("status");
                 se = new Semester(semesterID, semesterName, startDate, endDate, yearID, status);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SemesterDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 

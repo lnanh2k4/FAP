@@ -16,28 +16,27 @@
             </head>
 
             <body>
-                <h1>Manage Year</h1>
-                <a name="" id="" class="btn btn-primary" href="YearController?check=add" role="button">Add Year</a>
+                <h1>Manage Room</h1>
+                <a name="" id="" class="btn btn-primary" href="RoomController?check=add" role="button">Add Room</a>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover table-borderless table-primary align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Year ID</th>
-                                <th>Start date</th>
-                                <th>End date</th>
+                                <th>Room ID</th>
+                                <th>Room Name</th>
+                                
                                 <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                            <c:forEach var="item" items="${requestScope.yearList}">
+                            <c:forEach var="item" items="${requestScope.roomList}">
                                 <tr class="table-primary">
-                                    <td scope="row">${item.yearID}</td>
-                                    <td>${item.startDate}</td>
-                                    <td>${item.endDate}</td>
-                                    <td><a class="btn btn-primary" href="YearController?id=${item.yearID}&check=edit"
+                                    <td scope="row">${item.roomID}</td>
+                                    <td>${item.roomName}</td>
+                                    <td><a class="btn btn-primary" href="RoomController?id=${item.roomID}&check=edit"
                                             role="button">Edit</a>
                                         <a class="btn btn-primary"
-                                            href="YearController?id=${item.yearID}&check=delete"
+                                            href="RoomController?id=${item.roomID}&check=delete"
                                             role="button">Delete</a>
                                     </td>
                                     

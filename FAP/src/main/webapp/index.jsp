@@ -1,4 +1,3 @@
-<%-- Document : index Created on : Jul 3, 2024, 8:30:22 AM Author : CE181767 - Le Nhut Anh --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -18,13 +17,30 @@
         <br>
         <a href="YearController">Year</a>
         <br>
+        <a href="TimeController">Time</a>
+        <br>
         <a href="WeekController">Week</a>
+        <br>
+        <a href="RoomController">Room</a>
+        <br>
+        <a href="ScheduleController">Schedule</a>
+        <br>
+        <a href="GroupController">Group</a>
+        <br>
+        <a href="SemesterController">Semester</a>
+        <br>
+        <a href="ScheduleDetailController">Schedule Detail</a>
         <br>
         <a href="SubjectController">Subject</a>
         <br>
         <a href="SpecializationController">Specialization</a>
         <br>
         <a href="CurriculumController">Curriculum</a>
+        <br>
+        <a href="AttendanceController">Attendance</a>
+        <br>
+        <a href="UserCampusController">User's Campus</a>
+
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
                 integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
         crossorigin="anonymous"></script>

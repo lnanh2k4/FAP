@@ -5,26 +5,35 @@
             <!DOCTYPE html>
             <html>
 
-            <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                <title>JSP Page</title>
-                <link rel="stylesheet"
-                    href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-                    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-                    crossorigin="anonymous">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Major Management</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+              integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    </head>
 
-            </head>
-
-            <body>
-                <h1>Manage Major</h1>
-                <a name="" id="" class="btn btn-primary" href="MajorController?check=add" role="button">Add major</a>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover table-borderless table-primary align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Major ID</th>
-                                <th>Major Name</th>
-                                <th colspan="2">Action</th>
+    <body>
+        <div class="container">
+            <h1>Manage Major</h1>
+            <a name="" id="" class="btn btn-primary" href="MajorController?check=add" role="button">Add Major</a>
+            <div class="table-responsive mt-3">
+                <table class="table table-striped table-hover table-borderless table-primary align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Major ID</th>
+                            <th>Major Name</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-major-divider">
+                        <c:forEach var="item" items="${requestScope.majorList}">
+                            <tr class="table-primary">
+                                <td scope="row">${item.majorID}</td>
+                                <td>${item.majorName}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="MajorController?majorName=${item.majorName}&semesterID=${item.semesterID}&check=edit" role="button">Edit</a>
+                                    <a class="btn btn-primary" href="MajorController?majorName=${item.majorName}&semesterID=${item.semesterID}&check=delete" role="button">Delete</a>
+                                </td>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">

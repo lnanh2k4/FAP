@@ -45,7 +45,7 @@ public class AttendanceDAO {
                 comment = rs.getString("comment");
                 note = rs.getString("note");
                 status = rs.getInt("status");
-                list.add(new Attendance(scheduleDetailID, userID, state, comment, note, status));
+                list.add(new Attendance(attendanceID, scheduleDetailID, userID, state, comment, note, status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,14 +56,13 @@ public class AttendanceDAO {
         return list;
     }
 
-    public Attendance getAttendance() {
+    public Attendance getAttendance(int attendanceID) {
         ResultSet rs = null;
         Attendance at = null;
-        String query = "SELECT * FROM Attendance INNER JOIN [User] ON Attendance.UserID = [User].UserID CROSS JOIN Campus";
+        String query = "SELECT * FROM Attendance INNER JOIN [User] ON Attendance.UserID = [User].UserID CROSS JOIN Campus WHERE AttendanceID = ?";
         try {
-            rs = SQL.executeQuery(query);
-            while (rs.next()) {
-                attendanceID = rs.getInt("attendanceID");
+            rs = SQL.executeQuery(query, attendanceID);
+            if (rs.next()) {
                 scheduleDetailID = rs.getInt("scheduleDetailID");
                 userID = rs.getString("userID");
                 state = rs.getInt("state");
@@ -83,9 +82,7 @@ public class AttendanceDAO {
 
     public int deleteAttendance(int scheduleDetailID, String userID) {
         int rs = -1;
-        String query = "UPDATE Attendance"
-                + " SET Status = 0"
-                + "WHERE scheduleDetailID=? AND userID=?";
+        String query = "UPDATE Attendance SET Status = 0 WHERE scheduleDetailID=? AND userID=?";
         try {
             rs = SQL.executeUpdate(query, scheduleDetailID, userID);
         } catch (SQLException ex) {
@@ -96,14 +93,11 @@ public class AttendanceDAO {
         return rs;
     }
 
-    public int updateAttendance(int scheduleDetailID, String userID, int state, String comment, String note,
-            int status) {
+    public int updateAttendance(int scheduleDetailID, String userID, int state, String comment, String note) {
         int rs = -1;
-        String query = "UPDATE Attendance"
-                + " SET Atten State=?, Comment=?, Note=?"
-                + " WHERE ScheduleDetailID=? AND UserID=?";
+        String query = "UPDATE Attendance SET State=?, Comment=?, Note=?, Status=? WHERE ScheduleDetailID=? AND UserID";
         try {
-            rs = SQL.executeUpdate(query, scheduleDetailID, userID);
+            rs = SQL.executeUpdate(query, state, comment, note, status, attendanceID);
         } catch (SQLException ex) {
             Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -114,7 +108,7 @@ public class AttendanceDAO {
 
     public int addAttendance(int scheduleDetailID, String userID) {
         int rs = -1;
-        String query = "INSERT INTO Attendance(ScheduleDetailID,userID) VALUES (?,?)";
+        String query = "INSERT INTO Attendance(ScheduleDetailID, UserID) VALUES (?, ?)";
         try {
             rs = SQL.executeUpdate(query, scheduleDetailID, userID);
         } catch (SQLException ex) {
@@ -124,12 +118,25 @@ public class AttendanceDAO {
         }
         return rs;
     }
-    
+
     public int presentAll(int scheduleDetailID) {
         int rs = -1;
         String query = "UPDATE Attendance SET State = 1 WHERE ScheduleDetailID = ?";
         try {
             rs = SQL.executeUpdate(query, scheduleDetailID);
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int present(int attendanceID) {
+        int rs = -1;
+        String query = "UPDATE Attendance SET State = 1 WHERE AttendanceID = ?";
+        try {
+            rs = SQL.executeUpdate(query, attendanceID);
         } catch (SQLException ex) {
             Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -150,37 +157,48 @@ public class AttendanceDAO {
         }
         return rs;
     }
-    
-    public int randomizeAttendanceState(String yearID, String semesterID, int weekID, int scheduleID, int scheduleDetailID) {
-    int updatedRows = 0;
-    String selectQuery = "SELECT UserID FROM Attendance "
-                        + "INNER JOIN ScheduleDetail ON Attendance.ScheduleDetailID = ScheduleDetail.ScheduleDetailID "
-                        + "INNER JOIN Schedule ON ScheduleDetail.ScheduleID = Schedule.ScheduleID "
-                        + "INNER JOIN Week ON ScheduleDetail.WeekID = Week.WeekID "
-                        + "INNER JOIN Semester ON Week.SemesterID = Semester.SemesterID "
-                        + "INNER JOIN Year ON Semester.YearID = Year.YearID "
-                        + "WHERE Year.YearID = ? AND Semester.SemesterID = ? AND Week.WeekID = ? AND Schedule.ScheduleID = ? AND Attendance.ScheduleDetailID = ?";
-    List<String> userIDs = new ArrayList<>();
-    
-    try {
-        ResultSet rs = SQL.executeQuery(selectQuery, yearID, semesterID, weekID, scheduleID, scheduleDetailID);
-        while (rs.next()) {
-            userIDs.add(rs.getString("UserID"));
+
+    public int absent(int attendanceID) {
+        int rs = -1;
+        String query = "UPDATE Attendance SET State = 0 WHERE AttendanceID = ?";
+        try {
+            rs = SQL.executeUpdate(query, attendanceID);
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        Random random = new Random();
-        for (String userID : userIDs) {
-            int state = random.nextInt(100) < 80 ? 1 : 0;
-            String updateQuery = "UPDATE Attendance SET State = ? WHERE ScheduleDetailID = ? AND UserID = ?";
-            int result = SQL.executeUpdate(updateQuery, state, scheduleDetailID, userID);
-            updatedRows += result;
-        }
-    } catch (SQLException | ClassNotFoundException ex) {
-        Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        return rs;
     }
-    
-    return updatedRows;
-}
 
+    public int randomizeAttendanceState(String yearID, String semesterID, int weekID, int scheduleID, int scheduleDetailID) {
+        int updatedRows = 0;
+        String selectQuery = "SELECT UserID FROM Attendance "
+                + "INNER JOIN ScheduleDetail ON Attendance.ScheduleDetailID = ScheduleDetail.ScheduleDetailID "
+                + "INNER JOIN Schedule ON ScheduleDetail.ScheduleID = Schedule.ScheduleID "
+                + "INNER JOIN Week ON ScheduleDetail.WeekID = Week.WeekID "
+                + "INNER JOIN Semester ON Week.SemesterID = Semester.SemesterID "
+                + "INNER JOIN Year ON Semester.YearID = Year.YearID "
+                + "WHERE Year.YearID = ? AND Semester.SemesterID = ? AND Week.WeekID = ? AND Schedule.ScheduleID = ? AND Attendance.ScheduleDetailID = ?";
+        List<String> userIDs = new ArrayList<>();
 
+        try {
+            ResultSet rs = SQL.executeQuery(selectQuery, yearID, semesterID, weekID, scheduleID, scheduleDetailID);
+            while (rs.next()) {
+                userIDs.add(rs.getString("UserID"));
+            }
+
+            Random random = new Random();
+            for (String userID : userIDs) {
+                int state = random.nextInt(100) < 80 ? 1 : 0;
+                String updateQuery = "UPDATE Attendance SET State = ? WHERE ScheduleDetailID = ? AND UserID = ?";
+                int result = SQL.executeUpdate(updateQuery, state, scheduleDetailID, userID);
+                updatedRows += result;
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(AttendanceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return updatedRows;
+    }
 }
