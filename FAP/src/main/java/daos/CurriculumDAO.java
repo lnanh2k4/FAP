@@ -32,32 +32,6 @@ public class CurriculumDAO {
     public List<Curriculum> getAllList() {
         ResultSet rs = null;
         List<Curriculum> list = new ArrayList<>();
-        String query = "SELECT* FROM Curriculum INNER JOINSpecialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOINMajor ON Specialization.MajorID = Major.MajorID";
-        try {
-            rs = SQL.executeQuery(query);
-            while (rs.next()) {
-                curriculumID = rs.getString("curriculumID");
-                curriculumName = rs.getString("curriculumName");
-                specializationID = rs.getString("specializationID");
-                specializationName = rs.getString("specializationName");
-                majorID = rs.getString("majorID");
-                majorName = rs.getString("majorName");
-                status = rs.getInt("status");
-                list.add(new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName)), status));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return list;
-    }
-
-    public Curriculum getCurriculum() {
-        ResultSet rs = null;
-        Curriculum getC = null;
-
         String query = "SELECT* FROM Curriculum INNER JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOIN Major ON Specialization.MajorID = Major.MajorID";
         try {
             rs = SQL.executeQuery(query);
@@ -69,7 +43,36 @@ public class CurriculumDAO {
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
                 status = rs.getInt("status");
-                getC = (new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName)),status));
+                if (status > -1) {
+                    list.add(new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName)), status));
+
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+
+    public Curriculum getCurriculum(String curriculumID) {
+        ResultSet rs = null;
+        Curriculum getC = null;
+
+        String query = "SELECT* FROM Curriculum INNER JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOIN Major ON Specialization.MajorID = Major.MajorID WHERE CurriculumID =?";
+        try {
+            rs = SQL.executeQuery(query, curriculumID);
+            while (rs.next()) {
+                curriculumID = rs.getString("curriculumID");
+                curriculumName = rs.getString("curriculumName");
+                specializationID = rs.getString("specializationID");
+                specializationName = rs.getString("specializationName");
+                majorID = rs.getString("majorID");
+                majorName = rs.getString("majorName");
+                status = rs.getInt("status");
+                getC = (new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName)), status));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CurriculumDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +86,7 @@ public class CurriculumDAO {
     public int deleteCurriculum(String curriculumID) {
         int rs = -1;
         String query = "UPDATE Curriculum"
-                + " SET Status = 0"
+                + " SET Status = -1"
                 + " WHERE CurriculumID=?";
         try {
             rs = SQL.executeUpdate(query, curriculumID);

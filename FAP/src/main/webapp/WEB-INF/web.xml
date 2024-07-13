@@ -16,6 +16,18 @@
         <servlet-name>WeekController</servlet-name>
         <servlet-class>controllers.WeekController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubjectController</servlet-name>
+        <servlet-class>controllers.SubjectController</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>SpecializationController</servlet-name>
+        <servlet-class>controllers.SpecializationController</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>CurriculumController</servlet-name>
+        <servlet-class>controllers.CurriculumController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -31,6 +43,18 @@
     <servlet-mapping>
         <servlet-name>WeekController</servlet-name>
         <url-pattern>/WeekController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectController</servlet-name>
+        <url-pattern>/SubjectController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SpecializationController</servlet-name>
+        <url-pattern>/SpecializationController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CurriculumController</servlet-name>
+        <url-pattern>/CurriculumController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
