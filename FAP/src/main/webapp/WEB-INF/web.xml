@@ -13,6 +13,14 @@
         <servlet-class>controllers.YearController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>RoomController</servlet-name>
+        <servlet-class>controllers.RoomController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TimeController</servlet-name>
+        <servlet-class>controllers.TimeController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>WeekController</servlet-name>
         <servlet-class>controllers.WeekController</servlet-class>
     </servlet>
@@ -53,8 +61,16 @@
         <url-pattern>/YearController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>TimeController</servlet-name>
+        <url-pattern>/TimeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>WeekController</servlet-name>
         <url-pattern>/WeekController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoomController</servlet-name>
+        <url-pattern>/RoomController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ScheduleController</servlet-name>

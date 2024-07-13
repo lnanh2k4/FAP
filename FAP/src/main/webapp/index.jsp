@@ -18,7 +18,11 @@
             <br>
             <a href="YearController">Year</a>
             <br>
+            <a href="TimeController">Time</a>
+            <br>
             <a href="WeekController">Week</a>
+            <br>
+            <a href="RoomController">Room</a>
             <br>
             <a href="ScheduleController">Schedule</a>
             <br>
