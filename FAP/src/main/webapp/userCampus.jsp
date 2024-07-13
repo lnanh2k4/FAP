@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                        <c:forEach var="item" items="${requestScope.userSampusList}">
+                        <c:forEach var="item" items="${requestScope.userCampusList}">
                             <tr class="table-primary">
                                 <td scope="row">${item.UserCampusID}</td>
                                 <td>${item.ScheduleID}</td>
