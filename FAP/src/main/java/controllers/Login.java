@@ -36,16 +36,18 @@ public class Login extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         String check = request.getParameter("check");
-        if (check.equals("signout")) {
-            session.invalidate();
+        if (check != null) {
+            if (check.equals("signout")) {
+                session.invalidate();
+            }
         }
-        if (user == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        } else {
+
+        if (user != null) {
             response.sendRedirect("index.jsp");
             return;
         }
+        response.sendRedirect("login.jsp");
+        return;
 
     }
 
@@ -66,14 +68,24 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         String campus = request.getParameter("campus");
         User user = u.getUser(email);
+        System.out.println(user);
         if (user != null) {
+            System.out.println(u.checkUser(user, email, password, campus));
             if (u.checkUser(user, email, password, campus)) {
                 session.setAttribute("user", user);
+                System.out.println("Trong if dung");
                 response.sendRedirect("index.jsp");
+                return;
+            } else {
+                System.out.println("Trong if sai");
+                String erorrMessage = "Inputed information is incorrect!";
+                request.setAttribute("errorLogin", erorrMessage);
+                request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;
             }
         } else {
-            String erorrMessage = "Inputed information is incorrect!";
+            System.out.println("Khong co tai khoan");
+            String erorrMessage = "Inputed information is not existed!";
             request.setAttribute("errorLogin", erorrMessage);
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;

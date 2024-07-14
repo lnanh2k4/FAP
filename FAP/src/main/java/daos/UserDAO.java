@@ -108,6 +108,39 @@ public class UserDAO {
         return getU;
     }
 
+    public User getUserByUserID(String userID) {
+        ResultSet rs = null;
+        User getU = null;
+        String query = "SELECT * FROM [User] INNER JOIN Curriculum ON [User].CurriculumID = Curriculum.CurriculumID INNER JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOIN Major ON Specialization.MajorID = Major.MajorID where userID=?";
+        try {
+            rs = SQL.executeQuery(query, email);
+            while (rs.next()) {
+                email = rs.getString("email");
+                firstName = rs.getString("firstName");
+                lastName = rs.getString("lastName");
+                sex = rs.getInt("sex");
+                email = rs.getString("email");
+                phone = rs.getString("phone");
+                semester = rs.getInt("semester");
+                role = rs.getInt("role");
+                password = rs.getString("password");
+                curriculumID = rs.getString("curriculumID");
+                curriculumName = rs.getString("curriculumName");
+                specializationID = rs.getString("specializationID");
+                specializationName = rs.getString("specializationName");
+                majorID = rs.getString("majorID");
+                majorName = rs.getString("majorName");
+                getU = (new User(userID, firstName, lastName, sex, email, phone, semester, role, new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), password, status));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return getU;
+    }
+
     public int deleteUser(String userID) {
         int rs = -1;
         String query = "UPDATE User"
@@ -165,9 +198,15 @@ public class UserDAO {
 
     public boolean checkUser(User user, String email, String password, String campus) {
         UserCampusDAO uc = new UserCampusDAO();
+        System.out.println("user.getPassword() != null" + user.getPassword() != null);
+        System.out.println("user.getUserID().equals(password)" + user.getUserID().equals(password));
+        System.out.println("uc.getUserCampus(user.getUserID()).getCampusID().equals(campus) " + uc.getUserCampus(user.getUserID()).getCampusID().equals(campus));
+        System.out.println("user.getStatus() != -1 " + (user.getStatus() != -1));
+        System.out.println("uc.getUserCampus(user.getUserID()).getCampusID()" + uc.getUserCampus(user.getUserID()).getCampusID().getCampusID());
+        System.out.println("campus"+ campus);
         if (user.getPassword() != null) {
-            return (Encryption.equalsSHA256(password, user.getPassword()) && uc.getUserCampus(user.getUserID()).equals(campus) && status != -1);
+            return (Encryption.equalsSHA256(password, user.getPassword()) && uc.getUserCampus(user.getUserID()).getCampusID().getCampusID().equals(campus) && user.getStatus() != -1);
         }
-        return (user.getUserID().equals(password) && uc.getUserCampus(user.getUserID()).getCampusID().equals(campus) && user.getStatus() != -1);
+        return (user.getUserID().equals(password) && uc.getUserCampus(user.getUserID()).getCampusID().getCampusID().equals(campus) && user.getStatus() != -1);
     }
 }

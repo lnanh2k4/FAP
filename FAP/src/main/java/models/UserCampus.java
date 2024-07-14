@@ -11,18 +11,12 @@ package models;
 public class UserCampus {
 
     private int userCampusID;
-    private String campusID;
-    private String userID;
+    private Campus campusID;
+    private User userID;
     private int status;
 
-    public UserCampus(int userCampusID, String campusID, String userID, int status) {
+    public UserCampus(int userCampusID, Campus campusID, User userID, int status) {
         this.userCampusID = userCampusID;
-        this.campusID = campusID;
-        this.userID = userID;
-        this.status = status;
-    }
-
-    public UserCampus(String campusID, String userID, int status) {
         this.campusID = campusID;
         this.userID = userID;
         this.status = status;
@@ -36,19 +30,19 @@ public class UserCampus {
         this.userCampusID = userCampusID;
     }
 
-    public String getCampusID() {
+    public Campus getCampusID() {
         return campusID;
     }
 
-    public void setCampusID(String campusID) {
+    public void setCampusID(Campus campusID) {
         this.campusID = campusID;
     }
 
-    public String getUserID() {
+    public User getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(User userID) {
         this.userID = userID;
     }
 
