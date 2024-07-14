@@ -33,6 +33,13 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
+                        <a href="CampusController" class="card-link">Campus</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
                         <a href="MajorController" class="card-link">Major</a>
                     </div>
                 </div>
