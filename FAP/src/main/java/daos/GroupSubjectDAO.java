@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Group;
 import models.GroupSubject;
+import models.Semester;
 import models.Subject;
 import utils.SQL;
 
@@ -49,7 +50,7 @@ public class GroupSubjectDAO {
                 groupName = rs.getString("groupName");
                 semesterID = rs.getString("semesterID");
                 status = rs.getInt("status");
-                list.add(new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, semesterID), status));
+                list.add(new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, new Semester(semesterID), status)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(GroupSubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,7 +79,7 @@ public class GroupSubjectDAO {
                 semesterID = rs.getString("semesterID");
 
                 status = rs.getInt("status");
-                gs = new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, semesterID, status));
+                gs = new GroupSubject(groupSubjectID, new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription), new Group(groupID, groupName, new Semester(semesterID), status));
 
             }
         } catch (SQLException ex) {
