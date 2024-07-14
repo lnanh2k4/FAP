@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Group;
+import models.Semester;
 import utils.SQL;
 
 /**
@@ -27,15 +28,17 @@ public class GroupDAO {
     public List<Group> getAllList() {
         ResultSet rs = null;
         List<Group> list = new ArrayList<>();
-        String query = "SELECT * FROM dbo.[Group]";
+        String query = "SELECT g.GroupID, g.GroupName, g.SemesterID, g.Status, s.SemesterID as SemID, s.SemesterName "
+                + "FROM dbo.[Group] g "
+                + "JOIN dbo.[Semester] s ON g.SemesterID = s.SemesterID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
-                int groupID = rs.getInt("GroupID");
-                String groupName = rs.getString("GroupName");
-                String semesterID = rs.getString("SemesterID");
-                int status = rs.getInt("Status");
-                list.add(new Group(groupID, groupName, semesterID, status));
+                groupID = rs.getInt("groupID");
+                groupName = rs.getString("roupName");
+                semesterID = rs.getString("semesterID");
+                status = rs.getInt("status");
+                list.add(new Group(groupID, groupName, new Semester(semesterID)));
             }
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,15 +49,18 @@ public class GroupDAO {
     public Group getGroup(int groupID) {
         ResultSet rs = null;
         Group getG = null;
-        String query = "SELECT [Group].* FROM [Group] WHERE groupID=?";
+        String query = "SELECT g.GroupID, g.GroupName, g.SemesterID, g.Status, s.SemesterID as SemID, s.SemesterName "
+                + "FROM [Group] g "
+                + "JOIN [Semester] s ON g.SemesterID = s.SemesterID "
+                + "WHERE g.GroupID = ?";
         try {
-            rs = SQL.executeQuery(query, groupName, semesterID);
+            rs = SQL.executeQuery(query, groupID);
             if (rs.next()) {
-                groupID = rs.getInt("GroupID");
-                groupName = rs.getString("GroupName");
-                semesterID = rs.getString("SemesterID");
-                status = rs.getInt("Status");
-                getG = new Group(groupID, groupName, semesterID, status);
+                groupID = rs.getInt("groupID");
+                groupName = rs.getString("groupName");
+                semesterID = rs.getString("semesterID");
+                status = rs.getInt("status");
+                getG = new Group(groupID, groupName, new Semester(semesterID), status);
             }
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +72,7 @@ public class GroupDAO {
         int result = -1;
         String query = "UPDATE [Group]"
                 + " SET status=-1"
-                + " WHERE groupID=?";;
+                + " WHERE groupID=?";
         try {
             result = SQL.executeUpdate(query, groupID);
         } catch (SQLException | ClassNotFoundException ex) {

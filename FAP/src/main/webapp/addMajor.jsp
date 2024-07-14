@@ -60,6 +60,25 @@
                         rangelength: "Major ID must be letter between 1 and 3"
                     }
                 }
+<<<<<<< HEAD
+                errorClass: "invalid-feedback",
+                validClass: "valid-feedback",
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                },
+                errorPlacement: function (error, element) {
+                    if (element.prop("tagName") === "SELECT" || element.prop("type") === "date") {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+=======
+                
+>>>>>>> f4399316bb421a4541190f978dace6823317b3c7
             })
         </script>
     </body>

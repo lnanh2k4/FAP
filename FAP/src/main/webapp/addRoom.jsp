@@ -31,16 +31,10 @@
                 <div class="form-group">
                     <label for="roomID">Room ID</label>
                     <input type="text" class="form-control" name="roomID" id="roomID" required maxlength="7">
-                    <div class="invalid-feedback">
-                        Room ID must be exactly 4 characters long.
-                    </div>
                 </div>
                 <div class="form-group">
                     <label for="roomName">Room Name</label>
                     <input type="text" class="form-control" name="roomName" id="roomName" required>
-                    <div class="invalid-feedback">
-                        Room Name is required.
-                    </div>
                 </div>
             </div>
             <div class="container">
@@ -82,10 +76,24 @@
                         required: "Please input Room Name"
                     }
                 },
-                submitHandler: function(form) {
-                    form.submit();
+                errorClass: "invalid-feedback",
+                validClass: "valid-feedback",
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                },
+                errorPlacement: function (error, element) {
+                    if (element.prop("tagName") === "SELECT" || element.prop("type") === "date") {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
                 }
+                
             });
+            
         });
     </script>
 </body>

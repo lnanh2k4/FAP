@@ -18,10 +18,12 @@ import utils.SQL;
  * @author CE180117 - Dang Cong Khanh
  */
 public class UserCampusDAO {
+
     int userCampusID;
     String campusID;
     String userID;
     int status;
+
     public List<UserCampus> getAllList() {
         ResultSet rs = null;
         List<UserCampus> list = new ArrayList<>();
@@ -35,7 +37,7 @@ public class UserCampusDAO {
                 status = rs.getInt("status");
                 list.add(new UserCampus(userCampusID, campusID, userID, status));
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -43,20 +45,20 @@ public class UserCampusDAO {
 
         return list;
     }
-    
-    public UserCampus getUserCampus(int userCampusID) {
+
+    public UserCampus getUserCampus(String userID) {
         ResultSet rs = null;
         UserCampus uc = null;
-        String query = "SELECT * FROM UserCampus INNER JOIN Campus ON UserCampus.CampusID = Campus.CampusID INNER JOIN [User] ON UserCampus.UserID = [User].UserID";
+        String query = "SELECT * FROM UserCampus INNER JOIN Campus ON UserCampus.CampusID = Campus.CampusID INNER JOIN [User] ON UserCampus.UserID = [User].UserID WHERE UserCampus.userID=?";
         try {
-            rs = SQL.executeQuery(query);
+            rs = SQL.executeQuery(query, userID);
             while (rs.next()) {
                 userCampusID = rs.getInt("userCampusID");
                 campusID = rs.getString("campusID");
                 userID = rs.getString("userID");
                 uc = new UserCampus(userCampusID, campusID, userID, status);
             }
-        } catch (SQLException ex) { 
+        } catch (SQLException ex) {
             Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(UserCampusDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,8 +66,8 @@ public class UserCampusDAO {
 
         return uc;
     }
-    
-    public int deleteUserCampus(int userCampusID) {
+
+    public int deleteUserCampus(String userCampusID) {
         int rs = -1;
         String query = "UPDATE UserCampus"
                 + " SET status=-1"
@@ -81,7 +83,6 @@ public class UserCampusDAO {
 
         return rs;
     }
-
 
     public int addUserCampus(String campusID, String userID) {
         int rs = -1;

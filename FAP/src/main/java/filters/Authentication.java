@@ -14,9 +14,10 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import models.User;
 
 /**
  *
@@ -39,6 +40,27 @@ public class Authentication implements Filter {
         if (debug) {
             log("Authentication:DoBeforeProcessing");
         }
+
+        // Write code here to process the request and/or response before
+        // the rest of the filter chain is invoked.
+        // For example, a logging filter might log items on the request object,
+        // such as the parameters.
+        /*
+	for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
+	    String name = (String)en.nextElement();
+	    String values[] = request.getParameterValues(name);
+	    int n = values.length;
+	    StringBuffer buf = new StringBuffer();
+	    buf.append(name);
+	    buf.append("=");
+	    for(int i=0; i < n; i++) {
+	        buf.append(values[i]);
+	        if (i < n-1)
+	            buf.append(",");
+	    }
+	    log(buf.toString());
+	}
+         */
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
@@ -47,6 +69,23 @@ public class Authentication implements Filter {
             log("Authentication:DoAfterProcessing");
         }
 
+        // Write code here to process the request and/or response after
+        // the rest of the filter chain is invoked.
+        // For example, a logging filter might log the attributes on the
+        // request object after the request has been processed. 
+        /*
+	for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
+	    String name = (String)en.nextElement();
+	    Object value = request.getAttribute(name);
+	    log("attribute: " + name + "=" + value.toString());
+
+	}
+         */
+        // For example, a filter might append something to the response.
+        /*
+	PrintWriter respOut = new PrintWriter(response.getWriter());
+	respOut.println("<P><B>This has been appended by an intrusive filter.</B>");
+         */
     }
 
     /**
@@ -67,21 +106,17 @@ public class Authentication implements Filter {
         }
 
         doBeforeProcessing(request, response);
-
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         String uri = req.getServletPath();
-        Cookie[] c = req.getCookies();
-        boolean checkUser;
-        for (Cookie cookie : c) {
-            if (cookie.getName().equals("username")) {
-
-            }
-        }
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        System.out.println("Filter");
         if (uri.endsWith(".jsp")) {
-            res.sendRedirect("index.jsp");
-        } else {
-            res.sendRedirect("login.jsp");
+            if (user == null) {
+                res.sendRedirect("login.jsp");
+                return;
+            }
         }
 
         Throwable problem = null;

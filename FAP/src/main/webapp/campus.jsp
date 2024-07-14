@@ -16,26 +16,33 @@
     </head>
 
     <body>
-        <h1>Manage Major</h1>
-        <a name="" id="" class="btn btn-primary" href="MajorController?check=add" role="button">Add major</a>
+        <h1>Manage Campus</h1>
+        <a name="" id="" class="btn btn-primary" href="CampusController?check=add" role="button">Add Campus</a>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-borderless table-primary align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th>Major ID</th>
-                        <th>Major Name</th>
+                        <th>Campus ID</th>
+                        <th>Campus Name</th>
+                        <th>Campus Address</th>
+                        <th>Campus Email</th>
+                        <th>Campus Hotline</th>
+
                         <th colspan="2">Action</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <c:forEach var="item" items="${requestScope.majorList}">
+                    <c:forEach var="item" items="${requestScope.campusList}">
                         <tr class="table-primary">
-                            <td scope="row">${item.majorID}</td>
-                            <td>${item.majorName}</td>
-                            <td><a class="btn btn-primary" href="MajorController?id=${item.majorID}&check=edit"
+                            <td scope="row">${item.campusID}</td>
+                            <td>${item.campusName}</td>
+                            <td>${item.campusAddress}</td>
+                            <td>${item.campusEmail}</td>
+                            <td>${item.campusHotline}</td>
+                            <td><a class="btn btn-primary" href="CampusController?id=${item.campusID}&check=edit"
                                    role="button">Edit</a>
                                 <a class="btn btn-primary"
-                                   href="MajorController?id=${item.majorID}&check=delete"
+                                   href="CampusController?id=${item.campusID}&check=delete"
                                    role="button">Delete</a>
                             </td>
                         </tr>
