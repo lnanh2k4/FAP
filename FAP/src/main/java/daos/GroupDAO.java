@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Group;
+import models.Semester;
 import utils.SQL;
 
 /**
@@ -25,23 +26,26 @@ public class GroupDAO {
     int status;
 
     public List<Group> getAllList() {
-        ResultSet rs = null;
-        List<Group> list = new ArrayList<>();
-        String query = "SELECT * FROM dbo.[Group]";
-        try {
-            rs = SQL.executeQuery(query);
-            while (rs.next()) {
-                int groupID = rs.getInt("GroupID");
-                String groupName = rs.getString("GroupName");
-                String semesterID = rs.getString("SemesterID");
-                int status = rs.getInt("Status");
-                list.add(new Group(groupID, groupName, semesterID, status));
-            }
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
+    ResultSet rs = null;
+    List<Group> list = new ArrayList<>();
+    String query = "SELECT g.GroupID, g.GroupName, g.SemesterID, g.Status, s.SemesterID as SemID, s.SemesterName " +
+                   "FROM dbo.[Group] g " +
+                   "JOIN dbo.[Semester] s ON g.SemesterID = s.SemesterID";
+    try {
+        rs = SQL.executeQuery(query);
+        while (rs.next()) {
+            int groupID = rs.getInt("GroupID");
+            String groupName = rs.getString("GroupName");
+            String semesterID = rs.getString("SemesterID");
+            int status = rs.getInt("Status");
+            list.add(new Group(groupID, groupName,  semesterID));
         }
-        return list;
+    } catch (SQLException | ClassNotFoundException ex) {
+        Logger.getLogger(GroupDAO.class.getName()).log(Level.SEVERE, null, ex);
     }
+    return list;
+}
+
 
     public Group getGroup(int groupID) {
         ResultSet rs = null;

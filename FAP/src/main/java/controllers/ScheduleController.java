@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controllers;
 
 import daos.ScheduleDAO;
@@ -15,21 +11,8 @@ import java.time.LocalDate;
 import java.util.List;
 import models.Schedule;
 
-/**
- *
- * @author Khanh
- */
 public class ScheduleController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -46,15 +29,6 @@ public class ScheduleController extends HttpServlet {
         }
     }
 
-     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -83,28 +57,27 @@ public class ScheduleController extends HttpServlet {
                     break;
             }
         }
-
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pathController = "ScheuleController";
+        String pathController = "ScheduleController";
         String check = request.getParameter("check");
         String idParam = request.getParameter("id");
-        System.out.println("id param"+idParam);
+        System.out.println("id param" + idParam);
         int id = idParam != null ? Integer.parseInt(idParam) : -1;
         int groupSubjectID = Integer.parseInt(request.getParameter("groupSubjectID"));
         LocalDate startDate = LocalDate.parse(request.getParameter("startDate"));
         LocalDate endDate = LocalDate.parse(request.getParameter("endDate"));
+
+        // In ra để kiểm tra
+        System.out.println("Check: " + check);
+        System.out.println("ID: " + id);
+        System.out.println("GroupSubjectID: " + groupSubjectID);
+        System.out.println("StartDate: " + startDate);
+        System.out.println("EndDate: " + endDate);
+
         ScheduleDAO y = new ScheduleDAO();
         if (check != null) {
             switch (check) {
@@ -114,7 +87,7 @@ public class ScheduleController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "delete":
-                    System.out.println(id+" "+groupSubjectID);
+                    System.out.println(id + " " + groupSubjectID);
                     y.deleteSchedule(id, groupSubjectID);
                     response.sendRedirect(pathController);
                     break;
@@ -127,13 +100,8 @@ public class ScheduleController extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 }
