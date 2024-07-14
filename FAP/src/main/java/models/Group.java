@@ -12,31 +12,21 @@ public class Group {
 
     private int groupID;
     private String groupName;
-    private String gemesterID;
+    private Semester semesterID;
     private int status;
 
-    public Group(int groupID, String groupName, String gemesterID) {
-        this.groupID = groupID;
-        this.groupName = groupName;
-        this.gemesterID = gemesterID;
-    }
-
-    public Group(int groupID, String groupName, String gemesterID, int status) {
-        this.groupID = groupID;
-        this.groupName = groupName;
-        this.gemesterID = gemesterID;
-        this.status = status;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public Group() {
+    }
+
+    public Group(int groupID, String groupName, Semester semesterID, int status) {
+        this.groupID = groupID;
+        this.groupName = groupName;
+        this.semesterID = semesterID;
+        this.status = status;
+    }
+
+    public Group(int groupID, String groupName, Semester semester) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public int getGroupID() {
@@ -55,12 +45,22 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public String getGemesterID() {
-        return gemesterID;
+    public Semester getSemesterID() {
+        return semesterID;
     }
 
-    public void setGemesterID(String gemesterID) {
-        this.gemesterID = gemesterID;
+    public void setSemesterID(Semester semesterID) {
+        this.semesterID = semesterID;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    
 
 }

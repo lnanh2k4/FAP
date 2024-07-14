@@ -18,6 +18,7 @@ public class Semester {
     private LocalDate endDate;
     private String yearID;
     private int status;
+    
     public Semester(String semesterID, String semesterName, LocalDate startDate, LocalDate endDate, String yearID) {
         this.semesterID = semesterID;
         this.semesterName = semesterName;
@@ -36,6 +37,14 @@ public class Semester {
     }
 
     public Semester() {
+    }
+
+    public Semester(int semesterID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Semester(String semesterID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public int getStatus() {
