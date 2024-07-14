@@ -125,4 +125,14 @@ public class CurriculumDAO {
         }
         return rs;
     }
+    public boolean checkexist(String curriculumID) {
+        boolean exists = false;
+        if (getCurriculum(curriculumID) == null) {
+            System.out.println("Nam này không t?n t?i");
+            return false;
+        } else {
+            System.out.println("nam nay co");
+            return true;
+        }
+    }
 }
