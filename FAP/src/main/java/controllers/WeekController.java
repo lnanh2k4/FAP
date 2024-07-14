@@ -101,7 +101,7 @@ public class WeekController extends HttpServlet {
         String pathController = "WeekController";
         String check = request.getParameter("check");
         String idParam = request.getParameter("weekID");
-        System.out.println("id param"+idParam);
+        System.out.println("id param" + idParam);
         int id = idParam != null ? Integer.parseInt(idParam) : -1;
         String semesterID = request.getParameter("semesterID");
         String startDate = request.getParameter("startDate");
@@ -121,10 +121,16 @@ public class WeekController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    System.out.println("Add");
-                    y.addWeek(semesterID, startDate, endDate);
-                    response.sendRedirect(pathController);
-                    break;
+                    if (y.checkexist(id)) {
+                        String erorrMessage = "This Week has existed";
+                        request.setAttribute("errorAddWeek", erorrMessage);
+                        request.getRequestDispatcher("addWeek.jsp").forward(request, response);
+                    } else {
+                        System.out.println("Add");
+                        y.addWeek(semesterID, startDate, endDate);
+                        response.sendRedirect(pathController);
+                        break;
+                    }
             }
         }
     }

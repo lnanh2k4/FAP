@@ -117,4 +117,15 @@ public class YearDAO {
 
         return rs;
     }
+    
+    public boolean checkexist(String yearID){
+        boolean exists = false;
+        if(getYear(yearID)==null){
+            System.out.println("Nam này không t?n t?i");
+            return false;
+        } else {
+            System.out.println("nam nay co");
+            return true;
+        }
+    }
 }

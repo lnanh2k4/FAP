@@ -5,6 +5,7 @@
 package daos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -139,4 +140,18 @@ public class WeekDAO {
 
         return rs;
     }
+    
+    
+    public boolean checkexist(int weekID){
+        boolean exists = false;
+        if (getWeek(weekID)==null){
+            System.out.println("week nay co roi");
+            return true;
+        } else {  
+            System.out.println("week nay eo co!");
+            return false;
+        }
+        
+    }
+
 }
