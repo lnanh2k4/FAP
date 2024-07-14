@@ -225,6 +225,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="UserController" class="card-link">Student List</a>
+                                </div>
+                            </div>
+                        </div>
                     </c:when>
                     <c:when test="${sessionScope.user.role==3}">
                         <div class="col-md-4">
@@ -259,6 +266,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <a href="RoomController" class="card-link">Room</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a href="UserController" class="card-link">User</a>
                                 </div>
                             </div>
                         </div>

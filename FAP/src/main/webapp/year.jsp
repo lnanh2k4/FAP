@@ -104,6 +104,8 @@
                                 <td>${item.endDate}</td>
                                 <td>
                                     <a class="btn btn-primary" href="YearController?id=${item.yearID}&check=edit" role="button">Edit</a>
+                                    </td>
+                                    <td>
                                     <a class="btn btn-danger" href="YearController?id=${item.yearID}&check=delete" role="button">Delete</a>
                                 </td>
                             </tr>

@@ -106,6 +106,8 @@
                                 <td>${item.endDate}</td>
                                 <td>
                                     <a class="btn btn-primary" href="WeekController?id=${item.weekID}&check=edit" role="button">Edit</a>
+                                    </td>
+                                    <td>
                                     <a class="btn btn-danger" href="WeekController?id=${item.weekID}&check=delete" role="button">Delete</a>
                                 </td>
                             </tr>

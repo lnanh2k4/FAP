@@ -14,6 +14,71 @@
         <title>Group Management</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
               integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+        <style>
+            body {
+                background: url('./img/background_homepage.jpg') no-repeat center center fixed; /* Hình nền trang */
+                background-size: cover; /* Phủ kín toàn bộ viewport */
+                color: #f1f1f1; /* Màu chữ nhạt cho văn bản */
+                padding-top: 50px; /* Khoảng cách cho navbar cố định */
+            }
+
+            h1 {
+                color: #f8f9fa;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
+
+            .btn-danger {
+                background-color: #dc3545; /* Màu nền đỏ */
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
+
+            .btn-danger:hover {
+                background-color: #c82333; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
+
+            .table-primary {
+                background-color: #cce5ff;
+            }
+
+            .table-light {
+                background-color: #f8f9fa;
+            }
+
+            .table-striped tbody tr:nth-of-type(odd) {
+                background-color: #e9ecef;
+            }
+
+            .table-hover tbody tr:hover {
+                background-color: #dee2e6;
+            }
+
+            .container {
+                max-width: 1000px; /* Đặt kích thước tối đa cho container */
+                margin-top: 20px; /* Thêm khoảng cách trên cùng của container */
+            }
+        </style>
     </head>
 
     <body>
@@ -40,7 +105,9 @@
                             <td>${item.semesterID.semesterID}</td>
                             <td>
                                 <a class="btn btn-primary" href="GroupController?groupID=${item.groupID}&check=edit" role="button">Edit</a>
-                                <a class="btn btn-primary" href="GroupController?groupID=${item.groupID}&check=delete" role="button">Delete</a>
+                                </td>
+                                <td>
+                                <a class="btn btn-danger" href="GroupController?groupID=${item.groupID}&check=delete" role="button">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

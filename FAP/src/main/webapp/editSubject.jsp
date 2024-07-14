@@ -176,11 +176,10 @@
                         subjectPrerequisite: {
                             required: true
 
-                        },
-                        subjectDescription: {
-                            required: true
-
                         }
+
+
+
                     },
                     messages: {
                         subjectName: {
@@ -194,11 +193,8 @@
                         subjectPrerequisite: {
                             required: "Please enter the subject prerequisite."
 
-                        },
-                        subjectDescription: {
-                            required: "Please enter the subject description."
-
                         }
+
                     },
                     errorPlacement: function (error, element) {
                         error.addClass('invalid-feedback');

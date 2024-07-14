@@ -158,15 +158,15 @@
                 rules: {
                     specializationName: {
                         required: true,
-                        maxlength: 30,
-                        noNumbers: true
+                        maxlength: 30
+                        
                     }
                 },
                 messages: {
                     specializationName: {
                         required: "Please enter the specialization name.",
-                        maxlength: "Specialization name must be less than 30 characters.",
-                        noNumbers: "Specialization name must be a word"
+                        maxlength: "Specialization name must be less than 30 characters."
+                        
                     }
                 },
                 errorPlacement: function (error, element) {

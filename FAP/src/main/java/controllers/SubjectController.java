@@ -73,7 +73,7 @@ public class SubjectController extends HttpServlet {
                     break;
                 case "delete":
                     request.setAttribute("subject", s.getSubject(id));
-                    
+
                     request.getRequestDispatcher("deleteSubject.jsp").forward(request, response);
                     break;
                 case "add":
@@ -115,8 +115,14 @@ public class SubjectController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    s.addSubject(id, name, nocredit, prerequisite, description);
-                    response.sendRedirect(pathController);
+                    if (s.checkexist(id)) {
+                        String erorrMessage = "This Subject has existed";
+                        request.setAttribute("errorAddSubject", erorrMessage);
+                        request.getRequestDispatcher("addSubject.jsp").forward(request, response);
+                    } else {
+                        s.addSubject(id, name, nocredit, prerequisite, description);
+                        response.sendRedirect(pathController);
+                    }
                     break;
             }
         }

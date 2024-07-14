@@ -139,4 +139,14 @@ public class SpecializationDAO {
         }
         return rs;
     }
+    public boolean checkexist(String specializationID) {
+        boolean exists = false;
+        if (getSpecialization(specializationID) == null) {
+            System.out.println("Nam này không t?n t?i");
+            return false;
+        } else {
+            System.out.println("nam nay co");
+            return true;
+        }
+    }
 }

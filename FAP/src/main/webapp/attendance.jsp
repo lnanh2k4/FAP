@@ -55,9 +55,9 @@
                                 <td>${item.status}</td>
                                 <<td>
                                     <a class="btn btn-primary" href="AttendanceController?attendanceName=${item.attendanceName}&scheduleDetailID=${item.scheduleDetailID}&userID=${item.userID}&check=present" role="button">Present</a>
-                                    <a class="btn btn-primary" href="AttendanceController?attendanceName=${item.attendanceName}&scheduleDetailID=${item.scheduleDetailID}&userID=${item.userID}&check=absent" role="button">absent</a>
+                                    <a class="btn btn-danger" href="AttendanceController?attendanceName=${item.attendanceName}&scheduleDetailID=${item.scheduleDetailID}&userID=${item.userID}&check=absent" role="button">absent</a>
                                     <a class="btn btn-primary" href="AttendanceController?attendanceName=${item.attendanceName}&scheduleDetailID=${item.scheduleDetailID}&userID=${item.userID}&check=edit" role="button">Edit</a>
-                                    <a class="btn btn-primary" href="AttendanceController?attendanceName=${item.attendanceName}&scheduleDetailID=${item.scheduleDetailID}&userID=${item.userID}&check=delete" role="button">Delete</a>
+                                    <a class="btn btn-danger" href="AttendanceController?attendanceName=${item.attendanceName}&scheduleDetailID=${item.scheduleDetailID}&userID=${item.userID}&check=delete" role="button">Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>

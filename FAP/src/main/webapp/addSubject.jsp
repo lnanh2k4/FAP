@@ -89,6 +89,12 @@
             .btn-lg {
                 padding: 12px 24px; /* Increase button size */
             }
+            p {
+                color: #dc3545; /* Màu chữ */
+                font-size: 16px; /* Kích thước phông chữ */
+                line-height: 1.6; /* Chiều cao dòng */
+                margin-bottom: 15px; /* Khoảng cách dưới */
+            }
         </style>
 
     </head>
@@ -131,7 +137,9 @@
                                >
 
                     </div>
+
                 </div>
+                <p class="errorAddSubject">${requestScope.errorAddSubject}</p>
                 <div class="container">
                     <div class="row mb-3 justify-content-center">
                         <button type="submit" class="btn btn-primary btn-lg col-md-3">Save</button>
@@ -163,47 +171,41 @@
                 $('#addSubjectForm').validate({
                     rules: {
                         subjectID: {
-                            required: true,
-                            noNumbers: true
+                            required: true
+
                         },
                         subjectName: {
-                            required: true,
-                            noNumbers: true
+                            required: true
+
                         },
                         subjectNoCredit: {
                             required: true,
                             numbersOnly: true
                         },
                         subjectPrerequisite: {
-                            required: true,
-                            noNumbers: true
-                        },
-                        subjectDescription: {
-                            required: true,
-                            noNumbers: true
+                            required: true
+
                         }
+
                     },
                     messages: {
                         subjectID: {
-                            required: "Please enter the subject ID.",
-                            noNumbers: "Subject ID must be a word."
+                            required: "Please enter the subject ID."
+
                         },
                         subjectName: {
-                            required: "Please enter the subject name.",
-                            noNumbers: "Subject Name must be a word."
+                            required: "Please enter the subject name."
+
                         },
                         subjectNoCredit: {
                             required: "Please enter the subject no credit.",
                             numbersOnly: "Subject No Credit must be a number."
                         },
                         subjectPrerequisite: {
-                            required: "Please enter the subject prerequisite.",
-                            noNumbers: "Subject Prerequisite must be a word."
-                        },
-                        subjectDescription: {
-                            required: "Please enter the subject description.",
-                            noNumbers: "Subject Description be a word."
+                            required: "Please enter the subject prerequisite."
+
                         }
+
                     },
                     errorPlacement: function (error, element) {
                         error.addClass('invalid-feedback');
