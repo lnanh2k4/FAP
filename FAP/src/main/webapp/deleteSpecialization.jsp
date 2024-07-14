@@ -45,7 +45,20 @@
                 border-radius: 5px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
+            .btn-danger {
+                background-color: #dc3545; /* Màu nền đỏ */
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
 
+            .btn-danger:hover {
+                background-color: #c82333; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
             .btn-primary {
                 background-color: #2575fc;
                 border: none;

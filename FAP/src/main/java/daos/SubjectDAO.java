@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package daos;
 
 import java.sql.ResultSet;
@@ -13,10 +9,6 @@ import java.util.logging.Logger;
 import models.Subject;
 import utils.SQL;
 
-/**
- *
- * @author Nguyen Le Khac Vu - CE180175
- */
 public class SubjectDAO {
 
     String subjectID;
@@ -39,13 +31,11 @@ public class SubjectDAO {
                 subjectPrerequisite = rs.getString("subjectPrerequisite");
                 subjectDescription = rs.getString("subjectDescription");
                 status = rs.getInt("status");
-                if (status > -1){
-                list.add(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription, status));
+                if (status > -1) {
+                    list.add(new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription, status));
                 }
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -55,7 +45,7 @@ public class SubjectDAO {
     public Subject getSubject(String subjectID) {
         ResultSet rs = null;
         Subject getS = null;
-        String query = "SELECT Subject.* FROM Subject WHERE SubjectID=?";
+        String query = "SELECT * FROM Subject WHERE SubjectID=?";
         try {
             rs = SQL.executeQuery(query, subjectID);
             while (rs.next()) {
@@ -65,27 +55,25 @@ public class SubjectDAO {
                 subjectPrerequisite = rs.getString("subjectPrerequisite");
                 subjectDescription = rs.getString("subjectDescription");
                 status = rs.getInt("status");
-                getS = (new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription, status));
+                getS = new Subject(subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription, status);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return getS;
     }
 
+    public boolean subjectExists(String subjectID) {
+        return getSubject(subjectID) != null;
+    }
+
     public int deleteSubject(String subjectID) {
         int rs = -1;
-        String query = "UPDATE Subject"
-                + " SET Status = -1"
-                + " WHERE SubjectID=?";
+        String query = "UPDATE Subject SET Status = -1 WHERE SubjectID=?";
         try {
             rs = SQL.executeUpdate(query, subjectID);
-        } catch (SQLException ex) {
-            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
@@ -93,14 +81,10 @@ public class SubjectDAO {
 
     public int updateSubject(String subjectID, String subjectName, int subjectNoCredit, String subjectPrerequisite, String subjectDescription) {
         int rs = -1;
-        String query = "UPDATE Subject"
-                + " SET SubjectName=?, SubjectNoCredit=?, SubjectPrerequisite=?,SubjectDescription=?"
-                + " WHERE SubjectID=?";
+        String query = "UPDATE Subject SET SubjectName=?, SubjectNoCredit=?, SubjectPrerequisite=?, SubjectDescription=? WHERE SubjectID=?";
         try {
             rs = SQL.executeUpdate(query, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription, subjectID);
-        } catch (SQLException ex) {
-            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
@@ -108,14 +92,10 @@ public class SubjectDAO {
 
     public int updateSubjectStatus(String subjectID, String subjectName, int subjectNoCredit, String subjectPrerequisite, String subjectDescription) {
         int rs = -1;
-        String query = "UPDATE Subject"
-                + " SET Status = 0, SubjectName=?, SubjectNoCredit=?, SubjectPrerequisite=?,SubjectDescription=?"
-                + " WHERE SubjectID=?";
+        String query = "UPDATE Subject SET Status = 0, SubjectName=?, SubjectNoCredit=?, SubjectPrerequisite=?, SubjectDescription=? WHERE SubjectID=?";
         try {
             rs = SQL.executeUpdate(query, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription, subjectID);
-        } catch (SQLException ex) {
-            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -124,12 +104,10 @@ public class SubjectDAO {
 
     public int addSubject(String subjectID, String subjectName, int subjectNoCredit, String subjectPrerequisite, String subjectDescription) {
         int rs = -1;
-        String query = "INSERT INTO [Subject](SubjectID,SubjectName,SubjectNoCredit,SubjectPrerequisite,SubjectDescription) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO [Subject](SubjectID, SubjectName, SubjectNoCredit, SubjectPrerequisite, SubjectDescription) VALUES (?, ?, ?, ?, ?)";
         try {
             rs = SQL.executeUpdate(query, subjectID, subjectName, subjectNoCredit, subjectPrerequisite, subjectDescription);
-        } catch (SQLException ex) {
-            Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;

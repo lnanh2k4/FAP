@@ -94,7 +94,7 @@ public class WeekDAO {
     public int deleteWeek(int weekID) {
         int rs = -1;
         String query = "UPDATE Week"
-                + " SET status=-1"
+                + " SET status= -1"
                 + " WHERE WeekID=?";
 
         try {
