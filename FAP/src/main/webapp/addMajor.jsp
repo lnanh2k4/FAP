@@ -29,13 +29,12 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="row mb-3">
-                        <button type="submit" class="btn btn-primary btn-lg col-md-5">Save</button>
-                        <span class="col-md-2"></span>
-                        <button type="reset" class="btn btn-primary btn-lg col-md-5">Reset</button>
-                    </div>
-                    <div class="row justify-content-center">
-                        <a class="btn btn-primary col-md-5" href="MajorController" role="button">Back to Major List</a>
+                    <div class="row mb-3 justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-lg col-md-3">Save</button>
+                        <span class="col-md-1"></span>
+                        <a class="btn btn-primary btn-lg col-md-3" href="MajorController" role="button">Back to Major list</a>
+                        <span class="col-md-1"></span>
+                        <button type="reset" class="btn btn-primary btn-lg col-md-3">Reset</button>
                     </div>
                 </div>
             </div>

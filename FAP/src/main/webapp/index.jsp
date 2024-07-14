@@ -28,7 +28,7 @@
 
 <body>
     <div class="container">
-        <h1 class="text-center">Hello World!</h1>
+        <h1 class="text-center">FPT UNIVERSITY ACADEMIC BASIC PORTAL</h1>
         <div class="row">
             <div class="col-md-4">
                 <div class="card">

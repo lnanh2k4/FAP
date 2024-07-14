@@ -58,10 +58,12 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="row">
-                        <button type="submit" class="btn btn-primary btn-lg col-md-5">Save</button>
-                        <span class="col-md-2"></span>
-                        <button type="reset" class="btn btn-primary btn-lg col-md-5">Reset</button>
+                    <div class="row mb-3 justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-lg col-md-3">Save</button>
+                        <span class="col-md-1"></span>
+                        <a class="btn btn-primary btn-lg col-md-3" href="ScheduleController" role="button">Back to Schedule list</a>
+                        <span class="col-md-1"></span>
+                        <button type="reset" class="btn btn-primary btn-lg col-md-3">Reset</button>
                     </div>
                 </div>
             </div>
