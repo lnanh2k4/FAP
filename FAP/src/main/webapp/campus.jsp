@@ -5,127 +5,142 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Manage Campus</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css"
-          integrity="sha384-GLhlTQ2P7a8VqT6js4Cw6j5xRFO5b6DzHupPxT2mgD6Pvc2Ij6P6GghXyXr8v8I3"
-          crossorigin="anonymous">
-
-    <style>
-        /* Simplistic and Modern Styles */
-        body {
-            background-color: #f0f4f8; /* Light background color */
-            color: #333; /* Dark text color for readability */
-            font-family: 'Helvetica Neue', Arial, sans-serif; /* Clean and modern font */
-        }
-
-        .container {
-            margin-top: 30px;
-            max-width: 900px;
-        }
-
-        h1 {
-            color: #007bff; /* Primary blue color */
-            font-size: 2rem; /* Slightly smaller heading */
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background-color: #007bff; /* Primary blue color */
-            border-color: #007bff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3; /* Darker shade on hover */
-            border-color: #004085;
-        }
-
-        .table {
-            margin-top: 20px;
-            border-radius: 10px; /* Rounded corners */
-            overflow: hidden; /* Ensure corners are rounded */
-        }
-
-        .table thead {
-            background-color: #007bff; /* Header background color */
-            color: #fff; /* Header text color */
-        }
-
-        .table th, .table td {
-            text-align: center;
-            padding: 12px; /* Add some padding */
-        }
-
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: #ffffff; /* White background for odd rows */
-        }
-
-        .table-hover tbody tr:hover {
-            background-color: #f1f5f9; /* Light hover effect */
-        }
-
-        .table-primary {
-            color: #333; /* Text color for table content */
-        }
-
-        .btn {
-            margin: 0 5px; /* Spacing between buttons */
-        }
-
-        @media (max-width: 768px) {
-            .table-responsive {
-                overflow-x: auto;
+    <head>
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <title>Manage Campus</title>
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+              integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+              crossorigin="anonymous">
+        <style>
+            body {
+                background: url('./img/background_homepage.jpg') no-repeat center center fixed; /* Hình nền trang */
+                background-size: cover; /* Phủ kín toàn bộ viewport */
+                color: #f1f1f1; /* Màu chữ nhạt cho văn bản */
+                padding-top: 50px; /* Khoảng cách cho navbar cố định */
             }
-        }
-    </style>
-</head>
 
-<body>
-    <div class="container">
-        <h1>Manage Campus</h1>
-        <div class="d-flex justify-content-between mb-3">
-            <a class="btn btn-primary" href="CampusController?check=add" role="button">Add Campus</a>
-            <a class="btn btn-primary" href="./" role="button">Back to Manage list</a>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover table-borderless table-primary align-middle">
-                <thead>
-                    <tr>
-                        <th>Campus ID</th>
-                        <th>Campus Name</th>
-                        <th>Campus Address</th>
-                        <th>Campus Email</th>
-                        <th>Campus Hotline</th>
-                        <th colspan="2">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="item" items="${requestScope.campusList}">
-                        <tr class="table-primary">
-                            <td scope="row">${item.campusID}</td>
-                            <td>${item.campusName}</td>
-                            <td>${item.campusAddress}</td>
-                            <td>${item.campusEmail}</td>
-                            <td>${item.campusHotline}</td>
-                            <td><a class="btn btn-primary" href="CampusController?id=${item.campusID}&check=edit"
-                                   role="button">Edit</a>
-                                <a class="btn btn-primary"
-                                   href="CampusController?id=${item.campusID}&check=delete"
-                                   role="button">Delete</a>
-                            </td>
+            h1 {
+                color: #f8f9fa;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
+
+            .btn-secondary {
+                background-color: #007bff;
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
+
+            .btn-secondary:hover {
+                background-color: #5a6268; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
+            .btn-danger {
+                background-color: #dc3545; /* Màu nền đỏ */
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
+
+            .btn-danger:hover {
+                background-color: #c82333; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
+            .table-primary {
+                background-color: #cce5ff;
+            }
+
+            .table-light {
+                background-color: #f8f9fa;
+            }
+
+            .table-striped tbody tr:nth-of-type(odd) {
+                background-color: #e9ecef;
+            }
+
+            .table-hover tbody tr:hover {
+                background-color: #dee2e6;
+            }
+
+            .container {
+                max-width: 1000px; /* Đặt kích thước tối đa cho container */
+                margin-top: 20px; /* Thêm khoảng cách trên cùng của container */
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Manage Campus</h1>
+            <div class="d-flex justify-content-between mb-3">
+                <a class="btn btn-primary" href="CampusController?check=add" role="button">Add Campus</a>
+                <a class="btn btn-secondary" href="./" role="button">Back to Manage list</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-borderless table-primary align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Campus ID</th>
+                            <th>Campus Name</th>
+                            <th>Campus Address</th>
+                            <th>Campus Email</th>
+                            <th>Campus Hotline</th>
+                            <th colspan="2">Action</th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <c:forEach var="item" items="${requestScope.campusList}">
+                            <tr class="table-primary">
+                                <td scope="row">${item.campusID}</td>
+                                <td>${item.campusName}</td>
+                                <td>${item.campusAddress}</td>
+                                <td>${item.campusEmail}</td>
+                                <td>${item.campusHotline}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="CampusController?id=${item.campusID}&check=edit" role="button">Edit</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="CampusController?id=${item.campusID}&check=delete" role="button">Delete</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                    <tfoot>
+                        <!-- Có thể thêm thông tin hoặc link vào đây nếu cần -->
+                    </tfoot>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"
-            integrity="sha384-vO6Z1O2lHhU4Tg5X7h07uyVs6WUSnDQW1/0L0cI0+K7QExwX0kTwC6H0neNsSQJ1L"
-            crossorigin="anonymous"></script>
-</body>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+                integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    </body>
 
 </html>

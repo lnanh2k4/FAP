@@ -40,7 +40,7 @@
                         <c:forEach var="item" items="${requestScope.scheduleList}">
                             <tr class="table-primary">
                                 <td scope="row">${item.scheduleID}</td>
-                                <td>${item.groupSubjectID.groupSubjectID}</td>
+                                <td>${item.groupSubjectID}</td>
                                 <td>${item.startDate}</td>
                                 <td>${item.endDate}</td>
                                 <td><a class="btn btn-primary" href="ScheduleController?id=${item.scheduleID}&check=edit"

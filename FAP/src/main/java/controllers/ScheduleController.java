@@ -39,7 +39,7 @@ public class ScheduleController extends HttpServlet {
         ScheduleDAO w = new ScheduleDAO();
         if (check == null) {
             List<Schedule> list = w.getAllList();
-            request.setAttribute("schedulekList", list);
+            request.setAttribute("scheduleList", list);
             request.getRequestDispatcher("schedule.jsp").forward(request, response);
         } else {
             switch (check) {

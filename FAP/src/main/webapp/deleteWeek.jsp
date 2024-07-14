@@ -116,12 +116,12 @@
 <body>
     <form class="row g-3 needs-validation" novalidate method="post" action="WeekController" id="editWeekForm">
         <div class="mb-3">
-            <input type="hidden" class="form-control" name="check" id="check" value="edit" />
+            <input type="hidden" class="form-control" name="check" id="check" value="delete" />
         </div>
 
         <div class="card">
             <div class="card-body">
-                <h1>Edit Week</h1>
+                <h1>Delete Week</h1>
                 <div class="form-group">
                     <label for="weekID">Week ID</label>
                     <input type="text" class="form-control" name="weekID" id="weekID" value="${requestScope.week.weekID}" readonly>

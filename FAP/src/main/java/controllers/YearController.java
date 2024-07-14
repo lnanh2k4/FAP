@@ -12,8 +12,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Major;
 import models.Year;
 
@@ -115,9 +118,14 @@ public class YearController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    System.out.println("Add");
-                    y.addYear(id, startDate, endDate);
-                    response.sendRedirect(pathController);
+                    if (y.checkexist(id)){
+                        String erorrMessage = "This year has existed";
+                        request.setAttribute("errorAddYear", erorrMessage);
+                        request.getRequestDispatcher("addYear.jsp").forward(request, response);
+                    } else {
+                        y.addYear(id, startDate, endDate);
+                        response.sendRedirect(pathController);
+                    }
                     break;
             }
         }

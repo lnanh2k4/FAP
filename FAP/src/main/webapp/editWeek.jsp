@@ -18,7 +18,7 @@
 
         h1 {
             margin-bottom: 30px;
-            color: #1a5bb8; /* Màu chữ tiêu đề, ví dụ màu đỏ đậm */
+            color: #1a5bb8; /* Màu chữ tiêu đề, ví dụ màu xanh dương đậm */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Bóng chữ cho tiêu đề */
             text-align: center; /* Căn giữa tiêu đề */
         }
@@ -44,8 +44,16 @@
         }
 
         .form-control:focus {
-            border-color: #e94e77; /* Đổi màu đường viền khi trường được chọn */
-            box-shadow: 0 0 0 0.2rem rgba(233, 78, 119, 0.25); /* Hiệu ứng bóng khi trường được chọn */
+            border-color: #2575fc; /* Đổi màu đường viền khi trường được chọn */
+            box-shadow: 0 0 0 0.2rem rgba(37, 117, 252, 0.25); /* Hiệu ứng bóng khi trường được chọn */
+        }
+
+        .invalid-feedback {
+            display: none;
+        }
+
+        .was-validated .invalid-feedback {
+            display: block;
         }
 
         .btn-primary {
@@ -70,14 +78,6 @@
         .btn-primary:active {
             background-color: #1a5bb8; /* Màu nền khi nhấn */
             transform: scale(1); /* Đặt lại kích thước nút khi nhấn */
-        }
-
-        .invalid-feedback {
-            display: none;
-        }
-
-        .was-validated .invalid-feedback {
-            display: block;
         }
 
         .container {
@@ -109,30 +109,31 @@
                 <h1>Edit Week</h1>
                 <div class="form-group">
                     <label for="weekID">Week ID</label>
-                    <input type="text" class="form-control" name="weekID" id="weekID" value="${requestScope.week.weekID}" readonly>
+                    <input type="text" class="form-control" name="id" id="weekID"
+                           value="${requestScope.week.weekID}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="semesterID">Semester ID</label>
                     <input type="text" class="form-control" name="semesterID" id="semesterID"
                            value="${requestScope.week.semesterID.semesterID}" required maxlength="4" placeholder="SU23">
                     <div class="invalid-feedback">
-                        Semester ID is required and must be less than or equal to 4 characters.
+                        Semester ID is required and must be 4 characters long.
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="startDate">Start Date</label>
-                    <input type="date" class="form-control" name="startDate" id="startDate"
-                           value="${requestScope.week.startDate}" required>
+                    <input type="text" class="form-control" name="startDate" id="startDate"
+                           value="${requestScope.week.startDate}" required maxlength="5" placeholder="DD/MM or D/M">
                     <div class="invalid-feedback">
-                        Start Date is required.
+                        Start Date is required and must be in the format DD/MM or D/M.
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="endDate">End Date</label>
-                    <input type="date" class="form-control" name="endDate" id="endDate"
-                           value="${requestScope.week.endDate}" required>
+                    <input type="text" class="form-control" name="endDate" id="endDate"
+                           value="${requestScope.week.endDate}" required maxlength="5" placeholder="DD/MM or D/M">
                     <div class="invalid-feedback">
-                        End Date is required.
+                        End Date is required and must be in the format DD/MM or D/M and after or on the same day as Start Date.
                     </div>
                 </div>
             </div>
@@ -140,7 +141,7 @@
                 <div class="row">
                     <button type="submit" class="btn btn-primary btn-lg col-md-5">Save</button>
                     <span class="col-md-2"></span>
-                    <a class="btn btn-primary col-md-5" href="WeekController" role="button">Back to Week List</a>
+                    <a class="btn btn-primary col-md-5" href="WeekController" role="button">Back to Week list</a>
                 </div>
             </div>
         </div>
@@ -156,6 +157,30 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Custom validator for date format DD/MM or D/M
+            $.validator.addMethod("dateDDMM", function(value, element) {
+                return this.optional(element) || /^(\d{1,2}\/\d{1,2})$/.test(value);
+            }, "Please enter a date in the format DD/MM or D/M");
+
+            // Custom validator for ensuring endDate is after or equal to startDate
+            $.validator.addMethod("dateRange", function(value, element, params) {
+                let startDate = $(params).val();
+                return this.optional(element) || isDateAfterOrEqual(startDate, value);
+            }, "End Date must be the same as or after the Start Date");
+
+            // Function to convert date in DD/MM or D/M format to a Date object
+            function parseDate(dateStr) {
+                let [day, month] = dateStr.split('/').map(Number);
+                return new Date(2024, month - 1, day);  // Assume year 2024 for comparison
+            }
+
+            // Function to check if endDate is after or equal to startDate
+            function isDateAfterOrEqual(startDate, endDate) {
+                let start = parseDate(startDate);
+                let end = parseDate(endDate);
+                return end >= start;
+            }
+
             $("#editWeekForm").validate({
                 rules: {
                     semesterID: {
@@ -164,29 +189,41 @@
                     },
                     startDate: {
                         required: true,
-                        date: true
+                        maxlength: 5,
+                        dateDDMM: true
                     },
                     endDate: {
                         required: true,
-                        date: true
+                        maxlength: 5,
+                        dateDDMM: true,
+                        dateRange: "#startDate"
                     }
                 },
                 messages: {
                     semesterID: {
                         required: "Semester ID is required",
-                        maxlength: "Semester ID must be less than or equal to 4 characters"
+                        maxlength: "Semester ID must be 4 characters long"
                     },
                     startDate: {
                         required: "Start Date is required",
-                        date: "Please enter a valid date"
+                        maxlength: "Start Date must be in the format DD/MM or D/M",
+                        dateDDMM: "Start Date must be in the format DD/MM or D/M"
                     },
                     endDate: {
                         required: "End Date is required",
-                        date: "Please enter a valid date"
+                        maxlength: "End Date must be in the format DD/MM or D/M",
+                        dateDDMM: "End Date must be in the format DD/MM or D/M",
+                        dateRange: "End Date must be the same as or after the Start Date"
                     }
                 },
                 submitHandler: function(form) {
                     form.submit();
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-valid').removeClass('is-invalid');
                 }
             });
         });
