@@ -4,7 +4,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add Campus</title>
+        <title>Edit Campus</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
               integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
         <style>
@@ -19,9 +19,9 @@
     </head>
 
     <body>
-        <form class="row g-3 needs-validation" novalidate method="post" action="CampusController" id="addCampusForm">
+        <form class="row g-3 needs-validation" novalidate method="post" action="CampusController" id="editCampusForm">
             <div class="mb-3">
-                <input type="hidden" class="form-control" name="check" id="check" value="add" />
+                <input type="hidden" class="form-control" name="check" id="check" value="edit" />
             </div>
 
             <div class="card">
@@ -29,35 +29,37 @@
                     <h1>Edit Campus</h1>
                     <div class="form-group">
                         <label for="campusID">Campus ID</label>
-                        <input type="text" class="form-control" name="campusID" id="campusID" >
+                        <input type="text" class="form-control" name="campusID" id="campusID"
+                               value="${requestScope.campus.campusID}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="campusName">Campus Name</label>
+                        <input type="text" class="form-control" name="campusName" id="campusName"
+                               value="${requestScope.campus.campusName}" required maxlength="30">
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="campusName">Campus Name</label>
-                        <input type="text" class="form-control" name="campusName" id="campusName" >
-                        <div class="invalid-feedback">
-                           
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="campusAddress">Campus Address</label>
-                        <input type="text" class="form-control" name="campusAddress" id="campusAddress" >
+                        <input type="text" class="form-control" name="campusAddress" id="campusAddress"
+                               value="${requestScope.campus.campusAddress}" required>
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="campusEmail">Campus Email</label>
-                        <input type="email" class="form-control" name="campusEmail" id="campusEmail">
+                        <input type="email" class="form-control" name="campusEmail" id="campusEmail"
+                               value="${requestScope.campus.campusEmail}" required>
                         <div class="invalid-feedback">
 
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="campusHotline">Campus Hotline</label>
-                        <input type="text" class="form-control" name="campusHotline" id="campusHotline" >
+                        <input type="text" class="form-control" name="campusHotline" id="campusHotline"
+                               value="${requestScope.campus.campusHotline}" required>
                         <div class="invalid-feedback">
 
                         </div>
@@ -67,7 +69,7 @@
                     <div class="row">
                         <button type="submit" class="btn btn-primary btn-lg col-md-5">Save</button>
                         <span class="col-md-2"></span>
-                        <button type="reset" class="btn btn-primary btn-lg col-md-5">Reset</button>
+                        <a class="btn btn-primary col-md-5" href="CampusController" role="button">Back to Campus List</a>
                     </div>
                 </div>
             </div>
@@ -85,16 +87,9 @@
                 $.validator.addMethod("numbersOnly", function (value, element) {
                     return this.optional(element) || /^\d+$/.test(value);
                 }, "Field must contain only numbers.");
-                $.validator.addMethod("noNumbersOrSpecialChars", function (value, element) {
-                    return this.optional(element) || /^[A-Za-z]+$/.test(value);
-                }, "Campus ID must not contain numbers or special characters.");
-                $('#addCampusForm').validate({
+
+                $('#editCampusForm').validate({
                     rules: {
-                        campusID: {
-                            required: true,
-                            maxlength: 8,
-                            noNumbersOrSpecialChars: true
-                        },
                         campusName: {
                             required: true,
                             maxlength: 30
@@ -115,10 +110,6 @@
                         }
                     },
                     messages: {
-                        campusID: {
-                            required: "Please enter the campus ID.",
-                            maxlength: "Campus ID must be less than or equal to 8 characters."
-                        },
                         campusName: {
                             required: "Please enter the campus name.",
                             maxlength: "Campus Name must be less than or equal to 30 characters."
