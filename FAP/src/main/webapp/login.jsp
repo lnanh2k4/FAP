@@ -33,25 +33,14 @@
                             <h1 class="captionLogo">FPT University Academic Portal</h1>
                         </div>
                         <form action="login" method="post" id="loginForm">
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="campus">Campus</label>
-                                    <select class="form-control" name="campus" id="campus">
-                                        <c:forEach items="${requestScope.campus}" var="item">
-                                            <option value="${item.campusID}" ${item.campusID=="FUCT"
-                                                             ?"selected:":""}>${item.campusName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="role">Role</label>
-                                    <select class="form-control" name="role" id="role">
-                                        <option selected value="0">Student</option>
-                                        <option value="3">Administrator</option>
-                                        <option value="2">Academic Staff</option>
-                                        <option value="1">Lecturer</option>
-                                    </select>
-                                </div>
+                            <div class="form-group ">
+                                <label for="campus">Campus</label>
+                                <select class="form-control" name="campus" id="campus">
+                                    <c:forEach items="${requestScope.campus}" var="item">
+                                        <option value="${item.campusID}" ${item.campusID=="FUCT"
+                                                         ?"selected:":""}>${item.campusName}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>

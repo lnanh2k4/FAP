@@ -65,10 +65,9 @@ public class Login extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String campus = request.getParameter("campus");
-        int role = Integer.parseInt(request.getParameter("role"));
         User user = u.getUser(email);
         if (user != null) {
-            if (u.checkUser(user, email, password, campus, role)) {
+            if (u.checkUser(user, email, password, campus)) {
                 session.setAttribute("user", user);
                 response.sendRedirect("index.jsp");
                 return;

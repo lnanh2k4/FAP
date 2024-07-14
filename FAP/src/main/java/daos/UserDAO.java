@@ -163,11 +163,11 @@ public class UserDAO {
 
     }
 
-    public boolean checkUser(User user, String email, String password, String campus, int role) {
+    public boolean checkUser(User user, String email, String password, String campus) {
         UserCampusDAO uc = new UserCampusDAO();
         if (user.getPassword() != null) {
-            return (Encryption.equalsSHA256(password, user.getPassword()) && uc.getUserCampus(user.getUserID()).equals(campus) && user.getRole() == role && status != -1);
+            return (Encryption.equalsSHA256(password, user.getPassword()) && uc.getUserCampus(user.getUserID()).equals(campus) && status != -1);
         }
-        return (user.getUserID().equals(password) && uc.getUserCampus(user.getUserID()).getCampusID().equals(campus) && user.getRole() == role && user.getStatus() != -1);
+        return (user.getUserID().equals(password) && uc.getUserCampus(user.getUserID()).getCampusID().equals(campus) && user.getStatus() != -1);
     }
 }
