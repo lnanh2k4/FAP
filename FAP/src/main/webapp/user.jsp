@@ -15,70 +15,100 @@
               href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
               integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
               crossorigin="anonymous">
+        <style>
+            body {
+                background: url('./img/background_homepage.jpg') no-repeat center center fixed; /* Hình nền trang */
+                background-size: cover; /* Phủ kín toàn bộ viewport */
+                color: #f1f1f1; /* Màu chữ nhạt cho văn bản */
+                padding-top: 50px; /* Khoảng cách cho navbar cố định */
+            }
 
+            h1 {
+                color: #f8f9fa;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
+
+            .btn-danger {
+                background-color: #dc3545; /* Màu nền đỏ */
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
+
+            .btn-danger:hover {
+                background-color: #c82333; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
+
+            .table-primary {
+                background-color: #cce5ff;
+            }
+
+            .table-light {
+                background-color: #f8f9fa;
+            }
+
+            .table-striped tbody tr:nth-of-type(odd) {
+                background-color: #e9ecef;
+            }
+
+            .table-hover tbody tr:hover {
+                background-color: #dee2e6;
+            }
+
+            .container {
+                max-width: 1000px; /* Đặt kích thước tối đa cho container */
+                margin-top: 20px; /* Thêm khoảng cách trên cùng của container */
+            }
+        </style>
     </head>
     <body>
-        <h1>Manage User</h1>
-        <div class="d-flex justify-content-between mb-3">
-            <a name="" id="" class="btn btn-primary" href="UserController?check=add" role="button">Add User</a>
-            <a class="btn btn-primary" href="./" role="button">Back to Manage list</a>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover table-borderless table-primary align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <c:if test="${sessionScope.user.role==3}">
-                            <th>UserID</th>
-                            </c:if>
-                            <c:if test="${sessionScope.user.role==2}">
-                            <th>Roll Number</th>
-                            </c:if>
-                        <th>Full Name</th>
-                        <th>Sex</th>
-                        <th>Phone</th>
-                        <th>Role</th>
-                        <th colspan="2">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <c:forEach var="item" items="${requestScope.userList}">
-                        <c:choose>
-                            <c:when test="${sessionScope.user.role==3}">
-                                <tr class="table-primary">
-                                    <td scope="row">${item.userID}</td>
-                                    <td>${item.lastName} ${item.firstName}</td>
-                                    <c:choose>
-                                        <c:when test="${item.sex==0}">
-                                            <td>Female</td>
-                                        </c:when>
-                                        <c:when test="${item.sex==1}">
-                                            <td>Male</td>
-                                        </c:when>
-                                    </c:choose>
-
-                                    <td>${item.phone}</td>
-                                    <c:choose>
-                                        <c:when test="${item.role==0}">
-<td>Student</td>
-                                        </c:when>
-                                        <c:when test="${item.role==1}">
-                                            <td>Lecturer</td>
-                                        </c:when>
-
-                                        <c:when test="${item.role==2}">
-                                            <td>Academic Staff</td>
-                                        </c:when>
-                                        <c:when test="${item.role==3}">
-                                            <td>Administrator</td>
-                                        </c:when>
-                                    </c:choose>
-                                    <td><a class="btn btn-primary" href="UserController?id=${item.userID}&check=detail"
-                                           role="button">Detail</a>
-                                    </td>
-                                </tr>
-                            </c:when>
-                            <c:otherwise>
-                                <c:if test="${item.role==0}">
+        <div class="container">
+            <h1>Manage User</h1>
+            <div class="d-flex justify-content-between mb-3">
+                <a name="" id="" class="btn btn-primary" href="UserController?check=add" role="button">Add User</a>
+                <a class="btn btn-primary" href="./" role="button">Back to Manage list</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-borderless table-primary align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <c:if test="${sessionScope.user.role==3}">
+                                <th>UserID</th>
+                                </c:if>
+                                <c:if test="${sessionScope.user.role==2}">
+                                <th>Roll Number</th>
+                                </c:if>
+                            <th>Full Name</th>
+                            <th>Sex</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <c:forEach var="item" items="${requestScope.userList}">
+                            <c:choose>
+                                <c:when test="${sessionScope.user.role==3}">
                                     <tr class="table-primary">
                                         <td scope="row">${item.userID}</td>
                                         <td>${item.lastName} ${item.firstName}</td>
@@ -109,14 +139,50 @@
                                         </c:choose>
                                         <td><a class="btn btn-primary" href="UserController?id=${item.userID}&check=detail"
                                                role="button">Detail</a>
-</td>
+                                        </td>
                                     </tr>
-                                </c:if>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </tbody>
-            </table>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:if test="${item.role==0}">
+                                        <tr class="table-primary">
+                                            <td scope="row">${item.userID}</td>
+                                            <td>${item.lastName} ${item.firstName}</td>
+                                            <c:choose>
+                                                <c:when test="${item.sex==0}">
+                                                    <td>Female</td>
+                                                </c:when>
+                                                <c:when test="${item.sex==1}">
+                                                    <td>Male</td>
+                                                </c:when>
+                                            </c:choose>
+
+                                            <td>${item.phone}</td>
+                                            <c:choose>
+                                                <c:when test="${item.role==0}">
+                                                    <td>Student</td>
+                                                </c:when>
+                                                <c:when test="${item.role==1}">
+                                                    <td>Lecturer</td>
+                                                </c:when>
+
+                                                <c:when test="${item.role==2}">
+                                                    <td>Academic Staff</td>
+                                                </c:when>
+                                                <c:when test="${item.role==3}">
+                                                    <td>Administrator</td>
+                                                </c:when>
+                                            </c:choose>
+                                            <td><a class="btn btn-primary" href="UserController?id=${item.userID}&check=detail"
+                                                   role="button">Detail</a>
+                                            </td>
+                                        </tr>
+                                    </c:if>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
 
