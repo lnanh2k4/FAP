@@ -117,8 +117,6 @@ public class RoomController extends HttpServlet {
                     break;
                 case "add":
                     System.out.println("Add");
-                    System.out.println(id);
-                    System.out.println(roomName);
                     y.addRoom(id, roomName);
                     response.sendRedirect(pathController);
                     break;

@@ -7,6 +7,7 @@
     <title>Add Time</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
           integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
     <style>
         .invalid-feedback {
             display: none;
@@ -19,7 +20,7 @@
 </head>
 
 <body>
-    <form class="row g-3 needs-validation" novalidate method="post" action="TimeController">
+    <form class="row g-3 needs-validation" novalidate method="post" action="TimeController" id="timeForm">
         <div class="mb-3">
             <input type="hidden" class="form-control" name="check" id="check" value="add" />
         </div>
@@ -28,33 +29,24 @@
             <div class="card-body">
                 <h1>Add Time</h1>
                 <div class="form-group">
-                    <label for="startTime">Slot</label>
-                    <input type="number" class="form-control" name="slot" id="slot" required pattern=".{4,4}"
-                           maxlength="4">
-                    <div class="invalid-feedback">
-                        slot is required.
-                    </div>
+                    <label for="slot">Slot</label>
+                    <input type="number" class="form-control" name="slot" id="slot" required pattern=".{4,4}" maxlength="4">
+
                 </div>
                 <div class="form-group">
                     <label for="startTime">Start Time</label>
                     <input type="time" class="form-control" name="startTime" id="startTime" required>
-                    <div class="invalid-feedback">
-                        Start Date is required.
-                    </div>
+
                 </div>
                 <div class="form-group">
                     <label for="endTime">End Time</label>
                     <input type="time" class="form-control" name="endTime" id="endTime" required>
-                    <div class="invalid-feedback">
-                        End Date is required.
-                    </div>
+
                 </div>
                 <div class="form-group">
-                    <label for="endDate">Description</label>
+                    <label for="description">Description</label>
                     <input type="text" class="form-control" name="description" id="description" required>
-                    <div class="invalid-feedback">
-                        End Date is required.
-                    </div>
+
                 </div>
             </div>
             <div class="container">
@@ -72,36 +64,53 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
+    <script src="./js/jquery-3.7.1.js"></script>
+    <script src="./js/jquery.validate.js"></script>
+    <script src="./js/additional-methods.js"></script>
     <script>
-        // JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            'use strict';
-
-            window.addEventListener('load', function () {
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            
-                        } else {
-                            // Additional check to ensure endDate is not before startDate
-                            var startDate = document.getElementById('startDate').value;
-                            var endDate = document.getElementById('endDate').value;
-                            if (new Date(endDate) < new Date(startDate)) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                                document.getElementById('endDate').setCustomValidity('End Date cannot be before Start Date.');
-                                document.getElementById('endDate').reportValidity();
-                            } else {
-                                document.getElementById('endDate').setCustomValidity('');
-                            }
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
+        $("#timeForm").validate({
+            rules: {
+                slot: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 4
+                },
+                startTime: {
+                    required: true
+                },
+                endTime: {
+                    required: true
+                },
+                description: {
+                    required: true
+                }
+            },
+            messages: {
+                slot: {
+                    required: "Please input slot",
+                    minlength: "Slot must be at least 1 character",
+                    maxlength: "Slot must be no more than 4 characters"
+                },
+                startTime: {
+                    required: "Please input start time"
+                },
+                endTime: {
+                    required: "Please input end time"
+                },
+                description: {
+                    required: "Please input description"
+                }
+            },
+            submitHandler: function(form) {
+                var startTime = new Date("1970-01-01T" + $("#startTime").val() + "Z");
+                var endTime = new Date("1970-01-01T" + $("#endTime").val() + "Z");
+                if (endTime < startTime) {
+                    alert("End Time cannot be before Start Time.");
+                } else {
+                    form.submit();
+                }
+            }
+        });
     </script>
 </body>
 

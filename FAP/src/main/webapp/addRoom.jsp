@@ -7,6 +7,7 @@
     <title>Add Room</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
           integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
     <style>
         .invalid-feedback {
             display: none;
@@ -19,7 +20,7 @@
 </head>
 
 <body>
-    <form class="row g-3 needs-validation" novalidate method="post" action="RoomController">
+    <form class="row g-3 needs-validation" novalidate method="post" action="RoomController" id="roomForm">
         <div class="mb-3">
             <input type="hidden" class="form-control" name="check" id="check" value="add" />
         </div>
@@ -57,36 +58,35 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
     <script>
-        // JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            'use strict';
-
-            window.addEventListener('load', function () {
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            
-                        } else {
-                            // Additional check to ensure endDate is not before startDate
-                            var startDate = document.getElementById('startDate').value;
-                            var endDate = document.getElementById('endDate').value;
-                            if (new Date(endDate) < new Date(startDate)) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                                document.getElementById('endDate').setCustomValidity('End Date cannot be before Start Date.');
-                                document.getElementById('endDate').reportValidity();
-                            } else {
-                                document.getElementById('endDate').setCustomValidity('');
-                            }
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
+        $(document).ready(function() {
+            $("#roomForm").validate({
+                rules: {
+                    roomID: {
+                        required: true,
+                        rangelength: [4, 4]
+                    },
+                    roomName: {
+                        required: true
+                    }
+                },
+                messages: {
+                    roomID: {
+                        required: "Please input Room ID",
+                        rangelength: "Room ID must be exactly 4 characters long"
+                    },
+                    roomName: {
+                        required: "Please input Room Name"
+                    }
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
     </script>
 </body>
 
