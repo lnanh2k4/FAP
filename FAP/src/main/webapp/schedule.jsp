@@ -87,7 +87,6 @@
             <div class="container">
                 <h1>Manage Schedule</h1>
                 <div class="d-flex justify-content-between mb-3">
-                    <a name="" id="" class="btn btn-primary" href="ScheduleController?check=add" role="button">Add Schedule</a>
                     <a class="btn btn-primary" href="./" role="button">Back to Manage list</a>
                 </div>
                 <div class="table-responsive">
@@ -98,7 +97,6 @@
                                 <th>Group Subject ID</th>
                                 <th>Start date</th>
                                 <th>End date</th>
-                                <th colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
@@ -108,14 +106,7 @@
                                     <td>${item.groupSubjectID}</td>
                                     <td>${item.startDate}</td>
                                     <td>${item.endDate}</td>
-                                    <td><a class="btn btn-primary" href="ScheduleController?id=${item.scheduleID}&check=edit"
-                                           role="button">Edit</a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-danger"
-                                           href="ScheduleController?id=${item.scheduleID}&check=delete"
-                                           role="button">Delete</a>
-                                    </td>
+
 
                                 </tr>
                             </c:forEach>
