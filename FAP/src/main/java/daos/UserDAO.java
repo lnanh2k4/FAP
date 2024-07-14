@@ -78,7 +78,7 @@ public class UserDAO {
     public User getUser(String email) {
         ResultSet rs = null;
         User getU = null;
-        String query = "SELECT * FROM [User] INNER JOIN Curriculum ON [User].CurriculumID = Curriculum.CurriculumID INNER JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOIN Major ON Specialization.MajorID = Major.MajorID where email=?";
+        String query = "SELECT * FROM [User] LEFT JOIN Curriculum ON [User].CurriculumID = Curriculum.CurriculumID LEFT JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID LEFT JOIN Major ON Specialization.MajorID = Major.MajorID where email=?";
         try {
             rs = SQL.executeQuery(query, email);
             while (rs.next()) {
