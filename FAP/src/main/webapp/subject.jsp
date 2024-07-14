@@ -17,7 +17,10 @@
 
     <body>
         <h1>Manage Subject</h1>
-        <a name="" id="" class="btn btn-primary" href="SubjectController?check=add" role="button">Add Subject</a>
+        <div class="d-flex justify-content-between mb-3">
+            <a name="" id="" class="btn btn-primary" href="SubjectController?check=add" role="button">Add Subject</a>
+            <a class="btn btn-primary" href="./" role="button">Back to Manage list</a>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-borderless table-primary align-middle">
                 <thead class="table-light">
