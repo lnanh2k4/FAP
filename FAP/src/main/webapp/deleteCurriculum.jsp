@@ -8,17 +8,96 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-              integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-              crossorigin="anonymous">
+        <title>Delete Curriculum</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+              integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 
+        <style>
+            body {
+                background: url('./img/background_homepage.jpg') no-repeat center center fixed;
+                background-size: cover;
+                color: #f1f1f1;
+                padding-top: 50px;
+            }
+
+            h1 {
+                margin-bottom: 30px;
+                color: #dc3545;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            }
+
+            .card {
+                background: rgba(255, 255, 255, 0.9);
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                margin: 0 auto;
+                max-width: 600px;
+                padding: 20px;
+            }
+
+            .form-group label {
+                font-weight: bold;
+                color: #333;
+            }
+
+            .form-control {
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .btn-danger {
+                background-color: #dc3545; /* Màu nền đỏ */
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
+
+            .btn-danger:hover {
+                background-color: #c82333; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
+            .btn-primary {
+                background-color: #2575fc;
+                border: none;
+                border-radius: 50px;
+                padding: 10px 20px;
+                font-size: 1em;
+                font-weight: bold;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+
+            .btn-primary:hover {
+                background-color: #1a5bb8;
+                transform: scale(1.05);
+            }
+
+            .btn-primary:focus {
+                box-shadow: 0 0 0 0.2rem rgba(37, 117, 252, 0.5);
+            }
+
+            .btn-primary:active {
+                background-color: #1a5bb8;
+                transform: scale(1);
+            }
+
+            .container {
+                max-width: 1000px;
+            }
+
+            .row {
+                margin-top: 20px;
+            }
+        </style>
     </head>
- <%
+
+    <%
         SpecializationDAO s = new SpecializationDAO();
         request.setAttribute("specializationList", s.getAllList());
     %>
+
     <body>
         <form class="row g-3 needs-validation" novalidate method="post" action="CurriculumController">
             <div class="mb-3">
@@ -38,26 +117,22 @@
                         <input type="text" class="form-control" name="curriculumName" id="curriculumName"
                                value="${requestScope.curriculum.curriculumName}" readonly>
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label for="specializationID">Specialization ID</label>
                         <input type="text" class="form-control" name="specializationID" id="specializationID"
                                value="${requestScope.curriculum.specializationID.specializationID}" readonly>
-                        <div class="invalid-feedback">
-                            nhap gi di chu.
-                        </div>
-
+                    </div>
                 </div>
                 <div class="container">
                     <div class="row">
-                        <button name="" id="" class="btn btn-primary btn-lg col-md-5">Delete</button>
-                        <span class="col-md-2"></span>
-                        <a class="btn btn-primary col-md-5" href="CurriculumController" role="button">Back to Curriculum
-                            List</a>
-
+                        <button type="submit" class="btn btn-danger btn-lg col-md-5">Delete</button>
+                        <div class="col-md-2"></div>
+                        <a class="btn btn-primary col-md-5" href="CurriculumController" role="button">Back to Curriculum List</a>
                     </div>
                 </div>
             </div>
         </form>
+
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
                 integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
         crossorigin="anonymous"></script>
