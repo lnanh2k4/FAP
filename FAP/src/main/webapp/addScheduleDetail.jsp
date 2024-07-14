@@ -82,10 +82,12 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="row">
-                        <button type="submit" class="btn btn-primary btn-lg col-md-5">Save</button>
-                        <span class="col-md-2"></span>
-                        <button type="reset" class="btn btn-primary btn-lg col-md-5">Reset</button>
+                    <div class="row mb-3 justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-lg col-md-3">Save</button>
+                        <span class="col-md-1"></span>
+                        <a class="btn btn-primary btn-lg col-md-3" href="ScheduleDetailController" role="button">Back to Schedule Detail list</a>
+                        <span class="col-md-1"></span>
+                        <button type="reset" class="btn btn-primary btn-lg col-md-3">Reset</button>
                     </div>
                 </div>
             </div>
@@ -101,56 +103,55 @@
         <script src="./js/additional-methods.js"></script>
         <script>
             $(document).ready(function () {
-                $.validator.addMethod("greaterThan", function (value, element, params) {
-                    if (!/Invalid|NaN/.test(new Date(value))) {
-                        return new Date(value) > new Date($(params).val());
-                    }
-                    return isNaN(value) && isNaN($(params).val()) || (Number(value) > Number($(params).val()));
-                }, 'Must be greater than {0}.');
-
-                $("#scheduleForm").validate({
-                    rules: {
-                        groupSubjectID: {
-                            required: true,
-                        },
-                        startDate: {
-                            required: true,
+            $.validator.addMethod("greaterThan", function (value, element, params) {
+            if (!/Invalid|NaN/.test(new Date(value))) {
+            return new Date(value) > new Date($(params).val());
+            }
+            return isNaN(value) && isNaN($(params).val()) || (Number(value) > Number($(params).val()));
+            }, 'Must be greater than {0}.');
+            $("#scheduleForm").validate({
+            rules: {
+            groupSubjectID: {
+            required: true,
+            },
+                    startDate: {
+                    required: true,
                             date: true,
-                        },
-                        endDate: {
-                            required: true,
+                    },
+                    endDate: {
+                    required: true,
                             date: true,
                             greaterThan: "#startDate"
-                        }
-                    },
+                    }
+            },
                     messages: {
-                        groupSubjectID: {
-                            required: "Please select groupSubject ID",
-                        },
-                        startDate: {
+                    groupSubjectID: {
+                    required: "Please select groupSubject ID",
+                    },
+                            startDate: {
                             required: "Please enter start date",
-                        },
-                        endDate: {
+                            },
+                            endDate: {
                             required: "Please enter end date",
-                            greaterThan: "End date must be after start date"
-                        }
+                                    greaterThan: "End date must be after start date"
+                            }
                     }
-                });
-                errorClass: "invalid-feedback",
-                validClass: "valid-feedback",
-                highlight: function (element, errorClass, validClass) {
+            });
+            errorClass: "invalid-feedback",
+                    validClass: "valid-feedback",
+                    highlight: function (element, errorClass, validClass) {
                     $(element).addClass("is-invalid").removeClass("is-valid");
-                },
-                unhighlight: function (element, errorClass, validClass) {
+                    },
+                    unhighlight: function (element, errorClass, validClass) {
                     $(element).removeClass("is-invalid").addClass("is-valid");
-                },
-                errorPlacement: function (error, element) {
+                    },
+                    errorPlacement: function (error, element) {
                     if (element.prop("tagName") === "SELECT" || element.prop("type") === "date") {
-                        error.insertAfter(element.parent());
+                    error.insertAfter(element.parent());
                     } else {
-                        error.insertAfter(element);
+                    error.insertAfter(element);
                     }
-                }
+                    }
             });
         </script>
     </body>

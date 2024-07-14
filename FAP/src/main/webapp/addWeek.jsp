@@ -9,7 +9,6 @@
         <title>Add Week</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
               integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-        <link rel="stylesheet" href="./css/style.css">
         <style>
             .invalid-feedback {
                 display: none;
@@ -47,10 +46,16 @@
                     <div class="form-group">
                         <label for="startDate">Start Date</label>
                         <input type="text" class="form-control" name="startDate" id="startDate" placeholder="6/2" required>
+                        <div class="invalid-feedback">
+                            Start Date is required.
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="endDate">End Date</label>
                         <input type="text" class="form-control" name="endDate" id="endDate" placeholder="12/2" required>
+                        <div class="invalid-feedback">
+                            End Date is required.
+                        </div>
                     </div>
                 </div>
                 <div class="container">
@@ -62,8 +67,6 @@
                         <button type="reset" class="btn btn-primary btn-lg col-md-3">Reset</button>
                     </div>
                 </div>
-
-
             </div>
         </form>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
@@ -77,56 +80,41 @@
         <script src="./js/additional-methods.js"></script>
         <script>
             $("#weekForm").validate({
-            rules: {
-            semesterID: {
-            required: true
-            },
+                rules: {
+                    semesterID: {
+                        required: true
+                    },
                     startDate: {
-                    required: true,
-                            date: true
+                        required: true,
+                        date: true
                     },
                     endDate: {
-                    required: true,
-                            date: true
+                        required: true,
+                        date: true
                     }
-            },
-                    messages: {
+                },
+                messages: {
                     semesterID: {
-                    required: "Please select a semester ID"
+                        required: "Please select a semester ID"
                     },
-                            startDate: {
-                            required: "Please input start date",
-                                    date: "Please enter a valid date"
-                            },
-                            endDate: {
-                            required: "Please input end date",
-                                    date: "Please enter a valid date"
-                            }
+                    startDate: {
+                        required: "Please input start date",
+                        date: "Please enter a valid date"
                     },
-                    errorClass: "invalid-feedback",
-                    validClass: "valid-feedback",
-                    highlight: function (element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
-                    },
-                    unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass("is-invalid").addClass("is-valid");
-                    },
-                    errorPlacement: function (error, element) {
-                    if (element.prop("tagName") === "SELECT" || element.prop("type") === "date") {
-                    error.insertAfter(element.parent());
-                    } else {
-                    error.insertAfter(element);
+                    endDate: {
+                        required: "Please input end date",
+                        date: "Please enter a valid date"
                     }
-                    }
-            submitHandler: function(form) {
-            var startDate = new Date($("#startDate").val());
+                },
+                submitHandler: function (form) {
+                    var startDate = new Date($("#startDate").val());
                     var endDate = new Date($("#endDate").val());
                     if (endDate < startDate) {
-            alert("End Date cannot be before Start Date.");
-            } else {
-            form.submit();
-            }
-            }
+                        alert("End Date cannot be before Start Date.");
+                    } else {
+                        form.submit();
+                    }
+                }
             });
         </script>
     </body>
