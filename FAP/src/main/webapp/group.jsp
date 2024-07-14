@@ -33,26 +33,17 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <c:choose>
-                        <c:when test="${not empty requestScope.groupList}">
-                            <c:forEach var="item" items="${requestScope.groupList}">
-                                <tr class="table-primary">
-                                    <td scope="row">${item.groupID}</td>
-                                    <td>${item.groupName}</td>
-                                    <td>${item.semesterID.semesterID}</td>
-                                    <td>
-                                        <a class="btn btn-primary" href="GroupController?groupID=${item.groupID}&check=edit" role="button">Edit</a>
-                                        <a class="btn btn-primary" href="GroupController?groupID=${item.groupID}&check=delete" role="button">Delete</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <tr>
-                                <td colspan="4">No groups available</td>
-                            </tr>
-                        </c:otherwise>
-                    </c:choose>
+                    <c:forEach var="item" items="${requestScope.groupList}">
+                        <tr class="table-primary">
+                            <td scope="row">${item.groupID}</td>
+                            <td>${item.groupName}</td>
+                            <td>${item.semesterID.semesterID}</td>
+                            <td>
+                                <a class="btn btn-primary" href="GroupController?groupID=${item.groupID}&check=edit" role="button">Edit</a>
+                                <a class="btn btn-primary" href="GroupController?groupID=${item.groupID}&check=delete" role="button">Delete</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </div>

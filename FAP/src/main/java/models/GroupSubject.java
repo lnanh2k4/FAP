@@ -35,6 +35,12 @@ public class GroupSubject {
         this.groupID = groupID;
     }
 
+    public GroupSubject(int groupSubjectID) {
+        this.subjectID = subjectID;
+    }
+
+    
+
     public int getGroupSubjectID() {
         return groupSubjectID;
     }

@@ -33,16 +33,16 @@ public class ScheduleDAO {
     public List<Schedule> getAllList() {
         ResultSet rs = null;
         List<Schedule> list = new ArrayList<>();
-        String query = "SELECT * FROM Schedule INNER JOIN GroupSubject ON Schedule.GroupSubjectID = GroupSubject.GroupSubjectID";
+        String query = "SELECT s.ScheduleID, s.GroupSubjectID, s.StartDate, s.EndDate, s.Status FROM Schedule s INNER JOIN GroupSubject g ON s.GroupSubjectID = g.GroupSubjectID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
-                int scheduleID = rs.getInt("scheduleID");
-                int groupSubjectID = rs.getInt("groupSubjectID");
+                scheduleID = rs.getInt("scheduleID");
+                groupSubjectID = rs.getInt("groupSubjectID");
                 Date sqlStartDate = rs.getDate("startDate");
                 Date sqlEndDate = rs.getDate("endDate");
-                LocalDate startDate = sqlStartDate.toLocalDate(); 
-                LocalDate endDate = sqlEndDate.toLocalDate();
+                startDate = sqlStartDate.toLocalDate(); 
+                endDate = sqlEndDate.toLocalDate();
                 status = rs.getInt("status");
                 list.add(new Schedule(scheduleID, groupSubjectID, startDate, endDate, status));
             }
