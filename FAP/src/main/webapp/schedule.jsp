@@ -21,7 +21,10 @@
 
         <body>
             <h1>Manage Schedule</h1>
-            <a name="" id="" class="btn btn-primary" href="ScheduleController?check=add" role="button">Add Schedule</a>
+            <div class="d-flex justify-content-between mb-3">
+                <a name="" id="" class="btn btn-primary" href="ScheduleController?check=add" role="button">Add Schedule</a>
+                <a class="btn btn-primary" href="./" role="button">Back to Manage list</a>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-borderless table-primary align-middle">
                     <thead class="table-light">

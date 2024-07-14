@@ -20,9 +20,16 @@
 
         <body>
             <h1>Manage Attendance</h1>
-            <a name="" id="" class="btn btn-primary" href="AttendanceController?check=add" role="button">Add Attendance</a>
-            <a name="" id="" class="btn btn-primary" href="AttendanceController?action=attendAll&scheduleDetailID=${scheduleDetailID}" role="button">Mark All Present</a>
-            <a name="" id="" class="btn btn-danger" href="AttendanceController?action=absentAll&scheduleDetailID=${scheduleDetailID}" role="button">Mark All Absent</a>
+            <div class="d-flex justify-content-between mb-3">
+                <div>
+                    <a name="" id="" class="btn btn-primary me-2" href="AttendanceController?check=add" role="button">Add Attendance</a>
+                    <a name="" id="" class="btn btn-primary me-2" href="AttendanceController?action=attendAll&scheduleDetailID=${scheduleDetailID}" role="button">Mark All Present</a>
+                    <a name="" id="" class="btn btn-danger me-2" href="AttendanceController?action=absentAll&scheduleDetailID=${scheduleDetailID}" role="button">Mark All Absent</a>
+                </div>
+                <div>
+                    <a class="btn btn-primary" href="./" role="button">Back to Manage list</a>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-borderless table-primary align-middle">
                     <thead class="table-light">

@@ -17,21 +17,24 @@
     </head>
 
     <body>
-            <h1>Manage Semester</h1>
+        <h1>Manage Semester</h1>
+        <div class="d-flex justify-content-between mb-3">
             <a name="" id="" class="btn btn-primary" href="SemesterController?check=add" role="button">Add Semester</a>
-            <div class="table-responsive mt-3">
-                <table class="table table-striped table-hover table-borderless table-primary align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Semester ID</th>
-                            <th>Semester Name</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Year ID</th>
-                            <th colspan="2">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
+            <a class="btn btn-primary" href="./" role="button">Back to Manage list</a>
+        </div>
+        <div class="table-responsive mt-3">
+            <table class="table table-striped table-hover table-borderless table-primary align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Semester ID</th>
+                        <th>Semester Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Year ID</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
                     <c:forEach var="item" items="${requestScope.semesterList}">
                         <tr class="table-primary">
                             <td scope="row">${item.semesterID}</td>
@@ -46,9 +49,9 @@
                             </td>
                         </tr>
                     </c:forEach>
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
                 integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
