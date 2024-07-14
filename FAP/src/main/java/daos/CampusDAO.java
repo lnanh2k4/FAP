@@ -119,4 +119,29 @@ public class CampusDAO {
         }
         return rs;
     }
+
+    public int setStatus(String campusID) {
+        int rs = -1;
+        String query = "UPDATE Campus"
+                + " SET Status = 0"
+                + " WHERE CampusID=?";
+
+        try {
+            rs = SQL.executeUpdate(query, campusID);
+        } catch (SQLException ex) {
+            Logger.getLogger(YearDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(YearDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+    
+    public boolean checkexist(String campusID) {
+        if (getCampus(campusID) == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

@@ -23,6 +23,7 @@ public class RoomDAO {
     String roomID;
     String roomName;
     int status;
+
     public List<Room> getAllList() {
         ResultSet rs = null;
         String query = "SELECT Room.* FROM Room";
@@ -33,7 +34,7 @@ public class RoomDAO {
                 roomID = rs.getString("roomID");
                 roomName = rs.getString("roomName");
                 status = rs.getInt("status");
-                if (status != -1) { 
+                if (status != -1) {
                     list.add(new Room(roomID, roomName, status));
                 }
             }
@@ -55,6 +56,7 @@ public class RoomDAO {
             while (rs.next()) {
                 roomID = rs.getString("roomID");
                 roomName = rs.getString("roomName");
+                status = rs.getInt("status");
                 gr = new Room(roomID, roomName, status);
             }
         } catch (SQLException ex) {
@@ -77,6 +79,23 @@ public class RoomDAO {
             Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+
+    public int setStatus(String roomID) {
+        int rs = -1;
+        String query = "UPDATE Room"
+                + " SET Status = 0"
+                + " WHERE RoomID=?";
+
+        try {
+            rs = SQL.executeUpdate(query, roomID);
+        } catch (SQLException ex) {
+            Logger.getLogger(YearDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(YearDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rs;
@@ -138,7 +157,7 @@ public class RoomDAO {
 
         return rs;
     }
-    
+
     public boolean checkexist(String roomID) {
         if (getRoom(roomID) == null) {
             return false;
