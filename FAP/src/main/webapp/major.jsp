@@ -102,6 +102,8 @@
                                 <td>${item.majorName}</td>
                                 <td>
                                     <a class="btn btn-primary" href="MajorController?id=${item.majorID}&check=edit" role="button">Edit</a>
+                                    </td>
+                                    <td>
                                     <a class="btn btn-danger" href="MajorController?id=${item.majorID}&check=delete" role="button">Delete</a>
                                 </td>
                             </tr>

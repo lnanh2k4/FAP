@@ -108,6 +108,8 @@
                                 <td>${item.description}</td>
                                 <td>
                                     <a class="btn btn-primary" href="TimeController?id=${item.timeID}&check=edit" role="button">Edit</a>
+                                    </td>
+                                    <td>
                                     <a class="btn btn-danger" href="TimeController?id=${item.timeID}&check=delete" role="button">Delete</a>
                                 </td>
                             </tr>
