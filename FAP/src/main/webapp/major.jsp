@@ -14,11 +14,10 @@
               crossorigin="anonymous">
         <style>
             body {
-                background-image: url('./img/background_homepage.jpg');
-                background-size: cover;
-                background-position: center;
-                color: #fff;
-                padding-top: 20px; /* Thêm khoảng cách trên cùng của body */
+                background: url('./img/background_homepage.jpg') no-repeat center center fixed; /* Hình nền trang */
+                background-size: cover; /* Phủ kín toàn bộ viewport */
+                color: #f1f1f1; /* Màu chữ nhạt cho văn bản */
+                padding-top: 50px; /* Khoảng cách cho navbar cố định */
             }
 
             h1 {
@@ -117,10 +116,10 @@
 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
                 integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
-                crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
                 integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-                crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     </body>
 
 </html>

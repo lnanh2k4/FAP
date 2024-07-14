@@ -14,11 +14,10 @@
               crossorigin="anonymous">
         <style>
             body {
-                background-image: url('./img/background_homepage.jpg');
-                background-size: cover;
-                background-position: center;
-                color: #fff;
-                padding-top: 20px; /* Thêm khoảng cách trên cùng của body */
+                background: url('./img/background_homepage.jpg') no-repeat center center fixed; /* Hình nền trang */
+                background-size: cover; /* Phủ kín toàn bộ viewport */
+                color: #f1f1f1; /* Màu chữ nhạt cho văn bản */
+                padding-top: 50px; /* Khoảng cách cho navbar cố định */
             }
 
             h1 {
@@ -43,7 +42,7 @@
             }
 
             .btn-secondary {
-                background-color: #6c757d;
+                background-color: #007bff;
                 border: none;
                 border-radius: 25px; /* Bo tròn các góc của nút */
                 padding: 10px 20px; /* Thay đổi kích thước của nút */

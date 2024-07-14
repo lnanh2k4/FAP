@@ -49,7 +49,7 @@ public class WeekDAO {
                 semesterStartDate = rs.getDate(7).toLocalDate();
                 semesterEndDate = rs.getDate(8).toLocalDate();
                 status = rs.getInt(9);
-                if (status > -1) {
+                if (status != -1) {
                     list.add(new Week(weekID, weekStartDate, weekEndDate, new Semester(semesterID, semesterName, semesterStartDate, semesterEndDate, yearID), status));
                 }
             }

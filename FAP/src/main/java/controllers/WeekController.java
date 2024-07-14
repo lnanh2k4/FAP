@@ -100,13 +100,14 @@ public class WeekController extends HttpServlet {
             throws ServletException, IOException {
         String pathController = "WeekController";
         String check = request.getParameter("check");
-        String idParam = request.getParameter("id");
+        String idParam = request.getParameter("weekID");
         System.out.println("id param"+idParam);
         int id = idParam != null ? Integer.parseInt(idParam) : -1;
         String semesterID = request.getParameter("semesterID");
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
         WeekDAO y = new WeekDAO();
+        System.out.println(check);
         if (check != null) {
             switch (check) {
                 case "edit":
