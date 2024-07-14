@@ -26,7 +26,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h1>Add Campus</h1>
+                    <h1>Edit Campus</h1>
                     <div class="form-group">
                         <label for="campusID">Campus ID</label>
                         <input type="text" class="form-control" name="campusID" id="campusID" >
@@ -38,7 +38,7 @@
                         <label for="campusName">Campus Name</label>
                         <input type="text" class="form-control" name="campusName" id="campusName" >
                         <div class="invalid-feedback">
-                            Please enter the campus name.
+                           
                         </div>
                     </div>
                     <div class="form-group">

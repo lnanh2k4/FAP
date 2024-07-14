@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label for="semesterID">Semester Name</label>
                         <input type="text" class="form-control" name="semesterID" id="semesterID"
-                               value="${requestScope.semester.semesterID.semesterID}" required maxlength="20" placeholder="Summer 2023">
+                               value="${requestScope.semester.semesterID}" required maxlength="20" placeholder="Summer 2023">
                         <div class="invalid-feedback">
                             please enter Semester Name like example.
                         </div>

@@ -89,7 +89,7 @@
                 $("#semesterController").validate({
                     rules: {
                         yearID: {
-                            required: true,
+                            required: true
                         },
                         semesterName: {
                             required: true,
@@ -97,7 +97,7 @@
                         },
                         startDate: {
                             required: true,
-                            date: true,
+                            date: true
                         },
                         endDate: {
                             required: true,
@@ -107,14 +107,14 @@
                     },
                     messages: {
                         yearID: {
-                            required: "Please select year ID",
+                            required: "Please select year ID"
                         },
                         semesterName: {
                             required: "Please enter group name",
                             rangelength: "Group name must be between 1 and 20 characters"
                         },
                         startDate: {
-                            required: "Please enter start date",
+                            required: "Please enter start date"
                         },
                         endDate: {
                             required: "Please enter end date",
