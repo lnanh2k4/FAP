@@ -116,6 +116,7 @@
                     unhighlight: function (element, errorClass, validClass) {
                         $(element).addClass('is-valid').removeClass('is-invalid');
                     }
+                    
                 });
             });
         </script>

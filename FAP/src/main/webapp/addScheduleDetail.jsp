@@ -65,9 +65,6 @@
                                 <option value="${item.groupSubjectID}">${item.groupSubjectID}</option>
                             </c:forEach>
                         </select>
-                        <div class="invalid-feedback">
-                            Please select a valid group subject.
-                        </div>
                     </div>
                     <div class="form-group">
                         <label for="startDate">Start Date</label>
@@ -139,6 +136,21 @@
                         }
                     }
                 });
+                errorClass: "invalid-feedback",
+                validClass: "valid-feedback",
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                },
+                errorPlacement: function (error, element) {
+                    if (element.prop("tagName") === "SELECT" || element.prop("type") === "date") {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
             });
         </script>
     </body>
