@@ -6,6 +6,7 @@ package daos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -136,5 +137,13 @@ public class RoomDAO {
         }
 
         return rs;
+    }
+    
+    public boolean checkexist(String roomID) {
+        if (getRoom(roomID) == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

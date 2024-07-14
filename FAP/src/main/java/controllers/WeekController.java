@@ -121,16 +121,11 @@ public class WeekController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    if (y.checkexist(id)) {
-                        String erorrMessage = "This Week has existed";
-                        request.setAttribute("errorAddWeek", erorrMessage);
-                        request.getRequestDispatcher("addWeek.jsp").forward(request, response);
-                    } else {
-                        System.out.println("Add");
-                        y.addWeek(semesterID, startDate, endDate);
-                        response.sendRedirect(pathController);
-                        break;
-                    }
+                    System.out.println("Add");
+                    y.addWeek(semesterID, startDate, endDate);
+                    response.sendRedirect(pathController);
+                    break;
+
             }
         }
     }
