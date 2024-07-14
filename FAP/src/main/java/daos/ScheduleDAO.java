@@ -111,7 +111,7 @@ public class ScheduleDAO {
         int rs = -1;
         String query = "INSERT INTO Schedule(groupSubjectID,startDate,endDate) VALUES ?,?,?)";
         try {
-            rs = SQL.executeUpdate(query, scheduleID, groupSubjectID, startDate, endDate);
+            rs = SQL.executeUpdate(query, groupSubjectID, startDate, endDate);
         } catch (SQLException ex) {
             Logger.getLogger(ScheduleDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<<<<<<< HEAD
     <filter>
+=======
+    <!--    <filter>
+>>>>>>> a0c3ab9b2f2600b340f4089e3dc9d1b6a45d6979
         <filter-name>Authentication</filter-name>
         <filter-class>filters.Authentication</filter-class>
     </filter>
@@ -80,8 +84,13 @@
         <servlet-class>controllers.UserCampusController</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>UserController</servlet-name>
         <servlet-class>controllers.UserController</servlet-class>
+=======
+        <servlet-name>CampusController</servlet-name>
+        <servlet-class>controllers.CampusController</servlet-class>
+>>>>>>> a0c3ab9b2f2600b340f4089e3dc9d1b6a45d6979
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -144,8 +153,13 @@
         <url-pattern>/UserCampusController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>UserController</servlet-name>
         <url-pattern>/UserController</url-pattern>
+=======
+        <servlet-name>CampusController</servlet-name>
+        <url-pattern>/CampusController</url-pattern>
+>>>>>>> a0c3ab9b2f2600b340f4089e3dc9d1b6a45d6979
     </servlet-mapping>
     <session-config>
         <session-timeout>

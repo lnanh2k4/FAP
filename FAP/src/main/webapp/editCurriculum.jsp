@@ -20,12 +20,12 @@
             }
         </style>
     </head>
-<%
+    <%
         SpecializationDAO s = new SpecializationDAO();
         request.setAttribute("specializationList", s.getAllList());
     %>
     <body>
-        <form class="row g-3 needs-validation" novalidate method="post" action="CurriculumController">
+        <form class="row g-3 needs-validation" novalidate method="post" action="CurriculumController" id="editCurriculumForm">
             <div class="mb-3">
                 <input type="hidden" class="form-control" name="check" id="check" value="edit" />
             </div>
@@ -41,12 +41,11 @@
                     <div class="form-group">
                         <label for="curriculumName">Curriculum Name</label>
                         <input type="text" class="form-control" name="curriculumName" id="curriculumName"
-                               value="${requestScope.curriculum.curriculumName}" >
+                               value="${requestScope.curriculum.curriculumName}" required>
                         <div class="invalid-feedback">
-                            
                         </div>
                     </div>
-                   <div class="card">
+                    <div class="card">
                         <div class="form-group">
                             <label for="majorID">Specialization ID</label>
                             <select class="form-control" name="specializationID" id="specializationID">
@@ -56,8 +55,6 @@
                             </select>
                         </div>
                     </div>
-
-
                 </div>
                 <div class="container">
                     <div class="row">
@@ -68,30 +65,45 @@
                 </div>
             </div>
         </form>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+                integrity="sha384-IQsoLXlDw5TnP12MjAeu5RsENQGnZ4py+6kQmA8AKOzwi3BIi+d2DCtwIk8p2KUE"
+        crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
                 integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
         crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
         <script>
-            // JavaScript for disabling form submissions if there are invalid fields
-            (function () {
-                'use strict';
+            $(document).ready(function () {
+                $.validator.addMethod("noNumbers", function (value, element) {
+                    return this.optional(element) || /^[A-Za-z\s]+$/.test(value);
+                }, "Field must not contain numbers.");
 
-                window.addEventListener('load', function () {
-                    var forms = document.getElementsByClassName('needs-validation');
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener('submit', function (event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
+                $('#editCurriculumForm').validate({
+                    rules: {
+                        curriculumName: {
+                            required: true,
+                           maxlenght : 255
+                        }
+                    },
+                    messages: {
+                        curriculumName: {
+                            required: "Please enter the curriculum name.",
+                            maxlength: "Curriculum Name must be less than or equal to 255 characters."
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        error.addClass('invalid-feedback');
+                        element.closest('.form-group').append(error);
+                    },
+                    highlight: function (element, errorClass, validClass) {
+                        $(element).addClass('is-invalid').removeClass('is-valid');
+                    },
+                    unhighlight: function (element, errorClass, validClass) {
+                        $(element).addClass('is-valid').removeClass('is-invalid');
+                    }
+                });
+            });
         </script>
     </body>
 

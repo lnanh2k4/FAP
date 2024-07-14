@@ -4,26 +4,24 @@
  */
 package controllers;
 
-import daos.MajorDAO;
-import daos.RoomDAO;
-import daos.YearDAO;
+import daos.CampusDAO;
+import daos.CurriculumDAO;
+import daos.SpecializationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.time.LocalDate;
 import java.util.List;
-import models.Major;
-import models.Room;
-import models.Year;
+import models.Campus;
+
 
 /**
  *
  * @author mrmas
  */
-public class RoomController extends HttpServlet {
+public class CampusController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +40,10 @@ public class RoomController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MajorController</title>");
+            out.println("<title>Servlet CurriculumController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MajorController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CurriculumController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,23 +63,23 @@ public class RoomController extends HttpServlet {
             throws ServletException, IOException {
         String check = request.getParameter("check");
         String id = (String) request.getParameter("id");
-        RoomDAO y = new RoomDAO();
+        CampusDAO ca = new CampusDAO();
         if (check == null) {
-            List<Room> list = y.getAllList();
-            request.setAttribute("roomList", list);
-            request.getRequestDispatcher("room.jsp").forward(request, response);
+            List<Campus> list = ca.getAllList();
+            request.setAttribute("campusList", list);
+            request.getRequestDispatcher("campus.jsp").forward(request, response);
         } else {
             switch (check) {
                 case "edit":
-                    request.setAttribute("room", y.getRoom(id));
-                    request.getRequestDispatcher("editRoom.jsp").forward(request, response);
+                    request.setAttribute("campus", ca.getCampus(id));
+                    request.getRequestDispatcher("editCampus.jsp").forward(request, response);
                     break;
                 case "delete":
-                    request.setAttribute("room", y.getRoom(id));
-                    request.getRequestDispatcher("deleteRoom.jsp").forward(request, response);
+                    request.setAttribute("campus", ca.getCampus(id));
+                    request.getRequestDispatcher("deleteCampus.jsp").forward(request, response);
                     break;
                 case "add":
-                    response.sendRedirect("addRoom.jsp");
+                    response.sendRedirect("addCampus.jsp");
                     break;
             }
         }
@@ -99,25 +97,27 @@ public class RoomController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pathController = "RoomController";
+        String pathController = "CampusController";
         String check = request.getParameter("check");
-        String id = request.getParameter("roomID");
-        String roomName = request.getParameter("roomName");
-        RoomDAO y = new RoomDAO();
-        System.out.println(check);
+        String id = request.getParameter("campusID");
+        String name = request.getParameter("campusName");
+        String address = request.getParameter("campusAddress");
+        String email = request.getParameter("campusEmail");
+        String hotline = request.getParameter("campusHotline");
+
+        CampusDAO ca = new CampusDAO();
         if (check != null) {
             switch (check) {
                 case "edit":
-                    y.updateRoom(id, roomName);
+                    ca.updateCampus(id, name, address, email, hotline);
                     response.sendRedirect(pathController);
                     break;
                 case "delete":
-                    y.deleteRoom(id);
+                    ca.deleteCampus(id);
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    System.out.println("Add");
-                    y.addRoom(id, roomName);
+                    ca.addCampus(id, name, address, email, hotline);
                     response.sendRedirect(pathController);
                     break;
             }

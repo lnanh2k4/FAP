@@ -7,6 +7,7 @@
     <title>Add Year</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
           integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
     <style>
         .invalid-feedback {
             display: none;
@@ -19,7 +20,7 @@
 </head>
 
 <body>
-    <form class="row g-3 needs-validation" novalidate method="post" action="YearController">
+    <form class="row g-3 needs-validation" novalidate method="post" action="YearController" id="yearForm">
         <div class="mb-3">
             <input type="hidden" class="form-control" name="check" id="check" value="add" />
         </div>
@@ -29,25 +30,15 @@
                 <h1>Add Year</h1>
                 <div class="form-group">
                     <label for="yearID">Year ID</label>
-                    <input type="text" class="form-control" name="yearID" id="yearID" required pattern=".{4,4}"
-                           maxlength="4">
-                    <div class="invalid-feedback">
-                        Year ID must be exactly 4 characters long.
-                    </div>
+                    <input type="text" class="form-control" name="yearID" id="yearID" required pattern=".{4,4}" maxlength="4">
                 </div>
                 <div class="form-group">
                     <label for="startDate">Start Date</label>
                     <input type="date" class="form-control" name="startDate" id="startDate" required>
-                    <div class="invalid-feedback">
-                        Start Date is required.
-                    </div>
                 </div>
                 <div class="form-group">
                     <label for="endDate">End Date</label>
                     <input type="date" class="form-control" name="endDate" id="endDate" required>
-                    <div class="invalid-feedback">
-                        End Date is required.
-                    </div>
                 </div>
             </div>
             <div class="container">
@@ -65,36 +56,66 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
     <script>
-        // JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            'use strict';
-
-            window.addEventListener('load', function () {
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            
-                        } else {
-                            // Additional check to ensure endDate is not before startDate
-                            var startDate = document.getElementById('startDate').value;
-                            var endDate = document.getElementById('endDate').value;
-                            if (new Date(endDate) < new Date(startDate)) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                                document.getElementById('endDate').setCustomValidity('End Date cannot be before Start Date.');
-                                document.getElementById('endDate').reportValidity();
-                            } else {
-                                document.getElementById('endDate').setCustomValidity('');
-                            }
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
+        $(document).ready(function() {
+            $("#yearForm").validate({
+                rules: {
+                    yearID: {
+                        required: true,
+                        rangelength: [4, 4]
+                    },
+                    startDate: {
+                        required: true,
+                        date: true
+                    },
+                    endDate: {
+                        required: true,
+                        date: true
+                    }
+                },
+                messages: {
+                    yearID: {
+                        required: "Please input Year ID",
+                        rangelength: "Year ID must be exactly 4 characters long"
+                    },
+                    startDate: {
+                        required: "Please input Start Date",
+                        date: "Please enter a valid date"
+                    },
+                    endDate: {
+                        required: "Please input End Date",
+                        date: "Please enter a valid date"
+                    }
+                },
+                submitHandler: function(form) {
+                    var startDate = new Date($("#startDate").val());
+                    var endDate = new Date($("#endDate").val());
+                    if (endDate < startDate) {
+                        alert("End Date cannot be before Start Date.");
+                    } else {
+                        form.submit();
+                    }
+                }
+                errorClass: "invalid-feedback",
+                validClass: "valid-feedback",
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                },
+                errorPlacement: function (error, element) {
+                    if (element.prop("tagName") === "SELECT" || element.prop("type") === "date") {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+        });
     </script>
 </body>
 

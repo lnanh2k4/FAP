@@ -30,7 +30,7 @@
         request.setAttribute("semesterList", s.getAllList());
     %>
     <body>
-        <form class="row g-3 needs-validation" novalidate method="post" action="GroupController">
+        <form class="row g-3 needs-validation" novalidate method="post" action="GroupController" form="groupController">
             <div class="mb-3">
                 <input type="hidden" class="form-control" name="check" id="check" value="add" />
             </div>
@@ -67,6 +67,49 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
                 integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
+        <script src="./js/jquery-3.7.1.js"></script>
+        <script src="./js/jquery.validate.js"></script>
+        <script src="./js/additional-methods.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#groupController").validate({
+                    rules: {
+                        semesterID {
+                            required: true,
+                        },
+                        groupName {
+                            required: true,
+                            rangelength: [1, 15]
+                        },
+                        
+                    },
+                    messages: {
+                        semesterID {
+                            required: "Please select semester ID",
+                        },
+                        groupName {
+                            required: "Please enter group name",
+                            rangelength: "Group name must be letter between 1 and 15"
+                        },
+                    }
+                });
+                errorClass: "invalid-feedback",
+                validClass: "valid-feedback",
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass("is-invalid").addClass("is-valid");
+                },
+                errorPlacement: function (error, element) {
+                    if (element.prop("tagName") === "SELECT" || element.prop("type") === "date") {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+        </script>
     </body>
 
 </html>
