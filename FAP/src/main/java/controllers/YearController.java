@@ -118,10 +118,18 @@ public class YearController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    if (y.checkexist(id)){
-                        String erorrMessage = "This year has existed";
-                        request.setAttribute("errorAddYear", erorrMessage);
-                        request.getRequestDispatcher("addYear.jsp").forward(request, response);
+                    if (y.checkexist(id, startDate, endDate)) {
+                        if (y.getYear(id).getStatus() == -1) {
+                            y.updateYear(id, startDate, endDate);
+                            y.setStatus(id);
+                            response.sendRedirect(pathController);
+                            System.out.println(y.getYear(id).getStatus());
+                        } else {
+                            String erorrMessage = "This year has existed";
+                            request.setAttribute("errorAddYear", erorrMessage);
+                            request.getRequestDispatcher("addYear.jsp").forward(request, response);
+                        }
+
                     } else {
                         y.addYear(id, startDate, endDate);
                         response.sendRedirect(pathController);

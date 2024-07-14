@@ -67,7 +67,7 @@
             }
 
             .btn-primary:hover {
-background-color: #1a5bb8; /* Darker blue for hover */
+                background-color: #1a5bb8; /* Darker blue for hover */
                 transform: scale(1.05); /* Slightly enlarge button on hover */
             }
 
@@ -139,7 +139,7 @@ background-color: #1a5bb8; /* Darker blue for hover */
 
             </div>
         </form>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
                 integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
         crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -197,7 +197,7 @@ background-color: #1a5bb8; /* Darker blue for hover */
                         $(element).removeClass("is-invalid").addClass("is-valid");
                     },
                     errorPlacement: function (error, element) {
-if (element.prop("tagName") === "SELECT" || element.prop("type") === "date") {
+                        if (element.prop("tagName") === "SELECT" || element.prop("type") === "date") {
                             error.insertAfter(element.parent());
                         } else {
                             error.insertAfter(element);

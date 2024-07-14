@@ -38,7 +38,11 @@ public class Login extends HttpServlet {
         String check = request.getParameter("check");
         if (check != null) {
             if (check.equals("signout")) {
-                session.invalidate();
+                if (session.getAttribute("mainUser") == null) {
+                    session.invalidate();
+                } else {
+                    session.setAttribute("user", session.getAttribute("mainUser"));
+                }
             }
         }
 
@@ -85,7 +89,7 @@ public class Login extends HttpServlet {
             }
         } else {
             System.out.println("Khong co tai khoan");
-            String erorrMessage = "Inputed information is not existed!";
+            String erorrMessage = "Account is not existed in system!";
             request.setAttribute("errorLogin", erorrMessage);
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;

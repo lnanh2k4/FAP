@@ -25,9 +25,6 @@ public class Group {
         this.status = status;
     }
 
-    public Group(int groupID, String groupName, Semester semester) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     public int getGroupID() {
         return groupID;

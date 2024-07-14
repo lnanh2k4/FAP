@@ -44,7 +44,7 @@ public class UserDAO {
     public List<User> getAllList() {
         ResultSet rs = null;
         List<User> list = new ArrayList<>();
-        String query = "SELECT * FROM [User] INNER JOIN Curriculum ON [User].CurriculumID = Curriculum.CurriculumID INNER JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOIN Major ON Specialization.MajorID = Major.MajorID";
+        String query = "SELECT * FROM [User] LEFT JOIN Curriculum ON [User].CurriculumID = Curriculum.CurriculumID LEFT JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID LEFT JOIN Major ON Specialization.MajorID = Major.MajorID";
         try {
             rs = SQL.executeQuery(query);
             while (rs.next()) {
@@ -64,7 +64,51 @@ public class UserDAO {
                 majorID = rs.getString("majorID");
                 majorName = rs.getString("majorName");
                 status = rs.getInt("status");
-                list.add(new User(userID, firstName, lastName, sex, email, phone, semester, role, new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), password, status));
+                if (status != -1) {
+                    list.add(new User(userID, firstName, lastName, sex, email, phone, semester, role, new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), password, status));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+
+    public List<User> getAllListByCampusID(String campusID) {
+        ResultSet rs = null;
+        List<User> list = new ArrayList<>();
+        String query = "SELECT * FROM [User] \n"
+                + "LEFT JOIN Curriculum ON [User].CurriculumID = Curriculum.CurriculumID \n"
+                + "LEFT JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID \n"
+                + "LEFT JOIN Major ON Specialization.MajorID = Major.MajorID\n"
+                + "LEFT JOIN UserCampus uc on uc.UserID= [User].UserID\n"
+                + "INNER JOIN Campus c on c.CampusID = uc.CampusID\n"
+                + "where C.CampusID=?";
+        try {
+            rs = SQL.executeQuery(query, campusID);
+            while (rs.next()) {
+                userID = rs.getString("userID");
+                firstName = rs.getString("firstName");
+                lastName = rs.getString("lastName");
+                sex = rs.getInt("sex");
+                email = rs.getString("email");
+                phone = rs.getString("phone");
+                semester = rs.getInt("semester");
+                role = rs.getInt("role");
+                password = rs.getString("password");
+                curriculumID = rs.getString("curriculumID");
+                curriculumName = rs.getString("curriculumName");
+                specializationID = rs.getString("specializationID");
+                specializationName = rs.getString("specializationName");
+                majorID = rs.getString("majorID");
+                majorName = rs.getString("majorName");
+                status = rs.getInt("status");
+                if (status != -1) {
+                    list.add(new User(userID, firstName, lastName, sex, email, phone, semester, role, new Curriculum(curriculumID, curriculumName, new Specialization(specializationID, specializationName, new Major(majorID, majorName))), password, status));
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,15 +155,20 @@ public class UserDAO {
     public User getUserByUserID(String userID) {
         ResultSet rs = null;
         User getU = null;
-        String query = "SELECT * FROM [User] INNER JOIN Curriculum ON [User].CurriculumID = Curriculum.CurriculumID INNER JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOIN Major ON Specialization.MajorID = Major.MajorID where userID=?";
+        String query = "SELECT * FROM [User] \n"
+                + "LEFT JOIN Curriculum ON [User].CurriculumID = Curriculum.CurriculumID \n"
+                + "LEFT JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID \n"
+                + "LEFT JOIN Major ON Specialization.MajorID = Major.MajorID\n"
+                + "LEFT JOIN UserCampus uc on uc.UserID= [User].UserID\n"
+                + "INNER JOIN Campus c on c.CampusID = uc.CampusID\n"
+                + "where [User].UserID=?";
         try {
-            rs = SQL.executeQuery(query, email);
+            rs = SQL.executeQuery(query, userID);
             while (rs.next()) {
                 email = rs.getString("email");
                 firstName = rs.getString("firstName");
                 lastName = rs.getString("lastName");
                 sex = rs.getInt("sex");
-                email = rs.getString("email");
                 phone = rs.getString("phone");
                 semester = rs.getInt("semester");
                 role = rs.getInt("role");
@@ -143,8 +192,8 @@ public class UserDAO {
 
     public int deleteUser(String userID) {
         int rs = -1;
-        String query = "UPDATE User"
-                + " SET Status = 0"
+        String query = "UPDATE [User]"
+                + " SET Status = -1"
                 + " WHERE UserID=?";
         try {
             rs = SQL.executeUpdate(query, userID);
@@ -203,7 +252,7 @@ public class UserDAO {
         System.out.println("uc.getUserCampus(user.getUserID()).getCampusID().equals(campus) " + uc.getUserCampus(user.getUserID()).getCampusID().equals(campus));
         System.out.println("user.getStatus() != -1 " + (user.getStatus() != -1));
         System.out.println("uc.getUserCampus(user.getUserID()).getCampusID()" + uc.getUserCampus(user.getUserID()).getCampusID().getCampusID());
-        System.out.println("campus"+ campus);
+        System.out.println("campus" + campus);
         if (user.getPassword() != null) {
             return (Encryption.equalsSHA256(password, user.getPassword()) && uc.getUserCampus(user.getUserID()).getCampusID().getCampusID().equals(campus) && user.getStatus() != -1);
         }

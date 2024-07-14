@@ -59,6 +59,7 @@ public class YearDAO {
                 yearID = rs.getString("yearID");
                 startDate = rs.getDate("startDate").toLocalDate();
                 endDate = rs.getDate("endDate").toLocalDate();
+                status = rs.getInt("status");
                 gy = new Year(yearID, startDate, endDate, status);
             }
         } catch (SQLException ex) {
@@ -117,14 +118,30 @@ public class YearDAO {
 
         return rs;
     }
-    
-    public boolean checkexist(String yearID){
-        boolean exists = false;
-        if(getYear(yearID)==null){
-            System.out.println("Nam này không t?n t?i");
+
+    public int setStatus(String yearID) {
+        int rs = -1;
+        String query = "UPDATE Year"
+                + " SET Status = 0"
+                + " WHERE YearID=?";
+
+        try {
+            rs = SQL.executeUpdate(query, yearID);
+        } catch (SQLException ex) {
+            Logger.getLogger(YearDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(YearDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
+
+    public boolean checkexist(String yearID, LocalDate startDate, LocalDate endDate) {
+        //Year year_cur = new Year();
+        //year_cur = getYear(yearID);
+        if (getYear(yearID) == null) {
             return false;
         } else {
-            System.out.println("nam nay co");
             return true;
         }
     }

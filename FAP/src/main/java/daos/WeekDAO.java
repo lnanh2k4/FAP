@@ -140,18 +140,5 @@ public class WeekDAO {
 
         return rs;
     }
-    
-    
-    public boolean checkexist(int weekID){
-        boolean exists = false;
-        if (getWeek(weekID)==null){
-            System.out.println("week nay co roi");
-            return true;
-        } else {  
-            System.out.println("week nay eo co!");
-            return false;
-        }
-        
-    }
 
 }

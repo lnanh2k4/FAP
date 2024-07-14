@@ -112,11 +112,9 @@ public class Authentication implements Filter {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         System.out.println("Filter");
-        if (uri.endsWith(".jsp")) {
-            if (user == null) {
-                res.sendRedirect("login.jsp");
-                return;
-            }
+        if (user == null) {
+            res.sendRedirect("login.jsp");
+            return;
         }
 
         Throwable problem = null;
