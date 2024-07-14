@@ -62,7 +62,7 @@ public class GroupController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String check = request.getParameter("check");
-        int id = Integer.parseInt(request.getParameter("groupID"));
+        int id = Integer.parseInt(request.getParameter("id"));
         GroupDAO cu = new GroupDAO();
         if (check == null) {
             List<Group> list = cu.getAllList();
@@ -71,13 +71,11 @@ public class GroupController extends HttpServlet {
         } else {
             switch (check) {
                 case "edit":
-                    Group group = cu.getGroup(id);
-                    request.setAttribute("group", group);
+                    request.setAttribute("group", cu.getGroup(id));
                     request.getRequestDispatcher("editGroup.jsp").forward(request, response);
                     break;
                 case "delete":
-                    group = cu.getGroup(id);
-                    request.setAttribute("group", group);
+                    request.setAttribute("group", cu.getGroup(id));
                     request.getRequestDispatcher("deleteGroup.jsp").forward(request, response);
                     break;
                 case "add":
@@ -101,8 +99,7 @@ public class GroupController extends HttpServlet {
             throws ServletException, IOException {
         String pathController = "GroupController";
         String check = request.getParameter("check");
-        int id = Integer.parseInt(request.getParameter("groupID"));
-        System.out.println("get id: "+id);
+        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("groupName");
         String idsp = request.getParameter("semesterID");
         GroupDAO cu = new GroupDAO();

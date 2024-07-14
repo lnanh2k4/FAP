@@ -104,7 +104,7 @@ public class SpecializationController extends HttpServlet {
         if (check != null) {
             switch (check) {
                 case "edit":
-                    sp.updateSpecialization(id, name,idMajor);
+                    sp.updateSpecialization(id, name, idMajor);
                     response.sendRedirect(pathController);
                     break;
                 case "delete":
@@ -112,8 +112,14 @@ public class SpecializationController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    sp.addSpecialization(id, name,idMajor);
-                    response.sendRedirect(pathController);
+                    if (sp.checkexist(id)) {
+                        String erorrMessage = "This Specialization has existed";
+                        request.setAttribute("errorAddSpecialization", erorrMessage);
+                        request.getRequestDispatcher("addSpecialization.jsp").forward(request, response);
+                    } else {
+                        sp.addSpecialization(id, name, idMajor);
+                        response.sendRedirect(pathController);
+                    }
                     break;
             }
         }

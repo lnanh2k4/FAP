@@ -64,10 +64,6 @@ public class SubjectDAO {
         return getS;
     }
 
-    public boolean subjectExists(String subjectID) {
-        return getSubject(subjectID) != null;
-    }
-
     public int deleteSubject(String subjectID) {
         int rs = -1;
         String query = "UPDATE Subject SET Status = -1 WHERE SubjectID=?";
@@ -111,5 +107,16 @@ public class SubjectDAO {
             Logger.getLogger(SubjectDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rs;
+    }
+
+    public boolean checkexist(String subjectID) {
+        boolean exists = false;
+        if (getSubject(subjectID) == null) {
+            System.out.println("Nam này không t?n t?i");
+            return false;
+        } else {
+            System.out.println("nam nay co");
+            return true;
+        }
     }
 }

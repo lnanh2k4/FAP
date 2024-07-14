@@ -108,6 +108,8 @@
                                 <td>${item.roomName}</td>
                                 <td>
                                     <a class="btn btn-primary" href="RoomController?id=${item.roomID}&check=edit" role="button">Edit</a>
+                                    </td>
+                                    <td>
                                     <a class="btn btn-danger" href="RoomController?id=${item.roomID}&check=delete" role="button">Delete</a>
                                 </td>
                             </tr>

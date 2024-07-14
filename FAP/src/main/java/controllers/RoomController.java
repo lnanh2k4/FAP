@@ -116,9 +116,27 @@ public class RoomController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    System.out.println("Add");
-                    y.addRoom(id, roomName);
-                    response.sendRedirect(pathController);
+                    //System.out.println("check exist room : " + y.checkexist(id));
+                    if (y.checkexist(id)) {
+                        //System.out.println("Room : " + y.getRoom(id).getRoomID());
+                        //System.out.println("check status of room : " + y.getRoom(id).getStatus());
+                        if (y.getRoom(id).getStatus() == -1) {
+                            y.updateRoom(id, roomName);
+                            y.setStatus(id);
+                            System.out.println(y.getRoom(id).getStatus());
+                            response.sendRedirect(pathController);
+                            break;
+                        } else {
+                            String erorrMessage = "This Room has existed";
+                            request.setAttribute("errorAddRoom", erorrMessage);
+                            request.getRequestDispatcher("addRoom.jsp").forward(request, response);
+                            break;
+                        }
+
+                    } else {
+                        y.addRoom(id, roomName);
+                        response.sendRedirect(pathController);
+                    }
                     break;
             }
         }

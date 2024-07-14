@@ -91,6 +91,12 @@
             .btn-lg {
                 padding: 12px 24px;
             }
+            p {
+                color: #dc3545; /* Màu chữ */
+                font-size: 16px; /* Kích thước phông chữ */
+                line-height: 1.6; /* Chiều cao dòng */
+                margin-bottom: 15px; /* Khoảng cách dưới */
+            }
         </style>
     </head>
 
@@ -129,6 +135,7 @@
                         </select>
                     </div>
                 </div>
+                <p class="errorAddCurriculum">${requestScope.errorAddCurriculum}</p>
                 <div class="container">
                     <div class="row mb-3 justify-content-center">
                         <button type="submit" class="btn btn-primary btn-lg col-md-3">Save</button>

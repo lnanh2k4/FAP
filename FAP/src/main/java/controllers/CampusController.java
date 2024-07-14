@@ -117,8 +117,25 @@ public class CampusController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    ca.addCampus(id, name, address, email, hotline);
-                    response.sendRedirect(pathController);
+                    if (ca.checkexist(id)) {
+                        //System.out.println("Room : " + y.getRoom(id).getRoomID());
+                        //System.out.println("check status of room : " + y.getRoom(id).getStatus());
+                        if (ca.getCampus(id).getStatus() == -1) {
+                            ca.updateCampus(id, name, address, email, hotline);
+                            ca.setStatus(id);
+                            //System.out.println(ca.getCampus(id).getStatus());
+                            response.sendRedirect(pathController);
+                            break;
+                        } else {
+                            String erorrMessage = "This Campus has existed";
+                            request.setAttribute("errorAddCampus", erorrMessage);
+                            request.getRequestDispatcher("addCampus.jsp").forward(request, response);
+                            break;
+                        }
+                    } else {
+                        ca.addCampus(id, name, address, email, hotline);
+                        response.sendRedirect(pathController);
+                    }
                     break;
             }
         }

@@ -101,7 +101,6 @@ public class UserController extends HttpServlet {
         if (check != null) {
             switch (check) {
                 case "edit":
-                    int semester = Integer.parseInt(request.getParameter("semester"));
 //                    String curriculum = request.getParameter("curriculum");
                     u.updateUser(userID, firstName, lastName, sex, email, phone);
 //                    if (u.getUserByUserID(userID).getRole() == 0) {

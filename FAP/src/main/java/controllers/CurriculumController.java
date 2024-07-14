@@ -114,8 +114,14 @@ public class CurriculumController extends HttpServlet {
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    cu.addCurriculum(id, name, idsp);
-                    response.sendRedirect(pathController);
+                    if (cu.checkexist(id)) {
+                        String erorrMessage = "This Curriculum has existed";
+                        request.setAttribute("errorAddCurriculum", erorrMessage);
+                        request.getRequestDispatcher("addCurriculum.jsp").forward(request, response);
+                    } else {
+                        cu.updateCurriculum(id, name, idsp);
+                        response.sendRedirect(pathController);
+                    }
                     break;
             }
         }
