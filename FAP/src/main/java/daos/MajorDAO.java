@@ -33,7 +33,7 @@ public class MajorDAO {
                 majorID = rs.getString("MajorID");
                 majorName = rs.getString("MajorName");
                 status = rs.getInt("Status");
-                if (status > -1) {
+                if (status != -1) {
                     list.add(new Major(majorID, majorName, status));
                 }
 
