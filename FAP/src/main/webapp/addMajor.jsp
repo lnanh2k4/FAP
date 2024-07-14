@@ -60,6 +60,7 @@
                         rangelength: "Major ID must be letter between 1 and 3"
                     }
                 }
+                
             })
         </script>
     </body>

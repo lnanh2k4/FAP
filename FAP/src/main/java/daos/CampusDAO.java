@@ -39,9 +39,9 @@ public class CampusDAO {
                 campusEmail = rs.getString("campusEmail");
                 campusHotline = rs.getString("campusHotline");
                 status = rs.getInt("status");
-
-                list.add(new Campus(campusID, campusName, campusAddress, campusEmail, campusHotline, status));
-
+                if (status > -1) {
+                    list.add(new Campus(campusID, campusName, campusAddress, campusEmail, campusHotline, status));
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(WeekDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,13 +52,13 @@ public class CampusDAO {
         return list;
     }
 
-    public Campus getCampus() {
+    public Campus getCampus(String campusID) {
         ResultSet rs = null;
         Campus gc = null;
-        String query = "SELECT Campus.* FROM Campus";
+        String query = "SELECT Campus.* FROM Campus WHERE CampusID=?";
 
         try {
-            rs = SQL.executeQuery(query);
+            rs = SQL.executeQuery(query, campusID);
             while (rs.next()) {
                 campusID = rs.getString("campusID");
                 campusName = rs.getString("campusName");
@@ -80,7 +80,7 @@ public class CampusDAO {
     public int deleteCampus(String campusID) {
         int rs = -1;
         String query = "UPDATE Campus"
-                + " SET Status = 0"
+                + " SET Status = -1"
                 + " WHERE CampusID=?";
         try {
             rs = SQL.executeUpdate(query, campusID);
