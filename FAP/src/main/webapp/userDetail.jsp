@@ -107,7 +107,20 @@
                 transform: scale(1);
                 /* Đặt lại kích thước nút khi nhấn */
             }
+            .btn-danger {
+                background-color: #dc3545; /* Màu nền đỏ */
+                border: none;
+                border-radius: 25px; /* Bo tròn các góc của nút */
+                padding: 10px 20px; /* Thay đổi kích thước của nút */
+                font-size: 16px; /* Thay đổi kích thước chữ của nút */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+                transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển tiếp */
+            }
 
+            .btn-danger:hover {
+                background-color: #c82333; /* Màu nền khi di chuột qua nút */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi di chuột qua */
+            }
             .container {
                 max-width: 1000px;
             }
@@ -248,7 +261,7 @@
                                role="button">Edit</a>
                             <a class="btn btn-primary col-md-3" href="UserController?id=<%= user.getUserID().getUserID()%>&check=login"
                                role="button">Login</a>
-                            <a class="btn btn-primary col-md-3" href="UserController?id=<%= user.getUserID().getUserID()%>&check=delete"
+                            <a class="btn btn-danger col-md-3" href="UserController?id=<%= user.getUserID().getUserID()%>&check=delete"
                                role="button">Delete</a>
                             <a class="btn btn-primary col-md-3" href="UserController" role="button">Back
                                 to

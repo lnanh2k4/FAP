@@ -237,13 +237,6 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="UserCampusController" class="card-link">User's Campus</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
                                     <a href="CampusController" class="card-link">Campus</a>
                                 </div>
                             </div>
