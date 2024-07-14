@@ -52,13 +52,13 @@ public class UserCampusController extends HttpServlet {
         } else {
             switch (check) {
                 case "edit":
-                    request.setAttribute("userCampus", userCampusDAO.getUserCampus(id));
-                    request.getRequestDispatcher("editWeek.jsp").forward(request, response);
+//                    request.setAttribute("userCampus", userCampusDAO.getUserCampus(id));
+//                    request.getRequestDispatcher("editWeek.jsp").forward(request, response);
                     break;
                 case "delete":
-                    request.setAttribute("userCampus", userCampusDAO.getUserCampus(id));
-                    System.out.println(id);
-                    request.getRequestDispatcher("deleteWeek.jsp").forward(request, response);
+//                    request.setAttribute("userCampus", userCampusDAO.getUserCampus(id));
+//                    System.out.println(id);
+//                    request.getRequestDispatcher("deleteWeek.jsp").forward(request, response);
                     break;
                 case "add":
                     response.sendRedirect("addWeek.jsp");
@@ -83,8 +83,8 @@ public class UserCampusController extends HttpServlet {
         if (check != null) {
             switch (check) {
                 case "delete":
-                    System.out.println(id);
-                    userCampusDAO.deleteUserCampus(id);
+//                    System.out.println(id);
+//                    userCampusDAO.deleteUserCampus(id);
                     response.sendRedirect(pathController);
                     break;
                 case "add":

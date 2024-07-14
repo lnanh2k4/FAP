@@ -14,6 +14,7 @@ import models.Curriculum;
 import models.Major;
 import models.Specialization;
 import models.User;
+import utils.Encryption;
 
 import utils.SQL;
 
@@ -39,6 +40,7 @@ public class UserDAO {
     String majorID;
     String majorName;
     int status;
+
     public List<User> getAllList() {
         ResultSet rs = null;
         List<User> list = new ArrayList<>();
@@ -73,12 +75,12 @@ public class UserDAO {
         return list;
     }
 
-    public User getUser() {
+    public User getUser(String email) {
         ResultSet rs = null;
         User getU = null;
-        String query = "SELECT*FROM Subject";
+        String query = "SELECT * FROM [User] INNER JOIN Curriculum ON [User].CurriculumID = Curriculum.CurriculumID INNER JOIN Specialization ON Curriculum.SpecializationID = Specialization.SpecializationID INNER JOIN Major ON Specialization.MajorID = Major.MajorID where email=?";
         try {
-            rs = SQL.executeQuery(query);
+            rs = SQL.executeQuery(query, email);
             while (rs.next()) {
                 userID = rs.getString("userID");
                 firstName = rs.getString("firstName");
@@ -148,7 +150,7 @@ public class UserDAO {
                 Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-             String query = "INSERT INTO [User](UserID, FirstName, LastName, Sex, Email, Semester, [Role], CurriculumID, Phone) VALUES (?, ?, ?,?, ?, ?, ?, ?,?)";
+            String query = "INSERT INTO [User](UserID, FirstName, LastName, Sex, Email, Semester, [Role], CurriculumID, Phone) VALUES (?, ?, ?,?, ?, ?, ?, ?,?)";
             try {
                 rs = SQL.executeUpdate(query, userID, firstName, lastName, sex, email, semester, role, curriculumID, phone);
             } catch (SQLException ex) {
@@ -160,4 +162,12 @@ public class UserDAO {
         return rs;
 
     }
+
+    public boolean checkUser(User user, String email, String password, String campus, int role) {
+        UserCampusDAO uc = new UserCampusDAO();
+        if (user.getPassword() != null) {
+            return (Encryption.equalsSHA256(password, user.getPassword()) && uc.getUserCampus(user.getUserID()).equals(campus) && user.getRole() == role && status != -1);
+        }
+        return (user.getUserID().equals(password) && uc.getUserCampus(user.getUserID()).getCampusID().equals(campus) && user.getRole() == role && user.getStatus() != -1);
     }
+}

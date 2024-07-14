@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-<!--    <filter>
+    <filter>
         <filter-name>Authentication</filter-name>
         <filter-class>filters.Authentication</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>Authentication</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
+        <url-pattern>/index.jsp</url-pattern>
+        <url-pattern>/major.jsp</url-pattern>
+        <url-pattern>/time.jsp</url-pattern>
+        <url-pattern>/room.jsp</url-pattern>
+        <url-pattern>/week.jsp</url-pattern>
+        <url-pattern>/schedule.jsp</url-pattern>
+        <url-pattern>/group.jsp</url-pattern>
+        <url-pattern>/semester.jsp</url-pattern>
+        <url-pattern>/scheduleDetail.jsp</url-pattern>
+        <url-pattern>/specialization.jsp</url-pattern>
+        <url-pattern>/subject.jsp</url-pattern>
+        
+    </filter-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>controllers.Login</servlet-class>
@@ -67,6 +78,10 @@
     <servlet>
         <servlet-name>UserCampusController</servlet-name>
         <servlet-class>controllers.UserCampusController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>controllers.UserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -128,12 +143,13 @@
         <servlet-name>UserCampusController</servlet-name>
         <url-pattern>/UserCampusController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/UserController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
 </web-app>
