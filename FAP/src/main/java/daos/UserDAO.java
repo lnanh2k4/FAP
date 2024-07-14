@@ -205,13 +205,13 @@ public class UserDAO {
         return rs;
     }
 
-    public int updateUser(String userID, String firstName, String lastName, int sex, String email, String phone, int semester, int role, String password, String curriculumID) {
+    public int updateStudent(String userID, String firstName, String lastName, int sex, String email, String phone, int semester, String curriculumID) {
         int rs = -1;
-        String query = "UPDATE User"
-                + " SET FirstName=?, LastName=?, Sex=?,Email=?,Semester=?,[Role]=?,CurriculumID=?,Phone=?,Password=?"
+        String query = "UPDATE [User]"
+                + " SET FirstName=?, LastName=?, Sex=?,Email=?,Semester=?,CurriculumID=?,Phone=?"
                 + " WHERE UserID=?";
         try {
-            rs = SQL.executeUpdate(query, firstName, lastName, sex, email, phone, semester, role, password, curriculumID, userID);
+            rs = SQL.executeUpdate(query, firstName, lastName, sex, email, phone, semester, curriculumID, userID);
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -220,27 +220,33 @@ public class UserDAO {
         return rs;
     }
 
-    public int addUser(String userID, String firstName, String lastName, int sex, String email, String phone, int semester, int role, String password, String curriculumID) {
+    public int updateUser(String userID, String firstName, String lastName, int sex, String email, String phone) {
         int rs = -1;
-        if (password != null) {
-            String query = "INSERT INTO [User](UserID, FirstName, LastName, Sex, Email, Semester, [Role], CurriculumID, Phone,Password) VALUES (?, ?, ?,?, ?, ?, ?, ?, ?,?)";
-            try {
-                rs = SQL.executeUpdate(query, userID, firstName, lastName, sex, email, semester, role, curriculumID, phone, password);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            String query = "INSERT INTO [User](UserID, FirstName, LastName, Sex, Email, Semester, [Role], CurriculumID, Phone) VALUES (?, ?, ?,?, ?, ?, ?, ?,?)";
-            try {
-                rs = SQL.executeUpdate(query, userID, firstName, lastName, sex, email, semester, role, curriculumID, phone);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        String query = "UPDATE [User]"
+                + " SET FirstName=?, LastName=?, Sex=?,Email=?,Phone=?"
+                + " WHERE UserID=?";
+        try {
+            rs = SQL.executeUpdate(query, firstName, lastName, sex, email, phone, userID);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rs;
+    }
+
+    public int addUser(String userID, String firstName, String lastName, int sex, String email, String phone, int role) {
+        int rs = -1;
+
+        String query = "INSERT INTO [User](UserID, FirstName, LastName, Sex, Email, [Role], Phone) VALUES (?, ?, ?,?, ?, ?, ?)";
+        try {
+            rs = SQL.executeUpdate(query, userID, firstName, lastName, sex, email, role, phone);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return rs;
 
     }

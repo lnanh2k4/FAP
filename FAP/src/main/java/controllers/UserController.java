@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import models.User;
+import models.UserCampus;
 
 /**
  *
@@ -84,27 +85,36 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pathController = "SubjectController";
+        String pathController = "UserController";
         String check = request.getParameter("check");
-        String id = request.getParameter("subjectID");
-        String name = request.getParameter("subjectName");
-        int nocredit = Integer.parseInt(request.getParameter("subjectNoCredit"));
-        String prerequisite = request.getParameter("subjectPrerequisite");
-        String description = request.getParameter("subjectDescription");
-        SubjectDAO s = new SubjectDAO();
+        String userID = request.getParameter("userID");
+        String firstName = request.getParameter("fistName");
+        String lastName = request.getParameter("lastName");
+        int sex = Integer.parseInt(request.getParameter("sex"));
+        String phone = request.getParameter("phone");
+        String email = request.getParameter("email");
+        UserCampusDAO uc = new UserCampusDAO();
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        String campus = uc.getUserCampus(user.getUserID()).getCampusID().getCampusID();
+        UserDAO u = new UserDAO();
         if (check != null) {
             switch (check) {
                 case "edit":
-                    s.updateSubject(id, name, nocredit, prerequisite, description);
-                    response.sendRedirect(pathController);
-                    break;
-                case "delete":
-                    System.out.println("id cua post");
-                    s.deleteSubject(id);
+                    int semester = Integer.parseInt(request.getParameter("semester"));
+//                    String curriculum = request.getParameter("curriculum");
+                    u.updateUser(userID, firstName, lastName, sex, email, phone);
+//                    if (u.getUserByUserID(userID).getRole() == 0) {
+//                        u.updateStudent(userID, firstName, lastName, sex, email, phone, semester, curriculum);
+//                    } else {
+//                        
+//                    }
                     response.sendRedirect(pathController);
                     break;
                 case "add":
-                    s.addSubject(id, name, nocredit, prerequisite, description);
+                    int role = Integer.parseInt(request.getParameter("role"));
+                    u.addUser(userID, firstName, lastName, sex, email, phone, role);
+                    uc.addUserCampus(campus, userID);
                     response.sendRedirect(pathController);
                     break;
             }

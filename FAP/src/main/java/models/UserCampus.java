@@ -13,6 +13,9 @@ public class UserCampus {
     private int userCampusID;
     private Campus campusID;
     private User userID;
+
+    public UserCampus() {
+    }
     private int status;
 
     public UserCampus(int userCampusID, Campus campusID, User userID, int status) {

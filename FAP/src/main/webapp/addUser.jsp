@@ -10,7 +10,6 @@
 <%@page import="daos.CampusDAO" %>
 <%@page import="models.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="models.UserCampus" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -19,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type"
               content="text/html; charset=UTF-8">
-        <title>User Detail</title>
+        <title>Add User</title>
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
               integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
@@ -136,15 +135,13 @@
             }
         </style>
     </head>
-    <% UserCampus user = (UserCampus) request.getAttribute("user");
-        User u = (User) session.getAttribute("user");%>
 
     <body>
         <form class="row g-3 needs-validation" novalidate
               method="post" action="UserController">
             <div class="mb-3">
                 <input type="hidden" class="form-control"
-                       name="check" id="check" value="edit" />
+                       name="check" id="check" value="add" />
             </div>
 
             <div class="card">
@@ -154,8 +151,8 @@
                         <label for="userID">UserID</label>
                         <input type="text" class="form-control"
                                name="userID" id="userID"
-                               value="<%= user.getUserID().getUserID()%>"
-                               readonly>
+                               value=""
+                               >
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -164,7 +161,7 @@
                             <input type="text"
                                    class="form-control"
                                    name="fistName" id="fistName"
-                                   value="<%= user.getUserID().getFirstName()%>">
+                                   value="">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="lastName">Last
@@ -172,16 +169,16 @@
                             <input type="text"
                                    class="form-control"
                                    name="lastName" id="lastName"
-                                   value="<%= user.getUserID().getLastName()%>">
+                                   value="">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label for="sex">Sex</label>
                             <select name="sex" id="sex">
-                                <option value="0" <%= (user.getUserID().getSex() == 0) ? "selected" : ""%> >Female
+                                <option value="0">Female
                                 </option>
-                                <option value="1" <%= (user.getUserID().getSex() == 1) ? "selected" : ""%> >Male</option>
+                                <option value="1">Male</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -189,25 +186,43 @@
                             <input type="text"
                                    class="form-control"
                                    name="phone" id="phone"
-                                   value="<%= user.getUserID().getPhone()%>">
+                                   value="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="email">Email</label>
                         <input type="text" class="form-control"
                                name="email" id="email"
-                               value="<%= user.getUserID().getEmail()%>">
+                               value="">
                     </div>
+                    <%
+                        User user = (User) session.getAttribute("user");
+                    %>
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select name="role" id="role">
+                            <option value="0">Student
+                            </option>
+                            <option value="1">Lecturer
+                            </option>
+                            <option value="2">Academic Staff
+                            </option>
+                            <c:if test="<%= user.getRole() == 3%>">
+                                <option value="3">Administrator
+                                </option>
+                            </c:if>
 
+                        </select>
+                    </div>
 
                 </div>
                 <div class="container">
                     <div class="row">
-                        <button type="submit" name="btnSave"
+                        <button name="btnSave"
                                 id="btnSave"
-                                class="btn btn-primary col-md-6">Save</button>
+                                class="btn btn-primary col-md-6">Add</button>
                         <a class="btn btn-primary col-md-6"
-                           href="UserController?id=<%= user.getUserID().getUserID()%>&check=detail"
+                           href="UserController"
                            role="button">Back</a>
                     </div>
                 </div>
